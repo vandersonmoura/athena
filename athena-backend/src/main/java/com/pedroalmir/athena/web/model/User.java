@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import com.pedroalmir.athena.common.model.PersistentEntity;
@@ -22,7 +23,7 @@ import com.pedroalmir.athena.web.model.validation.UserValidation;
  *
  */
 @Entity
-@Table(name = "usuario", uniqueConstraints = { @UniqueConstraint(columnNames = {"email"}) })
+@Table(name = "user", uniqueConstraints = { @UniqueConstraint(columnNames = {"email"}) })
 @ValidationClass(UserValidation.class)
 public class User implements PersistentEntity{
 
@@ -45,6 +46,8 @@ public class User implements PersistentEntity{
 	 * Used to access the system
 	 */
 	private String password;
+	@Transient
+	private String passwordConfirmation;
 	/**
 	 * profile
 	 */
@@ -103,6 +106,20 @@ public class User implements PersistentEntity{
 
 	public EnumProfile getProfile() {
 		return this.profile;
+	}
+
+	/**
+	 * @return the passwordConfirmation
+	 */
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
+	}
+
+	/**
+	 * @param passwordConfirmation the passwordConfirmation to set
+	 */
+	public void setPasswordConfirmation(String passwordConfirmation) {
+		this.passwordConfirmation = passwordConfirmation;
 	}
 
 }

@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 /**
  * 
- * Serialized objects to JSON
+ * Serialize objects to JSON
  * 
  * @author Pedro Oliveira
  */

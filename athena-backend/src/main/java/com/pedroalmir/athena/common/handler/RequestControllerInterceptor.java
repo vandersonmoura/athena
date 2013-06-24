@@ -95,17 +95,15 @@ public class RequestControllerInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
 
 		try {
+			/* Fill controller */
 			fillController(resourceInstance);
-
+			/* Call validation */
 			callValidation(TemporalExecution.BEFORE, info.getParameters());
 
 			Object result = null;
-
 			if (!messageResult.hasMessages()) {
-
-				result = method.getMethod().invoke(resourceInstance,
-						info.getParameters());
-
+				/* Execute method */
+				result = method.getMethod().invoke(resourceInstance, info.getParameters());
 				if (result != null) {
 					callValidation(TemporalExecution.AFTER, result);
 				}

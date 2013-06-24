@@ -14,7 +14,7 @@ import com.pedroalmir.athena.web.model.User;
 
 
 /**
- * Category DAO
+ * User DAO
  * 
  * @author EasyTeam
  * 

@@ -56,8 +56,7 @@ public class MessageResult {
 
 			for (String fieldName : fieldsView.split(",")) {
 				if (messages.containsKey(fieldName)) {
-					messages.put(fieldName, String.format("%s,%s",
-							messages.get(fieldName), message));
+					messages.put(fieldName, String.format("%s,%s", messages.get(fieldName), message));
 				} else {
 					messages.put(fieldName, message);
 				}
@@ -85,15 +84,6 @@ public class MessageResult {
 	 */
 	public void setMessages(Map<String, String> messages) {
 		this.messages = messages;
-	}
-
-	/**
-	 * Main for tests
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		new MessageResult(null).add("asds", "sdsd", "asd", "asdfasd");
-
 	}
 
 }

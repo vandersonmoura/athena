@@ -11,7 +11,7 @@ package com.pedroalmir.athena.common.model.enums;
  */
 public enum EnumProfile {
 
-	CLIENTE("Cliente"), CHEFE_MESA("Chefe da Mesa"), GARCOM("Garçom"), ADMIN("Administrador");
+	USER("Usuário"), ADMIN("Administrador");
 	
 	/**
 	 * description

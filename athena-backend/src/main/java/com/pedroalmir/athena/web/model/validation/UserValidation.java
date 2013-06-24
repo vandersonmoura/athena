@@ -27,8 +27,8 @@ public class UserValidation extends ValidatorBase<UserDAO> {
 	 * @param user The User with fields to be validated
 	 */
 	@ValidationMethod
-	public void validCorrectEmail(User usuario) {
-		if (!StringUtil.isEmpty(usuario.getEmail()) && !RegexUtil.validEmail(usuario.getEmail())) {
+	public void validCorrectEmail(User user) {
+		if (!StringUtil.isEmpty(user.getEmail()) && !RegexUtil.validEmail(user.getEmail())) {
 			addError("user_email", "common.invalid");
 		}
 	}

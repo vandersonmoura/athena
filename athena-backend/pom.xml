@@ -5,29 +5,60 @@
 	<groupId>com.pedroalmir</groupId>
 	<artifactId>athena-backend</artifactId>
 	<version>0.0.1</version>
-
+	
+	<!-- Basic Informations -->
 	<name>athena-backend</name>
 	<description>Ferramenta para apoio a utilização de técnicas de inteligência computacional em problemas de Engenharia de Software.</description>
 	<url>http://pedroalmir.com/athena</url>
 	<packaging>war</packaging>
-
+	
+	<!-- Properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<web-inf.lib>${basedir}/src/main/webapp/WEB-INF/lib</web-inf.lib>
 	</properties>
-
+	
+	<!-- Organization informations -->
 	<organization>
 		<name>EasyTeam</name>
 		<url>http://labeasy.com</url>
 	</organization>
+	
+	<!-- Developers -->
+	<developers>
+		<developer>
+			<id>1</id>
+			<name>Pedro Almir</name>
+			<email>petrus.cc@gmail.com</email>
+			<organization>EasyTeam</organization>
+			<url>http://pedroalmir.com</url>
+			<organizationUrl>http://killline.com</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Back-end Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>2</id>
+			<name>Matheus Campanhã</name>
+			<email>matheusmmcs@gmail.com</email>
+			<organization>EasyTeam</organization>
+			<url></url>
+			<organizationUrl>http://killline.com</organizationUrl>
+			<roles>
+				<role>Front-end Developer</role>
+			</roles>
+		</developer>
+	</developers>
 
 	<dependencies>
+		<!-- Biblioteca para auxiliar a avaliação de expressões -->
 		<dependency>
 			<groupId>jep</groupId>
 			<artifactId>jep</artifactId>
 			<version>2.24</version>
 		</dependency>
-
+		<!-- Quartz libs -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
@@ -48,23 +79,25 @@
 			<artifactId>quartz-jboss</artifactId>
 			<version>2.1.5</version>
 		</dependency>
-
+		<!-- httpclient -->
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 		</dependency>
-
+		<!-- Velocity -->
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+		<!-- Commons Email -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<!-- VRaptor libs -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
@@ -96,11 +129,13 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- MySQL Connector -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.18</version>
 		</dependency>
+		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -142,29 +177,32 @@
 			<artifactId>cglib</artifactId>
 			<version>2.2.2</version>
 		</dependency>
+		<!-- SiteMesh -->
 		<dependency>
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>2.4.2</version>
 		</dependency>
+		<!-- JSON -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.1</version>
 		</dependency>
+		<!-- File upload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-
+		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- JMetal -->
 		<dependency>
 			<groupId>jmetal</groupId>
 			<artifactId>jmetal</artifactId>
@@ -172,6 +210,7 @@
 			<scope>system</scope>
 			<systemPath>${web-inf.lib}/jmetal.jar</systemPath>
 		</dependency>
+		<!-- JFuzzyLogic -->
 		<dependency>
 			<groupId>net.sf.jfuzzylogic</groupId>
 			<artifactId>jfuzzylogic</artifactId>

@@ -17,7 +17,7 @@ import com.pedroalmir.athena.core.solution.Solution;
  * @author Pedro Almir
  *
  */
-public interface GenericModule {
+public interface GenericModule extends AthenaBundle{
 	/**
 	 * This method should return the name of the module.
 	 * @return the name of the module

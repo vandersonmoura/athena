@@ -4,6 +4,9 @@
 package com.pedroalmir.athena.core.type;
 
 /**
+ * This interface was designed to represent all
+ * types accepted in this tool.
+ * 
  * @author Pedro Almir
  *
  */
@@ -47,7 +50,7 @@ public interface Type extends Cloneable {
     @Override
     int hashCode();
     /**
-     * @return
+     * @return object value
      */
     Object getValue();
     /**
@@ -55,7 +58,7 @@ public interface Type extends Cloneable {
      */
     void setValue(Object object);
     /**
-     * @return
+     * @return object representation for this type
      */
     Object getRepresentation();
     

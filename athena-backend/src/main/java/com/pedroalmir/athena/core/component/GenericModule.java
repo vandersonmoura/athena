@@ -19,59 +19,96 @@ import com.pedroalmir.athena.core.solution.Solution;
  */
 public interface GenericModule {
 	/**
-	 * @return
+	 * This method should return the name of the module.
+	 * @return the name of the module
 	 */
 	String getName();
 	/**
-	 * @return
+	 * This method should return the description of how
+	 * the module works.
+	 * This will help the user to understand the workings
+	 * of the algorithm encapsulated by this module.
+	 *  
+	 * @return the description
 	 */
 	String getDescription();
 	/**
-	 * @return
+	 * This method should return a link to an image
+	 * that represents the module.
+	 * 
+	 * @return the image path
 	 */
 	String getImagePath();
 	/**
-	 * @return
+	 * Use Factory Pattern to create Algorithm object
+	 * @return algorithm
 	 */
 	Algorithm getAlgorithm();
 	/**
-	 * @param input
+	 * This method should add an input to this module.
+	 * For example:
+	 * 
+	 * Fuzzy Module can contain numerous entries. Using this
+	 * method the user can add input to this module.
+	 * 
+	 * @param input object
 	 */
 	void addInput(Input input);
 	/**
-	 * @return
+	 * This method should return the list of inputs
+	 * of this module.
+	 * 
+	 * @return list of inputs
 	 */
 	List<Input> getInputs();
 	/**
-	 * @param output
+	 * This method should add an output to this module.
+	 * 
+	 * @param output object
 	 */
 	void addOutput(Output output);
 	/**
-	 * @return
+	 * This method should return the list of outputs
+	 * of this module.
+	 * 
+	 * @return list of outputs
 	 */
 	List<Output> getOutputs();
 	/**
-	 * @return
+	 * All module settings are stored in the Configuration object.
+	 * So, this method should return the module configuration.
+	 * 
+	 * @return configuration
 	 */
 	Configuration getConfiguration();
 	/**
+	 * Load and prepare this module for execution.
+	 * 
 	 * @param inputs
 	 * @param outputs
 	 * @param setting
 	 */
 	void load(List<Input> inputs, List<Output> outputs, Configuration setting);
 	/**
-	 * @return
+	 * Verify if this module is loaded.
+	 * 
+	 * @return <code>true</code> if the module is loaded.
 	 */
 	boolean isLoaded();
 	/**
-	 * @return
+	 * Verify if this module is public.
+	 * @return <code>true</code> if the module is public.
 	 */
 	boolean isPublic();
 	/**
+	 * Run the algorithm and return a solution for
+	 * the problem.
+	 * 
 	 * @param inputs
+	 * 				list of inputs
 	 * @param outputs
-	 * @return
+	 * 				list of outputs
+	 * @return solution
 	 */
 	Solution run(List<Input> inputs, List<Output> outputs);
 }

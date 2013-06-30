@@ -34,7 +34,10 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
      */
     private final List<AlgorithmListener> algorithmListeners;
     /**
-     * ???
+     * This field represents the union of stopping conditions.
+     * 
+     * For example:
+     * Maximum of iteration OR Minimum value of error
      */
     private Predicate<Algorithm> stoppingCondition = Predicates.alwaysFalse();
     /**
@@ -56,9 +59,10 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
      */
     private boolean initialised;
     /**
-     * 
+     * Problem definition
      */
     protected Problem optimisationProblem;
+    
 
     /**
      * Default constructor for {@linkplain Algorithm} classes. Sets up the correct state

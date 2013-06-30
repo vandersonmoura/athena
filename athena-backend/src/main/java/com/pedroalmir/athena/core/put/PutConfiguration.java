@@ -1,19 +1,31 @@
 /**
  * 
  */
-package com.pedroalmir.athena.core.configuration.put;
+package com.pedroalmir.athena.core.put;
 
 import java.util.List;
 
 import com.pedroalmir.athena.core.type.Type;
 
 /**
+ * This class represents the minimum and maximum number of input/output module may have, 
+ * as well as the associated types.
+ * 
  * @author Pedro Almir
  *
  */
 public class PutConfiguration {
+	/**
+	 * 
+	 */
 	private int minimum;
+	/**
+	 * 
+	 */
 	private int maximum;
+	/**
+	 * 
+	 */
 	private List<Type> types;
 	/**
 	 * @return the minimum

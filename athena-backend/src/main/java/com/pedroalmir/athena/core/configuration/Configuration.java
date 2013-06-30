@@ -5,8 +5,8 @@ package com.pedroalmir.athena.core.configuration;
 
 import java.util.List;
 
-import com.pedroalmir.athena.core.configuration.put.PutConfiguration;
-import com.pedroalmir.athena.core.configuration.put.base.Put;
+import com.pedroalmir.athena.core.put.PutConfiguration;
+import com.pedroalmir.athena.core.put.base.Put;
 
 /**
  * This interface was designed to represent the configurations
@@ -34,6 +34,7 @@ public interface Configuration {
 	 * 1. Maximum number of iterations
 	 * 2. Configuration file
 	 * 3. Number of population
+	 * 4. Error
 	 * 
 	 * @return list of settings
 	 */

@@ -6,8 +6,8 @@ package com.pedroalmir.athena.core.component;
 import java.util.List;
 
 import com.pedroalmir.athena.core.configuration.Configuration;
-import com.pedroalmir.athena.core.configuration.put.Input;
-import com.pedroalmir.athena.core.configuration.put.Output;
+import com.pedroalmir.athena.core.put.Input;
+import com.pedroalmir.athena.core.put.Output;
 
 /**
  * This interface was designed to support the creation of converters.

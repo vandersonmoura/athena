@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.pedroalmir.athena.core.algorithm.Algorithm;
 import com.pedroalmir.athena.core.configuration.Configuration;
-import com.pedroalmir.athena.core.configuration.put.Input;
-import com.pedroalmir.athena.core.configuration.put.Output;
+import com.pedroalmir.athena.core.put.Input;
+import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.solution.Solution;
 
 /**

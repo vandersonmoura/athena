@@ -3,6 +3,7 @@
  */
 package com.pedroalmir.athena.core.put;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pedroalmir.athena.core.type.Type;
@@ -26,7 +27,15 @@ public class PutConfiguration {
 	/**
 	 * 
 	 */
-	private List<Type> types;
+	private List<Type> availableTypes;
+	
+	/**
+	 * Default constructor 
+	 */
+	public PutConfiguration() {
+		availableTypes = new ArrayList<Type>();
+	}
+	
 	/**
 	 * @return the minimum
 	 */
@@ -54,13 +63,20 @@ public class PutConfiguration {
 	/**
 	 * @return the types
 	 */
-	public List<Type> getTypes() {
-		return types;
+	public List<Type> getAvailableTypes() {
+		return availableTypes;
 	}
 	/**
 	 * @param types the types to set
 	 */
-	public void setTypes(List<Type> types) {
-		this.types = types;
+	public void setAvailableTypes(List<Type> types) {
+		this.availableTypes = types;
+	}
+	/**
+	 * Add available type
+	 * @param type
+	 */
+	public void addAvailableType(Type type){
+		this.availableTypes.add(type);
 	}
 }

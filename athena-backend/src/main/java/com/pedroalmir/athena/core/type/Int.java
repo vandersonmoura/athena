@@ -178,4 +178,14 @@ public class Int implements Numeric {
 	public void setValue(Object object) {
 		this.value = (Integer) object;
 	}
+
+	@Override
+	public void setValue(String object) {
+		this.value = Integer.valueOf(checkNotNull(object));
+	}
+
+	@Override
+	public Type getClone(String object) {
+		return new Int(Integer.valueOf(checkNotNull(object)));
+	}
 }

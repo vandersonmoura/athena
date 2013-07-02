@@ -35,11 +35,38 @@ public interface GenericConverter extends AthenaBundle{
 	 */
 	void addInput(Input input);
 	/**
+	 * This method should remove an input
+	 * @param input
+	 * 			input to remove
+	 */
+	void removeInput(Input input);
+	/**
+	 * This method should remove an input.
+	 * 
+	 * @param index
+	 * 			index of input to remove.
+	 */
+	void removeInput(int index);
+	/**
 	 * This method should add an output in this converter.
 	 * 
 	 * @param output
 	 */
 	void addOutput(Output output);
+	/**
+	 * This method should remove an output.
+	 * 
+	 * @param output
+	 * 			output to remove
+	 */
+	void removeOutput(Output output);
+	/**
+	 * This method should remove an output.
+	 * 
+	 * @param index
+	 * 			index of output to remove
+	 */
+	void removeOutput(int index);
 	/**
 	 * @return converter configuration
 	 */
@@ -55,8 +82,7 @@ public interface GenericConverter extends AthenaBundle{
 	 * The method responsible for propagating this information to the 
 	 * following module is in the class Link.
 	 *  
-	 * @param inputs
 	 * @return list of outputs
 	 */
-	List<Output> convert(List<Input> inputs);
+	List<Output> convert();
 }

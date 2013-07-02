@@ -1,6 +1,7 @@
 package com.pedroalmir.athena.core.algorithm;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.service.spi.Stoppable;
@@ -10,7 +11,10 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import com.pedroalmir.athena.core.problem.Problem;
+import com.pedroalmir.athena.core.put.Input;
+import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.solution.OptimisationSolution;
+import com.pedroalmir.athena.core.solution.Solution;
 import com.pedroalmir.athena.core.stoppingCondition.StoppingCondition;
 
 /**
@@ -62,17 +66,45 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
      * Problem definition
      */
     protected Problem optimisationProblem;
-    
+    /**
+     * This field represents the list of inputs.
+     * It must be initialized before the execution of the algorithm. 
+     */
+    protected List<Input> inputs;
+    /**
+     * This field represents the list of outputs.
+     * 
+     * It must be initialized before the execution of the algorithm and
+     * it'll be populated after the end of algorithm execution.
+     */
+    protected List<Output> outputs;
+    /**
+     * This field represents the list of solutions.
+     * It'll be populated after the end of algorithm execution.
+     */
+    protected List<Solution> solutions;
 
     /**
      * Default constructor for {@linkplain Algorithm} classes. Sets up the correct state
      * for the instance and initializes the needed containers needed for the different
      * {@linkplain AlgorithmEvent}s that are generated.
+     * 
+     * @param inputs
+     * 			List of inputs
+     * @param outputs
+     * 			List of outputs
      */
-    protected AbstractAlgorithm() {
+    protected AbstractAlgorithm(List<Input> inputs, List<Output> outputs) {
         stoppingConditions = new ArrayList<StoppingCondition<Algorithm>>();
         algorithmListeners = new ArrayList<AlgorithmListener>();
-
+        
+        /* puts */
+        this.inputs = inputs;
+        this.outputs = outputs;
+        
+        /* solutions */
+        this.solutions = new LinkedList<Solution>();
+        		
         running = false;
         initialised = false;
     }

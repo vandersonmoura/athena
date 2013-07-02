@@ -15,7 +15,10 @@ public interface Type extends Cloneable {
      * {@inheritDoc}
      */
     Type getClone();
-
+    /**
+     * 
+     */
+    Type getClone(String object);
     /**
      * Compare the specified object with this type for equality. Returns
      * {@code true} if and only if the specified object is also an instance
@@ -57,6 +60,10 @@ public interface Type extends Cloneable {
      * @param object
      */
     void setValue(Object object);
+    /**
+     * @param object
+     */
+    void setValue(String object);
     /**
      * @return object representation for this type
      */

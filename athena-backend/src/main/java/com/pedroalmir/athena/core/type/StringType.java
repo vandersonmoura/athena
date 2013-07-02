@@ -119,4 +119,14 @@ public class StringType implements Type {
 		return this.string;
 	}
 
+	@Override
+	public void setValue(String object) {
+		this.string = object;
+	}
+
+	@Override
+	public Type getClone(String object) {
+		return new StringType(object);
+	}
+
 }

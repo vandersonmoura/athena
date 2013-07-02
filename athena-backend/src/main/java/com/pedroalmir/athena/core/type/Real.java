@@ -161,4 +161,14 @@ public class Real implements Numeric {
 	public void setValue(Object object) {
 		this.value = (Double) object;
 	}
+
+	@Override
+	public void setValue(String object) {
+		this.value = Double.valueOf(checkNotNull(object));
+	}
+
+	@Override
+	public Type getClone(String object) {
+		return new Real(Double.valueOf(checkNotNull(object)));
+	}
 }

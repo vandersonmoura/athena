@@ -1,4 +1,4 @@
-package com.pedroalmir.athena.core.type;
+package com.pedroalmir.athena.core.type.base;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

@@ -4,6 +4,7 @@
 package com.pedroalmir.athena.core.algorithm;
 
 import com.pedroalmir.athena.core.problem.Problem;
+import com.pedroalmir.athena.core.solution.OptimisationSolution;
 
 
 
@@ -22,6 +23,13 @@ public interface Algorithm extends Runnable, Cloneable{
      * starts.
      */
 	void performInitialisation();
+	
+	/**
+     * Obtain the best current solution.
+     * @return The {@code OptimisationSolution} representing the best solution.
+     */
+    OptimisationSolution getBestSolution();
+    
 	/**
      * Returns the number of iterations that have been performed by the algorithm.
      * 

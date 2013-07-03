@@ -1,9 +1,11 @@
-package com.pedroalmir.athena.core.type;
+package com.pedroalmir.athena.core.type.string;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+
+import com.pedroalmir.athena.core.type.base.Type;
 
 /**
  * A general for string that may be returned from {@code measurement} instances.

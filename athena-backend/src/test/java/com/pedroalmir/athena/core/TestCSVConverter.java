@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
-import com.pedroalmir.athena.core.type.FileType;
-import com.pedroalmir.athena.core.type.Real;
-import com.pedroalmir.athena.core.type.Type;
+import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.core.type.file.FileType;
+import com.pedroalmir.athena.core.type.numeric.Real;
 import com.pedroalmir.athena.impl.converter.CSVConverter;
 
 /**

@@ -1,8 +1,12 @@
-package com.pedroalmir.athena.core.type;
+package com.pedroalmir.athena.core.type.numeric;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Random;
+
+import com.pedroalmir.athena.core.type.base.Bounds;
+import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.core.type.numeric.base.Numeric;
 
 public class Real implements Numeric {
 

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.hibernate.service.spi.Stoppable;
-
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -15,7 +13,8 @@ import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.solution.OptimisationSolution;
 import com.pedroalmir.athena.core.solution.Solution;
-import com.pedroalmir.athena.core.stoppingCondition.StoppingCondition;
+import com.pedroalmir.athena.core.stoppingCondition.base.Stoppable;
+import com.pedroalmir.athena.core.stoppingCondition.base.StoppingCondition;
 
 /**
  * All algorithms in Athena should be subclasses of {@link Algorithm}. This class
@@ -345,4 +344,5 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
      * {@inheritDoc}
      */
     public abstract Iterable<OptimisationSolution> getSolutions();
+
 }

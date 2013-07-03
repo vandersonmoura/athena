@@ -5,7 +5,7 @@ package com.pedroalmir.athena.core.put.base;
 
 import java.util.List;
 
-import com.pedroalmir.athena.core.type.Type;
+import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.validation.Validation;
 
 /**

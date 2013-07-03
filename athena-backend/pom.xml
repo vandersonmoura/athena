@@ -52,6 +52,12 @@
 	</developers>
 
 	<dependencies>
+	    <dependency>
+			<groupId>org.functionaljava</groupId>
+			<artifactId>functionaljava</artifactId>
+			<version>3.1</version>
+		</dependency>
+		
 		<!-- 
 			OpenCSV is a very simple csv (comma-separated values) parser library 
 			for Java. It was developed because all of current csv parsers I've come across 

@@ -4,7 +4,7 @@
 package com.pedroalmir.athena.core.problem;
 
 import com.pedroalmir.athena.core.solution.Fitness;
-import com.pedroalmir.athena.core.type.Type;
+import com.pedroalmir.athena.core.type.base.Type;
 
 
 /**

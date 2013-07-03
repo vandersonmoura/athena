@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pedroalmir.athena.core.type;
+package com.pedroalmir.athena.core.type.base;
 
 /**
  * This interface was designed to represent all

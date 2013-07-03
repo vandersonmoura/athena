@@ -21,11 +21,11 @@ import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.PutConfiguration;
 import com.pedroalmir.athena.core.put.base.Put;
-import com.pedroalmir.athena.core.type.FileType;
-import com.pedroalmir.athena.core.type.Int;
-import com.pedroalmir.athena.core.type.Real;
-import com.pedroalmir.athena.core.type.StringType;
-import com.pedroalmir.athena.core.type.Type;
+import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.core.type.file.FileType;
+import com.pedroalmir.athena.core.type.numeric.Int;
+import com.pedroalmir.athena.core.type.numeric.Real;
+import com.pedroalmir.athena.core.type.string.StringType;
 
 /**
  * This class represents a CSV Converter. <br>It implements

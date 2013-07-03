@@ -1,4 +1,8 @@
-package com.pedroalmir.athena.core.type;
+package com.pedroalmir.athena.core.type.numeric.base;
+
+import com.pedroalmir.athena.core.type.base.BoundedType;
+import com.pedroalmir.athena.core.type.base.Randomisable;
+import com.pedroalmir.athena.core.type.base.Type;
 
 /**
  * Definition of the <tt>Numeric</tt> type.

@@ -1,4 +1,4 @@
-package com.pedroalmir.athena.core.stoppingCondition;
+package com.pedroalmir.athena.core.stoppingCondition.base;
 
 import com.google.common.base.Predicate;
 import com.pedroalmir.athena.core.algorithm.Algorithm;

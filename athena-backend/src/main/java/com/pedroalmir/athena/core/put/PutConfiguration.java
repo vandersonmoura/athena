@@ -6,7 +6,7 @@ package com.pedroalmir.athena.core.put;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pedroalmir.athena.core.type.Type;
+import com.pedroalmir.athena.core.type.base.Type;
 
 /**
  * This class represents the minimum and maximum number of input/output module may have, 

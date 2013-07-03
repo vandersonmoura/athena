@@ -1,6 +1,6 @@
 package com.pedroalmir.athena.core.solution;
 
-import com.pedroalmir.athena.core.type.Type;
+import com.pedroalmir.athena.core.type.base.Type;
 
 
 /**

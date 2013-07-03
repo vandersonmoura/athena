@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pedroalmir.athena.core.type;
+package com.pedroalmir.athena.core.type.file;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -9,6 +9,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+
+import com.pedroalmir.athena.core.type.base.Type;
 
 /**
  * This class represents a file type in Athena Service.

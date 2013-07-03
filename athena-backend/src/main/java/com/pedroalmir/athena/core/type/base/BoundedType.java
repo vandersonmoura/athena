@@ -1,5 +1,5 @@
 
-package com.pedroalmir.athena.core.type;
+package com.pedroalmir.athena.core.type.base;
 
 /**
  * Interface to define bounds. These bounds are generally / currently defined

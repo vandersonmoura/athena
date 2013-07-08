@@ -3,6 +3,7 @@
  */
 package com.pedroalmir.athena.impl.fuzzy.algorithm;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -19,6 +20,7 @@ import com.pedroalmir.athena.core.problem.objective.Minimise;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
+import com.pedroalmir.athena.core.solution.Solution;
 import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Real;
@@ -69,7 +71,7 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 	 * @param outputs
 	 * @param settings
 	 */
-	protected FuzzyAlgorithm(List<Input> inputs, List<Output> outputs, List<Setting> settings) {
+	public FuzzyAlgorithm(List<Input> inputs, List<Output> outputs, List<Setting> settings) {
 		super(inputs, outputs, settings);
 	}
 	
@@ -136,15 +138,15 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 		/* Creating the list of solutions */
 		this.solutions.add(new FuzzySolution(inputVariables, outputVariables));
 		/*  */
-		System.out.println("Fuzzy iteration number " + getIterations() + 1);
+		System.out.println("Fuzzy iteration number " + (getIterations() + 1));
 	}
 
 	@Override
 	public FuzzySolution getBestSolution() {
-		Iterator<FuzzySolution> iterator = this.getSolutions().iterator();
-		FuzzySolution best = iterator.next();
+		Iterator<Solution> iterator = this.getSolutions().iterator();
+		FuzzySolution best = (FuzzySolution) iterator.next();
 		while(iterator != null && iterator.hasNext()){
-			FuzzySolution fuzzySolution = iterator.next();
+			FuzzySolution fuzzySolution = (FuzzySolution) iterator.next();
 			if(this.getOptimizationProblem().getObjective() instanceof Maximise){
 				int compareTo = best.getFitness().getValue().compareTo(fuzzySolution.getFitness().getValue());
 				if(compareTo < 0){
@@ -161,17 +163,16 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public Iterable<FuzzySolution> getSolutions() {
-		return (Iterable<FuzzySolution>) this.solutions.iterator();
+	public List<Solution> getSolutions() {
+		return this.solutions;
 	}
 	
 	/**
 	 * Load Properties
 	 */
 	private void loadProperties() {
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(this.FUZZY_PROPERTIES_PATH);
         try {
+        	InputStream inputStream = new FileInputStream(this.FUZZY_PROPERTIES_PATH);
         	if(fuzzyProperties == null)
         		fuzzyProperties = new Properties();
         	/* load properties */

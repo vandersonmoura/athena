@@ -40,6 +40,7 @@ public class FileType implements Type {
 	public FileType(String filePath) {
 		try {
 			this.file = new File(checkNotNull(filePath));
+			this.filePath = filePath;
 			this.reader = new FileReader(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -52,6 +53,7 @@ public class FileType implements Type {
 	public FileType(File file) {
 		try {
 			this.file = checkNotNull(file);
+			this.filePath = file.getAbsolutePath();
 			this.reader = new FileReader(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

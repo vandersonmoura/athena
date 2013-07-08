@@ -25,16 +25,16 @@ public class JFuzzySample {
 		fis.chart();
 
 		/* Set inputs */
-		fis.setVariable("servasice", 3);
+		fis.setVariable("service", 3);
 		fis.setVariable("food", 7);
 
 		/* Evaluate */
 		fis.evaluate();
 		
 		/* Show output variable's chart */
-		fis.getVariable("tip").chartDefuzzifier(true);
+		double defuzzifiedValue = fis.getVariable("tip").getLatestDefuzzifiedValue();
 
 		/* Print ruleSet */
-		System.out.println(fis);
+		System.out.println(defuzzifiedValue);
 	}
 }

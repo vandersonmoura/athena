@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pedroalmir.athena.impl.fuzzy;
+package com.pedroalmir.athena.impl.fuzzy.algorithm;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +23,7 @@ import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Real;
 import com.pedroalmir.athena.core.util.PutUtils;
+import com.pedroalmir.athena.impl.fuzzy.solution.FuzzySolution;
 
 /**
  * Fuzzy logic is a form of many-valued logic or probabilistic logic; 

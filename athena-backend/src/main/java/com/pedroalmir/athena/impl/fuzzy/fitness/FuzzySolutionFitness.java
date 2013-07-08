@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pedroalmir.athena.impl.fuzzy;
+package com.pedroalmir.athena.impl.fuzzy.fitness;
 
 import com.pedroalmir.athena.core.solution.fitness.Fitness;
 import com.pedroalmir.athena.core.type.base.Type;

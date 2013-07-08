@@ -1,10 +1,11 @@
-package com.pedroalmir.athena.impl.fuzzy;
+package com.pedroalmir.athena.impl.fuzzy.solution;
 
 import java.util.List;
 
 import com.pedroalmir.athena.core.solution.Solution;
 import com.pedroalmir.athena.core.solution.fitness.Fitness;
 import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.impl.fuzzy.fitness.FuzzySolutionFitness;
 
 
 /**

@@ -3,7 +3,8 @@
  */
 package com.pedroalmir.athena.core.problem;
 
-import com.pedroalmir.athena.core.solution.Fitness;
+import com.pedroalmir.athena.core.problem.objective.Objective;
+import com.pedroalmir.athena.core.solution.fitness.Fitness;
 import com.pedroalmir.athena.core.type.base.Type;
 
 
@@ -29,15 +30,17 @@ public interface Problem extends Cloneable{
     /**
      * Returns the fitness of a potential solution to this problem. The solution
      * object is described by the domain of this problem, see
-     * {@link #getDomain()}. An instance of
-     * {@link net.sourceforge.cilib.problem.solution.InferiorFitness} should be
+     * {@link #getDomain()}. An instance of {@link InferiorFitness} should be
      * returned if the solution falls outside the search space of this problem.
      *
-     * @param solution  the potential solution found by the optimisation algorithm.
+     * @param solution  the potential solution found by the optimization algorithm.
      * @return          the fitness of the solution.
      */
     Fitness getFitness(Type solution);
-
+    /**
+     * @return problem objective
+     */
+    Objective getObjective();
     /**
      * Returns the number of times the underlying fitness function has been
      * evaluated.

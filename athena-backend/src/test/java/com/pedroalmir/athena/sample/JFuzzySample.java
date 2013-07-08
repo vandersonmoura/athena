@@ -25,7 +25,7 @@ public class JFuzzySample {
 		fis.chart();
 
 		/* Set inputs */
-		fis.setVariable("service", 3);
+		fis.setVariable("servasice", 3);
 		fis.setVariable("food", 7);
 
 		/* Evaluate */

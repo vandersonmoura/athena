@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import com.pedroalmir.athena.core.entity.Entity;
-import com.pedroalmir.athena.core.solution.Fitness;
+import com.pedroalmir.athena.core.solution.fitness.Fitness;
 
 /**
  * Comparator to order {@linkplain Entity} instances based on fitness values.

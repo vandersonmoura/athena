@@ -8,10 +8,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
+import com.pedroalmir.athena.core.configuration.ConfigurableAlgorithm;
 import com.pedroalmir.athena.core.problem.Problem;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
-import com.pedroalmir.athena.core.solution.OptimisationSolution;
+import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.solution.Solution;
 import com.pedroalmir.athena.core.stoppingCondition.base.Stoppable;
 import com.pedroalmir.athena.core.stoppingCondition.base.StoppingCondition;
@@ -24,7 +25,7 @@ import com.pedroalmir.athena.core.stoppingCondition.base.StoppingCondition;
  * {@link Algorithm#performIteration()}. If a subclass overrides
  * {@link #algorithmInitialisation()} then it must call {@code super.initialise()}.
  */
-public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
+public abstract class AbstractAlgorithm implements Algorithm, Stoppable, ConfigurableAlgorithm {
 
     /**
      * Stopping Conditions
@@ -64,7 +65,7 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
     /**
      * Problem definition
      */
-    protected Problem optimisationProblem;
+    protected Problem optimizationProblem;
     /**
      * This field represents the list of inputs.
      * It must be initialized before the execution of the algorithm. 
@@ -77,6 +78,13 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
      * it'll be populated after the end of algorithm execution.
      */
     protected List<Output> outputs;
+    /**
+     * This field represents the list of settings that will be
+     * used in this algorithm execution.
+     * 
+     * It'll be populated in the algorithm initialization.
+     */
+    protected List<Setting> settings;
     /**
      * This field represents the list of solutions.
      * It'll be populated after the end of algorithm execution.
@@ -93,7 +101,7 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
      * @param outputs
      * 			List of outputs
      */
-    protected AbstractAlgorithm(List<Input> inputs, List<Output> outputs) {
+    protected AbstractAlgorithm(List<Input> inputs, List<Output> outputs, List<Setting> settings) {
         stoppingConditions = new ArrayList<StoppingCondition<Algorithm>>();
         algorithmListeners = new ArrayList<AlgorithmListener>();
         
@@ -101,13 +109,16 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
         this.inputs = inputs;
         this.outputs = outputs;
         
+        /* settings */
+        this.settings = settings;
+        
         /* solutions */
         this.solutions = new LinkedList<Solution>();
         		
         running = false;
         initialised = false;
     }
-
+    
     public abstract AbstractAlgorithm getClone();
 
     /**
@@ -118,13 +129,23 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
 	protected AbstractAlgorithm(AbstractAlgorithm copy) {
         stoppingConditions = Lists.newArrayList();
         algorithmListeners = Lists.newArrayList();
+        
+        /* puts */
+        this.inputs = Lists.newArrayList();
+        this.outputs = Lists.newArrayList();
+        
+        /* settings */
+        this.settings = copy.settings;
+        
+        /* solutions */
+        this.solutions = Lists.newArrayList();
 
         for (AlgorithmListener listen : copy.algorithmListeners) {
             algorithmListeners.add(listen.getClone());
         }
 
-        if (copy.optimisationProblem != null) {
-            optimisationProblem = copy.optimisationProblem;
+        if (copy.optimizationProblem != null) {
+            optimizationProblem = copy.optimizationProblem;
         }
 
         for (StoppingCondition sc : copy.stoppingConditions) {
@@ -163,10 +184,9 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
 
     /**
      * Initialize the algorithm.
+     * Subclasses can override the behavior for this method.
      */
-    public void algorithmInitialisation() {
-        /* Subclasses can override the behavior for this method */
-    }
+    public abstract void algorithmInitialisation();
 
     /**
      * Executes the algorithm without cleaning up afterwards.
@@ -324,25 +344,25 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable {
     /**
      * {@inheritDoc}
      */
-    public void setOptimisationProblem(Problem problem) {
-        this.optimisationProblem = problem;
+    public void setOptimizationProblem(Problem problem) {
+        this.optimizationProblem = problem;
     }
 
     /**
      * {@inheritDoc}
      */
-    public Problem getOptimisationProblem() {
-        return this.optimisationProblem;
+    public Problem getOptimizationProblem() {
+        return this.optimizationProblem;
     }
 
     /**
      * {@inheritDoc}
      */
-    public abstract OptimisationSolution getBestSolution();
+    public abstract Solution getBestSolution();
 
     /**
      * {@inheritDoc}
      */
-    public abstract Iterable<OptimisationSolution> getSolutions();
+    public abstract <T extends Solution> Iterable<T> getSolutions();
 
 }

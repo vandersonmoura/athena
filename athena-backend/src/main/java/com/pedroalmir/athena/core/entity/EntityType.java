@@ -9,18 +9,4 @@ public enum EntityType {
     FITNESS,
     PREVIOUS_FITNESS,
     STRATEGY_PARAMETERS;
-
-    /**
-     * {@linkplain Particle} specific constants.
-     */
-    public enum Particle {
-        BEST_POSITION,
-        BEST_FITNESS,
-        VELOCITY;
-
-        public enum Count {
-            PBEST_STAGNATION_COUNTER;
-        }
-    }
-
 }

@@ -6,7 +6,7 @@ package com.pedroalmir.athena.core.configuration;
 import java.util.List;
 
 import com.pedroalmir.athena.core.put.PutConfiguration;
-import com.pedroalmir.athena.core.put.base.Put;
+import com.pedroalmir.athena.core.put.Setting;
 
 /**
  * This interface was designed to represent the configurations
@@ -38,12 +38,12 @@ public interface Configuration {
 	 * 
 	 * @return list of settings
 	 */
-	List<Put> getSettings();
+	List<Setting> getSettings();
 	/**
 	 * This method should add any setting to
 	 * this configuration.
 	 * 
 	 * @param setting
 	 */
-	void addSetting(Put setting);
+	void addSetting(Setting setting);
 }

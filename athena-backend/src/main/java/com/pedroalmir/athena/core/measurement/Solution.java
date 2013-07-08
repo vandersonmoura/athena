@@ -19,7 +19,7 @@ public class Solution implements Measurement<StringType> {
      * {@inheritDoc}
      */
     public StringType getValue(Algorithm algorithm) {
-        Vector solution = (Vector) algorithm.getBestSolution().getPosition();
+        Vector solution = (Vector) algorithm.getBestSolution();
         return new StringType(solution.toString());
     }
 

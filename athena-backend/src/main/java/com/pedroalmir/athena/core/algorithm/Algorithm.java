@@ -4,7 +4,7 @@
 package com.pedroalmir.athena.core.algorithm;
 
 import com.pedroalmir.athena.core.problem.Problem;
-import com.pedroalmir.athena.core.solution.OptimisationSolution;
+import com.pedroalmir.athena.core.solution.Solution;
 
 
 
@@ -28,7 +28,7 @@ public interface Algorithm extends Runnable, Cloneable{
      * Obtain the best current solution.
      * @return The {@code OptimisationSolution} representing the best solution.
      */
-    OptimisationSolution getBestSolution();
+    Solution getBestSolution();
     
 	/**
      * Returns the number of iterations that have been performed by the algorithm.
@@ -37,20 +37,20 @@ public interface Algorithm extends Runnable, Cloneable{
      */
     int getIterations();
     /**
-     * Set the optimisation {@link Problem} to be solved.
+     * Set the optimization {@link Problem} to be solved.
      * <p>
      * By default, the problem is {@code null}<code>null</code>. It is necessary
-     * to set the optimisation problem before calling {@link #performInitialisation()}.
+     * to set the optimization problem before calling {@link #performInitialisation()}.
      *
      * @param problem an implementation of the {@link Problem} interface.
      */
-    void setOptimisationProblem(Problem problem);
+    void setOptimizationProblem(Problem problem);
 
     /**
      * Get the specified {@linkplain Problem}.
      * @return The specified {@linkplain Problem}.
      */
-    Problem getOptimisationProblem();
+    Problem getOptimizationProblem();
     /**
      * Verify if is finished
      * @return <code>true</code> if is finished

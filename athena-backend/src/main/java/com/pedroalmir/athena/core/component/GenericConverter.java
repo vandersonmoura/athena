@@ -15,7 +15,7 @@ import com.pedroalmir.athena.core.put.Output;
  * @author Pedro Almir
  *
  */
-public interface GenericConverter extends AthenaBundle{
+public interface GenericConverter extends AthenaBundle {
 	/**
 	 * @return converter name
 	 */

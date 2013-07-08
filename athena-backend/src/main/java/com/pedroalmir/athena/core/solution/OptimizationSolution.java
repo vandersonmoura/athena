@@ -1,15 +1,15 @@
 package com.pedroalmir.athena.core.solution;
 
+import com.pedroalmir.athena.core.solution.fitness.Fitness;
 import com.pedroalmir.athena.core.type.base.Type;
 
 
 /**
- * This class represents a solution to an
- * {@linkplain net.sourceforge.cilib.problem.Problem optimisation problem}.
- * It is responsible for keeping track of the optimisation problem and position
+ * This class represents a solution to an {@linkplain Problem Optimization problem}.
+ * It is responsible for keeping track of the optimization problem and position
  * of the solution within the search space.
  */
-public final class OptimisationSolution implements Solution, Comparable<OptimisationSolution> {
+public final class OptimizationSolution implements Solution, Comparable<OptimizationSolution> {
 
     private final Type position;
     private final Fitness fitness;
@@ -18,20 +18,20 @@ public final class OptimisationSolution implements Solution, Comparable<Optimisa
      * Constructs a new instance of {@code OptimisationSolution}.
      *
      * @param position The position of the solution within the search space of the problem.
-     * @param fitness The {@linkplain Fitness} of the optimisation solution.
+     * @param fitness The {@linkplain Fitness} of the optimization solution.
      */
-    public OptimisationSolution(Type position, Fitness fitness) {
+    public OptimizationSolution(Type position, Fitness fitness) {
         this.position = position.getClone();
-        this.fitness = fitness.getClone();
+        this.fitness = fitness;
     }
 
-    public OptimisationSolution(OptimisationSolution copy) {
+    public OptimizationSolution(OptimizationSolution copy) {
         this.position = copy.position.getClone();
-        this.fitness = copy.fitness.getClone();
+        this.fitness = copy.fitness;
     }
 
-    public OptimisationSolution getClone() {
-        return new OptimisationSolution(this);
+    public OptimizationSolution getClone() {
+        return new OptimizationSolution(this);
     }
 
     @Override
@@ -44,7 +44,7 @@ public final class OptimisationSolution implements Solution, Comparable<Optimisa
             return false;
         }
 
-        OptimisationSolution otherSolution = (OptimisationSolution) other;
+        OptimizationSolution otherSolution = (OptimizationSolution) other;
         return this.position.equals(otherSolution.position)
                 && this.fitness.equals(otherSolution.fitness);
     }
@@ -68,10 +68,10 @@ public final class OptimisationSolution implements Solution, Comparable<Optimisa
 
     /**
      * Returns the fitness of this solution according to
-     * {@linkplain net.sourceforge.cilib.problem.Problem optimisation problem}.
+     * {@linkplain Problem optimization problem}.
      * Calling this function does not contribute to the number of fitness
      * evaluations maintained by the
-     * {@link net.sourceforge.cilib.problem.Problem optimisation problem}.
+     * {@link Problem optimization problem}.
      *
      * @return The fitness of this solution.
      */
@@ -82,7 +82,7 @@ public final class OptimisationSolution implements Solution, Comparable<Optimisa
     /**
      * {@inheritDoc}
      */
-    public int compareTo(OptimisationSolution other) {
+    public int compareTo(OptimizationSolution other) {
         return this.fitness.compareTo(other.fitness);
     }
 }

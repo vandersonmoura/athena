@@ -1,11 +1,11 @@
-package com.pedroalmir.athena.core.solution;
+package com.pedroalmir.athena.core.solution.fitness;
 
 import com.pedroalmir.athena.core.type.base.Type;
 
 
 /**
  * This interface is an abstraction for the fitness of a solution to an
- * optimisation problem.
+ * optimization problem.
  * <p>
  * The actual fitness value (as determined by the
  * {@link Problem} in question) can be obtained by
@@ -31,11 +31,6 @@ import com.pedroalmir.athena.core.type.base.Type;
  *
  */
 public interface Fitness extends Type, Comparable<Fitness> {
-
-    /**
-     * {@inheritDoc}
-     */
-    Fitness getClone();
 
     /**
      * Returns the underlying fitness value.

@@ -1,7 +1,7 @@
 package com.pedroalmir.athena.core.fitness;
 
 import com.pedroalmir.athena.core.algorithm.Algorithm;
-import com.pedroalmir.athena.core.solution.Fitness;
+import com.pedroalmir.athena.core.solution.fitness.Fitness;
 import com.pedroalmir.athena.core.type.container.StructuredType;
 
 /**
@@ -22,7 +22,7 @@ public class StructuredTypeFitnessCalculator<T extends StructuredType<?>> implem
      * {@inheritDoc}
      */
     public Fitness getFitness(Algorithm algorithm, T structure) {
-        return algorithm.getOptimisationProblem().getFitness(structure);
+        return algorithm.getOptimizationProblem().getFitness(structure);
     }
 
 }

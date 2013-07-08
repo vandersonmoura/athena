@@ -2,7 +2,7 @@ package com.pedroalmir.athena.core.entity;
 
 import com.pedroalmir.athena.core.fitness.FitnessCalculator;
 import com.pedroalmir.athena.core.problem.Problem;
-import com.pedroalmir.athena.core.solution.Fitness;
+import com.pedroalmir.athena.core.solution.fitness.Fitness;
 import com.pedroalmir.athena.core.type.container.StructuredType;
 
 /**

@@ -20,7 +20,7 @@ import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.PutConfiguration;
-import com.pedroalmir.athena.core.put.base.Put;
+import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Int;
@@ -167,7 +167,7 @@ public class CSVConverter implements GenericConverter{
 		return new Configuration() {
 			
 			@Override
-			public List<Put> getSettings() {
+			public List<Setting> getSettings() {
 				/*
 				 * This method return null because this converter
 				 * not have settings.
@@ -210,7 +210,7 @@ public class CSVConverter implements GenericConverter{
 			}
 			
 			@Override
-			public void addSetting(Put setting) {
+			public void addSetting(Setting setting) {
 				/*
 				 * This method does nothing because this converter not have settings.
 				 * */

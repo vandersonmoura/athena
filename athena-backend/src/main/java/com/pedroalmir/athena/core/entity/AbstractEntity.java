@@ -4,7 +4,7 @@ import com.pedroalmir.athena.core.algorithm.Algorithm;
 import com.pedroalmir.athena.core.fitness.EntityBasedFitnessCalculator;
 import com.pedroalmir.athena.core.fitness.FitnessCalculator;
 import com.pedroalmir.athena.core.problem.Problem;
-import com.pedroalmir.athena.core.solution.Fitness;
+import com.pedroalmir.athena.core.solution.fitness.Fitness;
 import com.pedroalmir.athena.core.type.Blackboard;
 import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.container.StructuredType;

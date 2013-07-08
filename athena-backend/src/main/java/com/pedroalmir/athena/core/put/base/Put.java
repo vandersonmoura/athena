@@ -14,7 +14,7 @@ import com.pedroalmir.athena.core.validation.Validation;
  * @author Pedro Almir
  *
  */
-public class Put {
+public abstract class Put {
 	/**
 	 * Put name
 	 * This field represents the name to show in view

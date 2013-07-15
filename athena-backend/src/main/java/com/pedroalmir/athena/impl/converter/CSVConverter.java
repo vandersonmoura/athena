@@ -209,12 +209,6 @@ public class CSVConverter implements GenericConverter{
 				return putConfiguration;
 			}
 			
-			@Override
-			public void addSetting(Setting setting) {
-				/*
-				 * This method does nothing because this converter not have settings.
-				 * */
-			}
 		};
 	}
 

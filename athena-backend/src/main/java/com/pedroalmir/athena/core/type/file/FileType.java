@@ -65,6 +65,7 @@ public class FileType implements Type {
 	 */
 	public FileType() {
 		this.file = null;
+		this.filePath = null;
 		this.reader = null;
 	}
 	

@@ -39,11 +39,4 @@ public interface Configuration {
 	 * @return list of settings
 	 */
 	List<Setting> getSettings();
-	/**
-	 * This method should add any setting to
-	 * this configuration.
-	 * 
-	 * @param setting
-	 */
-	void addSetting(Setting setting);
 }

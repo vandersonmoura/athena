@@ -9,6 +9,7 @@ import com.pedroalmir.athena.core.algorithm.Algorithm;
 import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
+import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.solution.Solution;
 
 /**
@@ -75,6 +76,22 @@ public interface GenericModule extends AthenaBundle{
 	 */
 	List<Output> getOutputs();
 	/**
+	 * This method should add an setting to this module.
+	 * 
+	 * For example:
+	 * Fuzzy Module need FCL config file.
+	 * 
+	 * @param setting object
+	 */
+	void addSetting(Setting setting);
+	/**
+	 * This method should return the list of settings
+	 * of this module.
+	 * 
+	 * @return list of settings
+	 */
+	List<Setting> getSettings();
+	/**
 	 * All module settings are stored in the Configuration object.
 	 * So, this method should return the module configuration.
 	 * 
@@ -86,9 +103,9 @@ public interface GenericModule extends AthenaBundle{
 	 * 
 	 * @param inputs
 	 * @param outputs
-	 * @param setting
+	 * @param settings
 	 */
-	void load(List<Input> inputs, List<Output> outputs, Configuration setting);
+	void load(List<Input> inputs, List<Output> outputs, List<Setting> settings);
 	/**
 	 * Verify if this module is loaded.
 	 * 
@@ -101,14 +118,9 @@ public interface GenericModule extends AthenaBundle{
 	 */
 	boolean isPublic();
 	/**
-	 * Run the algorithm and return a solution for
-	 * the problem.
+	 * Run the algorithm and return a list of solution to the problem.
 	 * 
-	 * @param inputs
-	 * 				list of inputs
-	 * @param outputs
-	 * 				list of outputs
-	 * @return solution
+	 * @return solutions
 	 */
-	Solution run(List<Input> inputs, List<Output> outputs);
+	List<Solution> run();
 }

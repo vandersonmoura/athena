@@ -15,6 +15,7 @@ import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Real;
 import com.pedroalmir.athena.impl.fuzzy.algorithm.FuzzyAlgorithm;
+import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
 import com.pedroalmir.athena.impl.fuzzy.stoppingCondition.FuzzyCompleteEvaluationStoppingCondition;
 
 /**
@@ -38,7 +39,7 @@ public class TestFuzzyAlgorithm {
 		inputs.add(inputService);
 		inputs.add(inputFood);
 		/* Create outputs */
-		Output outputTip = new Output("Valor da gorgeta", "tip", Real.valueOf(0), "real", false, null);
+		Output outputTip = new Output("Valor da gorjeta", "tip", Real.valueOf(0), "real", false, null);
 		outputs.add(outputTip);
 		/* Create settings */
 		Setting fileSetting = new Setting("Arquivo de Configuração FCL", "fcl_file", new FileType("src/test/resources/fcl/tipper.fcl"), "file", false, null);
@@ -50,5 +51,36 @@ public class TestFuzzyAlgorithm {
 		
 		Assert.assertNotNull(fuzzyAlgorithm.getSolutions().iterator());
 		Assert.assertEquals(fuzzyAlgorithm.getSolutions().iterator().next().getFitness().getValue(), new Double(11.701603788948043));
+	}
+	
+	@Test
+	public void testFuzzyModule(){
+		List<Input> inputs = new LinkedList<Input>();
+		List<Output> outputs = new LinkedList<Output>();
+		List<Setting> settings = new LinkedList<Setting>();
+		/* Create inputs */
+		Input inputService = new Input("Qualidade do Serviço", "service", Real.valueOf(0), "real", false, null);
+		Input inputFood = new Input("Qualidade da Comida", "food", Real.valueOf(0), "real", false, null);
+		
+		inputService.addValue(Real.valueOf(3));
+		inputFood.addValue(Real.valueOf(7));
+		
+		inputs.add(inputService);
+		inputs.add(inputFood);
+		/* Create outputs */
+		Output outputTip = new Output("Valor da gorjeta", "tip", Real.valueOf(0), "real", false, null);
+		outputs.add(outputTip);
+		/* Create settings */
+		Setting fileSetting = new Setting("Arquivo de Configuração FCL", "fcl_file", new FileType("src/test/resources/fcl/tipper.fcl"), "file", false, null);
+		settings.add(fileSetting);
+		
+		FuzzyModule fuzzyModule = new FuzzyModule();
+		
+		fuzzyModule.load(inputs, outputs, settings);
+		fuzzyModule.getAlgorithm().addStoppingCondition(new FuzzyCompleteEvaluationStoppingCondition(inputs));
+		fuzzyModule.run();
+		
+		Assert.assertNotNull(fuzzyModule.getAlgorithm().getSolutions().iterator());
+		Assert.assertEquals(fuzzyModule.getAlgorithm().getSolutions().iterator().next().getFitness().getValue(), new Double(11.701603788948043));
 	}
 }

@@ -164,4 +164,11 @@ public class FuzzyModule implements GenericModule{
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "FuzzyModule [inputs=" + inputs + ", outputs=" + outputs + ", settings=" + settings + "]";
+	}
 }

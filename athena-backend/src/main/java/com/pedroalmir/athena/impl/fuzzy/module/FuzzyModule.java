@@ -6,6 +6,7 @@ package com.pedroalmir.athena.impl.fuzzy.module;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.pedroalmir.athena.core.component.AbstractBundle;
 import com.pedroalmir.athena.core.component.GenericModule;
 import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
@@ -34,7 +35,7 @@ import com.pedroalmir.athena.impl.fuzzy.factory.FuzzyAlgorithmFactory;
  * @author Pedro Almir
  *
  */
-public class FuzzyModule implements GenericModule{
+public class FuzzyModule extends AbstractBundle implements GenericModule{
 	
 	/**
 	 * List of inputs
@@ -100,23 +101,28 @@ public class FuzzyModule implements GenericModule{
 	}
 
 	@Override
-	public void addInput(Input input) {
-		this.inputs.add(input);
-	}
-
-	@Override
 	public List<Input> getInputs() {
 		return this.inputs;
 	}
 
 	@Override
-	public void addOutput(Output output) {
-		this.outputs.add(output);
+	public List<Output> getOutputs() {
+		return this.outputs;
 	}
 
 	@Override
-	public List<Output> getOutputs() {
-		return this.outputs;
+	public List<Setting> getSettings() {
+		return this.settings;
+	}
+	
+	@Override
+	public void addSetting(Setting setting) {
+		for(Setting s: this.settings){
+			if(s.equals(setting)){
+				return;
+			}
+		}
+		this.getSettings().add(setting);
 	}
 
 	@Override
@@ -134,6 +140,12 @@ public class FuzzyModule implements GenericModule{
 		
 		this.loaded = true;
 	}
+	
+	@Override
+	public void load() {
+		this.fuzzyAlgorithm = this.fuzzyFactory.createAlgorithm(this.inputs, this.outputs, this.settings);
+		this.loaded = true;
+	}
 
 	@Override
 	public boolean isLoaded() {
@@ -145,16 +157,6 @@ public class FuzzyModule implements GenericModule{
 		return true;
 	}
 
-	@Override
-	public void addSetting(Setting setting) {
-		this.settings.add(setting);
-	}
-
-	@Override
-	public List<Setting> getSettings() {
-		return this.settings;
-	}
-	
 	@Override
 	public List<Solution> run() {
 		if(this.fuzzyAlgorithm != null){
@@ -171,4 +173,5 @@ public class FuzzyModule implements GenericModule{
 	public String toString() {
 		return "FuzzyModule [inputs=" + inputs + ", outputs=" + outputs + ", settings=" + settings + "]";
 	}
+
 }

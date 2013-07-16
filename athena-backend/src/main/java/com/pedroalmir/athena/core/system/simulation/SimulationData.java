@@ -23,7 +23,7 @@ public class SimulationData {
 	/**
 	 * 
 	 */
-	private final List<Output> outputs;
+	private List<Output> outputs;
 	/**
 	 * 
 	 */
@@ -69,5 +69,11 @@ public class SimulationData {
 	 */
 	public List<Setting> getSettings() {
 		return settings;
+	}
+	/**
+	 * @param outputs the outputs to set
+	 */
+	public void setOutputs(List<Output> outputs) {
+		this.outputs = outputs;
 	}
 }

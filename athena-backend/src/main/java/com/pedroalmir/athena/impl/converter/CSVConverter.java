@@ -15,13 +15,13 @@ import org.apache.commons.io.FilenameUtils;
 import au.com.bytecode.opencsv.CSVReader;
 
 import com.google.common.base.Preconditions;
+import com.pedroalmir.athena.core.component.AbstractBundle;
 import com.pedroalmir.athena.core.component.GenericConverter;
 import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.PutConfiguration;
 import com.pedroalmir.athena.core.put.Setting;
-import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Int;
 import com.pedroalmir.athena.core.type.numeric.Real;
@@ -59,7 +59,7 @@ import com.pedroalmir.athena.core.type.string.StringType;
  * @author Pedro Almir
  *
  */
-public class CSVConverter implements GenericConverter{
+public class CSVConverter extends AbstractBundle implements GenericConverter{
 	
 	/**
 	 * StringBuffer
@@ -102,64 +102,6 @@ public class CSVConverter implements GenericConverter{
 	public String getImagePath() {
 		/* TODO: Define image path for this converter. */
 		return "";
-	}
-
-	@Override
-	public void addInput(Input input) {
-		Preconditions.checkArgument(inputs.size() < this.getConfiguration().getInputConfiguration().getMaximum(), 
-				"Operation invalid. The maximum number of inputs was exceeded.");
-		boolean ok = false;
-		for(Type t : this.getConfiguration().getInputConfiguration().getAvailableTypes()){
-			if(input.getType().getClass().equals(t.getClass())){
-				ok = true;
-				break;
-			}
-		}
-		if(!ok){
-			throw new IllegalArgumentException("Mismatched types.");
-		}
-		this.inputs.add(input);
-	}
-
-	@Override
-	public void addOutput(Output output) {
-		Preconditions.checkArgument(outputs.size() < this.getConfiguration().getOutputConfiguration().getMaximum(), 
-				"Operation invalid. The maximum number of outputs was exceeded.");
-		boolean ok = false;
-		for(Type t : this.getConfiguration().getOutputConfiguration().getAvailableTypes()){
-			if(output.getType().getClass().equals(t.getClass())){
-				ok = true;
-				break;
-			}
-		}
-		if(!ok){
-			throw new IllegalArgumentException("Mismatched types.");
-		}
-		this.outputs.add(output);
-	}
-	
-	@Override
-	public void removeInput(Input input) {
-		Preconditions.checkNotNull(input);
-		this.inputs.remove(input);
-	}
-
-	@Override
-	public void removeInput(int index) {
-		Preconditions.checkArgument(index > 0 && index < this.getConfiguration().getInputConfiguration().getMaximum() - 1, "Invalid position.");
-		this.inputs.remove(index);
-	}
-
-	@Override
-	public void removeOutput(Output output) {
-		Preconditions.checkNotNull(output);
-		this.outputs.remove(output);
-	}
-
-	@Override
-	public void removeOutput(int index) {
-		Preconditions.checkArgument(index > 0 && index < this.getConfiguration().getOutputConfiguration().getMaximum() - 1, "Invalid position.");
-		this.outputs.remove(index);
 	}
 
 	@Override
@@ -207,6 +149,11 @@ public class CSVConverter implements GenericConverter{
 				 * */
 				putConfiguration.addAvailableType(new FileType());
 				return putConfiguration;
+			}
+
+			@Override
+			public boolean hasSettings() {
+				return false;
 			}
 			
 		};
@@ -272,6 +219,27 @@ public class CSVConverter implements GenericConverter{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Input> getInputs() {
+		return this.inputs;
+	}
+
+	@Override
+	public List<Output> getOutputs() {
+		return this.outputs;
+	}
+
+	@Override
+	public void addSetting(Setting setting) {
+		/**/
+	}
+
+	@Override
+	public List<Setting> getSettings() {
+		/* This method return null because this converter not have settings. */
 		return null;
 	}
 	

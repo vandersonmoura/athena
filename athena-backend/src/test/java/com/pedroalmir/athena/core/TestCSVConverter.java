@@ -46,7 +46,9 @@ public class TestCSVConverter {
 		/* Input config */
 		Input input = new Input("CSV File", "csv_file", new FileType(), "file", false, null);
 		input.addValue(new FileType("src/test/resources/csv/candidatos.csv"));
+		
 		converter.addInput(input);
+		
 		/* Output config */
 		Output conhecimento = new Output("Conhecimento", "conhecimento", Real.valueOf(0), "real", false, null);
 		converter.addOutput(conhecimento);

@@ -39,4 +39,8 @@ public interface Configuration {
 	 * @return list of settings
 	 */
 	List<Setting> getSettings();
+	/**
+	 * @return
+	 */
+	boolean hasSettings();
 }

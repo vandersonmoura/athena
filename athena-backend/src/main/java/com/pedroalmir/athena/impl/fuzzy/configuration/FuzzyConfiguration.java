@@ -83,5 +83,10 @@ public class FuzzyConfiguration implements Configuration {
 		return settings;
 	}
 
+	@Override
+	public boolean hasSettings() {
+		return true;
+	}
+
 
 }

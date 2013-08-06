@@ -9,7 +9,10 @@ import com.pedroalmir.athena.core.type.base.Type;
  */
 public class MaximisationFitness implements Fitness {
 
-    private Double value;
+    /**
+	 * 
+	 */
+	private Double value;
 
    /**
     * Constructs a new <code>MaximisationFitness</code> with the given fitness value.
@@ -88,28 +91,30 @@ public class MaximisationFitness implements Fitness {
         return hash;
     }
 
-	@Override
 	public Type getClone(String object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void setValue(Object object) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setValue(String object) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public Object getRepresentation() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

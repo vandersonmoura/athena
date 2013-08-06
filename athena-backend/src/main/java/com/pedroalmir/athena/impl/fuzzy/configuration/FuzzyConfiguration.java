@@ -29,7 +29,7 @@ public class FuzzyConfiguration implements Configuration {
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.configuration.Configuration#getInputConfiguration()
 	 */
-	@Override
+	
 	public PutConfiguration getInputConfiguration() {
 		PutConfiguration putConfiguration = new PutConfiguration();
 		/* Define minimum and maximum of inputs */
@@ -46,7 +46,7 @@ public class FuzzyConfiguration implements Configuration {
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.configuration.Configuration#getOutputConfiguration()
 	 */
-	@Override
+	
 	public PutConfiguration getOutputConfiguration() {
 		PutConfiguration putConfiguration = new PutConfiguration();
 		/* Define minimum and maximum of inputs */
@@ -63,7 +63,7 @@ public class FuzzyConfiguration implements Configuration {
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.configuration.Configuration#getSettings()
 	 */
-	@Override
+	
 	public List<Setting> getSettings() {
 		List<Setting> settings = new LinkedList<Setting>();
 		
@@ -73,7 +73,7 @@ public class FuzzyConfiguration implements Configuration {
         	/* load properties */
         	fuzzyProperties.load(inputStream);
         	
-        	Setting fclFile = new Setting("Arquivo de Configuração FCL", fuzzyProperties.getProperty("fuzzy.setting.fcl"), 
+        	Setting fclFile = new Setting("Arquivo de ConfiguraÃ§Ã£o FCL", fuzzyProperties.getProperty("fuzzy.setting.fcl"), 
         			new FileType(), "file", false, null, true);
         	
         	settings.add(fclFile);
@@ -83,10 +83,8 @@ public class FuzzyConfiguration implements Configuration {
 		return settings;
 	}
 
-	@Override
+	
 	public boolean hasSettings() {
 		return true;
 	}
-
-
 }

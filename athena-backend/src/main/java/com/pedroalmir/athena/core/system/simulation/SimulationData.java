@@ -2,30 +2,37 @@ package com.pedroalmir.athena.core.system.simulation;
 
 import java.util.List;
 
+import com.pedroalmir.athena.common.model.GenericEntity;
 import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
 
 /**
+ * This class represents a simulation data
  * @author Pedro Almir
  *
  */
-public class SimulationData {
+public class SimulationData extends GenericEntity {
 	/**
 	 * 
 	 */
-	private AthenaBundle bundle;
+	private static final long serialVersionUID = -2839920348408920496L;
 	/**
-	 * 
+	 * AthenaBundle without data
+	 * TODO: Poderia ser apenas o ID do bundle?
+	 */
+	private final AthenaBundle bundle;
+	/**
+	 * List of inputs used in this bundle
 	 */
 	private final List<Input> inputs;
 	/**
-	 * 
+	 * List of outputs used in this bundle
 	 */
 	private List<Output> outputs;
 	/**
-	 * 
+	 * List of settings used in this bundle
 	 */
 	private final List<Setting> settings;
 	/**
@@ -45,12 +52,6 @@ public class SimulationData {
 	 */
 	public AthenaBundle getBundle() {
 		return bundle;
-	}
-	/**
-	 * @param bundle the bundle to set
-	 */
-	public void setBundle(AthenaBundle bundle) {
-		this.bundle = bundle;
 	}
 	/**
 	 * @return the inputs
@@ -75,5 +76,55 @@ public class SimulationData {
 	 */
 	public void setOutputs(List<Output> outputs) {
 		this.outputs = outputs;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bundle == null) ? 0 : bundle.hashCode());
+		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
+		result = prime * result
+				+ ((settings == null) ? 0 : settings.hashCode());
+		return result;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SimulationData other = (SimulationData) obj;
+		if (bundle == null) {
+			if (other.bundle != null)
+				return false;
+		} else if (!bundle.equals(other.bundle))
+			return false;
+		if (inputs == null) {
+			if (other.inputs != null)
+				return false;
+		} else if (!inputs.equals(other.inputs))
+			return false;
+		if (settings == null) {
+			if (other.settings != null)
+				return false;
+		} else if (!settings.equals(other.settings))
+			return false;
+		return true;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SimulationData [bundle=" + bundle.getName() + ", inputs=" + inputs
+				+ ", outputs=" + outputs + ", settings=" + settings + "]";
 	}
 }

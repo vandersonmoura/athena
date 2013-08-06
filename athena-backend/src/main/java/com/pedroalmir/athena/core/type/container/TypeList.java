@@ -15,7 +15,7 @@ import com.pedroalmir.athena.core.type.numeric.base.Numeric;
  */
 public class TypeList extends AbstractList<Type> {
 
-    private List<Type> components;
+	private List<Type> components;
 
     /**
      * Create a new instance.
@@ -30,7 +30,14 @@ public class TypeList extends AbstractList<Type> {
      */
     @Override
     public TypeList getClone() {
-        return new TypeList();
+
+    	TypeList typeList = new TypeList();
+    	
+    	for(Type type : this.components){
+    		typeList.add(type.getClone());
+    	}
+    	
+        return typeList;
     }
 
     /**
@@ -251,32 +258,22 @@ public class TypeList extends AbstractList<Type> {
         }
     }
 
-
-	@Override
 	public Type getClone(String object) {
 		return new TypeList();
 	}
 
-
-	@Override
 	public Object getValue() {
 		return this.components;
 	}
 
-
-	@Override
 	@SuppressWarnings("unchecked")
 	public void setValue(Object object) {
 		this.components = (List<Type>) object;
 	}
 
-
-	@Override
 	public void setValue(String object) {
 	}
 
-
-	@Override
 	public Object getRepresentation() {
 		return "typeList";
 	}

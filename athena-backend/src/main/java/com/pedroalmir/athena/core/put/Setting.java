@@ -19,6 +19,10 @@ import com.pedroalmir.athena.core.validation.Validation;
  */
 public class Setting extends Put {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1896325039622417404L;
 	private boolean required;
 
 	/**
@@ -59,6 +63,15 @@ public class Setting extends Put {
 		super(name, identifier, type, representation, multipleValues, validations);
 		this.required = required;
 	}
+	
+	/**
+	 * @param setting
+	 */
+	public Setting(Setting setting) {
+		super(setting.getName(), setting.getIdentifier(), setting.getType().getClone(), setting.getRepresentation(), 
+				setting.isMultipleValues(), setting.getValidations());
+		this.required = setting.isRequired();
+	}
 
 	/**
 	 * @return the required
@@ -72,6 +85,14 @@ public class Setting extends Put {
 	 */
 	public void setRequired(boolean required) {
 		this.required = required;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
+	@Override
+	protected Setting clone() throws CloneNotSupportedException {
+		return new Setting(this);
 	}
 	
 }

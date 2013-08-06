@@ -52,17 +52,21 @@
 	</developers>
 
 	<dependencies>
-	    <dependency>
+		<dependency>
 			<groupId>org.functionaljava</groupId>
 			<artifactId>functionaljava</artifactId>
 			<version>3.1</version>
 		</dependency>
 		
-		<!-- 
-			OpenCSV is a very simple csv (comma-separated values) parser library 
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>1.5.7</version>
+		</dependency>
+
+		<!-- OpenCSV is a very simple csv (comma-separated values) parser library 
 			for Java. It was developed because all of current csv parsers I've come across 
-			don't have commercial-friendly licenses. 
-		-->
+			don't have commercial-friendly licenses. -->
 		<dependency>
 			<groupId>net.sf.opencsv</groupId>
 			<artifactId>opencsv</artifactId>

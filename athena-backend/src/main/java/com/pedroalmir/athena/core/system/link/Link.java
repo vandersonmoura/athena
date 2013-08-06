@@ -3,9 +3,12 @@
  */
 package com.pedroalmir.athena.core.system.link;
 
+import com.pedroalmir.athena.common.model.EntityIdFactory;
+import com.pedroalmir.athena.common.model.GenericEntity;
 import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
+import com.pedroalmir.athena.core.type.base.Type;
 
 /**
  * This class represents the connection (link) between two modules.
@@ -14,7 +17,11 @@ import com.pedroalmir.athena.core.put.Output;
  * @author Pedro Almir
  *
  */
-public class Link {
+public class Link extends GenericEntity{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6363116009107899362L;
 	/**
 	 * Description label
 	 */
@@ -44,7 +51,9 @@ public class Link {
 	 * @param dstInput
 	 */
 	public Link(String description, AthenaBundle srcModule, AthenaBundle dstModule, Output srcOutput, Input dstInput) {
-		super();
+		/* TODO: Change to hibernate generate ID */
+		this.id = EntityIdFactory.getNextId();
+		
 		this.description = description;
 		this.srcModule = srcModule;
 		this.dstModule = dstModule;
@@ -57,6 +66,9 @@ public class Link {
 	 */
 	public void propagate(){
 		/* TODO: Implements it! */
+		for(Type value : this.srcOutput.getValues()){
+			this.dstInput.addValue(value);
+		}
 	}
 	
 	/**

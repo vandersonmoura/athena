@@ -9,7 +9,8 @@ import com.pedroalmir.athena.core.type.base.Type;
  */
 public abstract class AbstractList<E extends Type> implements StructuredType<E> {
 
-    /**
+
+	/**
      * {@inheritDoc}
      */
     public abstract AbstractList<E> getClone();

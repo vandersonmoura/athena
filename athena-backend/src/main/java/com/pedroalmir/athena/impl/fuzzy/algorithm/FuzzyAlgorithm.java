@@ -82,23 +82,23 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 		super(copy);
 	}
 
-	@Override
+	
 	public void addSetting(Setting setting) {
 		this.settings.add(Preconditions.checkNotNull(setting));
 	}
 
-	@Override
+	
 	public void removeSetting(Setting setting) {
 		this.settings.remove(Preconditions.checkNotNull(setting));
 	}
 
-	@Override
+	
 	public AbstractAlgorithm getClone() {
 		return new FuzzyAlgorithm(this);
 	}
 	
 	
-	@Override
+	
 	public void algorithmInitialisation() {
 		/* Load fuzzy properties */
 		loadProperties();
@@ -115,7 +115,7 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 		System.out.println("Fuzzy initilized with success!");
 	}
 
-	@Override
+	
 	protected void algorithmIteration() {
 		/**/
 		List<Type> inputVariables = new LinkedList<Type>();
@@ -141,7 +141,7 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 		System.out.println("Fuzzy iteration number " + (getIterations() + 1));
 	}
 
-	@Override
+	
 	public FuzzySolution getBestSolution() {
 		Iterator<Solution> iterator = this.getSolutions().iterator();
 		FuzzySolution best = (FuzzySolution) iterator.next();
@@ -162,7 +162,7 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 		return best;
 	}
 
-	@Override
+	
 	public List<Solution> getSolutions() {
 		return this.solutions;
 	}

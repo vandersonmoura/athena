@@ -3,8 +3,8 @@ package com.pedroalmir.athena.web.model.validation;
 import br.com.caelum.vraptor.ioc.Component;
 
 import com.pedroalmir.athena.common.annotation.MainDAO;
-import com.pedroalmir.athena.common.util.RegexUtil;
-import com.pedroalmir.athena.common.util.StringUtil;
+import com.pedroalmir.athena.common.util.string.RegexUtil;
+import com.pedroalmir.athena.common.util.string.StringUtil;
 import com.pedroalmir.athena.common.validation.ValidatorBase;
 import com.pedroalmir.athena.common.validation.annotation.ValidationMethod;
 import com.pedroalmir.athena.web.model.User;

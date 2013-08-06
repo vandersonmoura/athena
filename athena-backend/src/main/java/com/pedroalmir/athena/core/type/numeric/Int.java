@@ -10,6 +10,9 @@ import com.pedroalmir.athena.core.type.numeric.base.Numeric;
 
 public class Int implements Numeric {
 
+	/**
+	 * 
+	 */
 	private static final Bounds DEFAULT_BOUND = new Bounds(Integer.MIN_VALUE, Integer.MAX_VALUE);
 	private int value;
 	private final Bounds bounds;
@@ -173,23 +176,25 @@ public class Int implements Numeric {
 		return this.bounds;
 	}
 
-	@Override
 	public Object getValue() {
 		return this.value;
 	}
 
-	@Override
 	public void setValue(Object object) {
 		this.value = (Integer) object;
 	}
 
-	@Override
 	public void setValue(String object) {
 		this.value = Integer.valueOf(checkNotNull(object));
 	}
 
-	@Override
 	public Type getClone(String object) {
 		return new Int(Integer.valueOf(checkNotNull(object)));
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 }

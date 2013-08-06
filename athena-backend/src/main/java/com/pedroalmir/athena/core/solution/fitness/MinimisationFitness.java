@@ -9,7 +9,10 @@ import com.pedroalmir.athena.core.type.base.Type;
  */
 public class MinimisationFitness implements Fitness {
 
-    private Double value;
+    /**
+	 * 
+	 */
+	private Double value;
 
     /**
      * Constructs a new <code>MinimisationFitness</code> with the given fitness value.
@@ -97,28 +100,30 @@ public class MinimisationFitness implements Fitness {
         return String.valueOf(value);
     }
 
-	@Override
 	public Type getClone(String object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void setValue(Object object) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setValue(String object) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public Object getRepresentation() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

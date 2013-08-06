@@ -1,4 +1,4 @@
-package com.pedroalmir.athena.common.util;
+package com.pedroalmir.athena.common.util.string;
 
 /**
  * @author EasyTeam, created by Pedro Oliveira

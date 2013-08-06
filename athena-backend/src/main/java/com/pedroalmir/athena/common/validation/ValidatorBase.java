@@ -14,7 +14,7 @@ import com.pedroalmir.athena.common.annotation.MainDAOInterface;
 import com.pedroalmir.athena.common.repository.GenericDAO;
 import com.pedroalmir.athena.common.session.UserSession;
 import com.pedroalmir.athena.common.util.ContainerUtil;
-import com.pedroalmir.athena.common.util.StringUtil;
+import com.pedroalmir.athena.common.util.string.StringUtil;
 import com.pedroalmir.athena.common.validation.annotation.RestrictionElement;
 import com.pedroalmir.athena.common.validation.annotation.ValidationMethod;
 import com.pedroalmir.athena.common.validation.enums.TemporalExecution;

@@ -5,6 +5,7 @@ package com.pedroalmir.athena.core.component;
 
 import java.util.List;
 
+import com.pedroalmir.athena.common.model.PersistentEntity;
 import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
@@ -21,7 +22,7 @@ import com.pedroalmir.athena.core.put.Setting;
  * @author Pedro Almir
  * @since 25/06/2013
  */
-public interface AthenaBundle {
+public interface AthenaBundle extends PersistentEntity{
 	
 	/**
 	 * This method should return the name of the module.
@@ -91,13 +92,21 @@ public interface AthenaBundle {
 	 */
 	List<Setting> getSettings();
 	/**
+	 * @param settings
+	 */
+	void setSettings(List<Setting> settings);
+	/**
 	 * All module settings are stored in the Configuration object.
 	 * So, this method should return the module configuration.
 	 * 
 	 * @return configuration
 	 */
 	Configuration getConfiguration();
-	
+	/**
+	 * @param identifier
+	 * @return setting
+	 */
+	Setting findSetting(String identifier);
 	/**
 	 * This method should remove an input
 	 * @param input
@@ -125,4 +134,8 @@ public interface AthenaBundle {
 	 * 			index of output to remove
 	 */
 	void removeOutput(int index);
+	/**
+	 * @return
+	 */
+	boolean equals(AthenaBundle bundle);
 }

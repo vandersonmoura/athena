@@ -21,7 +21,7 @@ import com.pedroalmir.athena.core.type.base.Type;
  */
 public final class Blackboard<K, V extends Type> implements Type {
 
-    private final Map<K, V> board;
+	private final Map<K, V> board;
 
     /**
      * Create a new empty {@code Blackboard} container.
@@ -113,26 +113,26 @@ public final class Blackboard<K, V extends Type> implements Type {
         return this.board.entrySet();
     }
 
-	@Override
 	public Type getClone(String object) {
 		return new Blackboard<K, V>(this);
 	}
 
-	@Override
 	public Object getValue() {
 		return this.getValue();
 	}
 
-	@Override
 	public void setValue(Object object) {
 	}
 
-	@Override
 	public void setValue(String object) {
 	}
 
-	@Override
 	public Object getRepresentation() {
 		return "properties";
+	}
+
+	@Override
+	public void clear() {
+		
 	}
 }

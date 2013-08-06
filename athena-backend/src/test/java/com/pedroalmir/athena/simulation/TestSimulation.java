@@ -3,21 +3,16 @@
  */
 package com.pedroalmir.athena.simulation;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.Test;
 
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.system.AthenaSystem;
-import com.pedroalmir.athena.core.system.link.Link;
-import com.pedroalmir.athena.core.system.simulation.Simulation;
-import com.pedroalmir.athena.core.system.simulation.SimulationData;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Real;
 import com.pedroalmir.athena.impl.converter.CSVConverter;
+import com.pedroalmir.athena.impl.converter.FinalConverter;
 import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
 
 /**
@@ -25,7 +20,7 @@ import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
  *
  */
 public class TestSimulation {
-	@Test
+	//@Test
 	public void simutationTest(){
 		/* Step One: Create system */
 		AthenaSystem system = new AthenaSystem("Fuzzy System", "First system by Athena Services");
@@ -33,56 +28,180 @@ public class TestSimulation {
 		CSVConverter csvConverter = new CSVConverter();
 		/* Step Three: Define Inputs and Outputs */
 		Input csvInput = new Input("CSV File", "csv_file", new FileType(), "file", false, null);
+		csvInput.addValue(new FileType("src/test/resources/csv/candidatos.csv"));
+		
 		Output conhecimento = new Output("Conhecimento", "conhecimento", Real.valueOf(0), "real", false, null);
 		Output habilidade = new Output("Habilidade", "habilidade", Real.valueOf(0), "real", false, null);
 		Output atitude = new Output("Atitude", "atitude", Real.valueOf(0), "real", false, null);
-		Output salario = new Output("Sal·rio", "salario", Real.valueOf(0), "real", false, null);
+		Output salario = new Output("Sal√°rio", "salario", Real.valueOf(0), "real", false, null);
+		
 		/* Add Input and Output, but without values */
 		csvConverter.addInput(csvInput);
 		csvConverter.addOutput(conhecimento);
 		csvConverter.addOutput(habilidade);
 		csvConverter.addOutput(atitude);
 		csvConverter.addOutput(salario);
+		
 		/* Add module to main system */
 		system.addModule(csvConverter);
+		
 		/* Step Two: Organize the modules */
 		FuzzyModule fuzzyModule = new FuzzyModule();
+		
 		/* Step Three: Define Inputs and Outputs */
 		Input knowledge = new Input("Conhecimento", "knowledge", Real.valueOf(0), "real", false, null);
 		Input skill = new Input("Habilidade", "skill", Real.valueOf(0), "real", false, null);
 		Input attitude = new Input("Atitude", "attitude", Real.valueOf(0), "real", false, null);
 		Output productivity = new Output("Produtividade", "productivity", Real.valueOf(0), "real", false, null);
+		
 		/* Setting with value */
-		Setting fileSetting = new Setting("Arquivo de ConfiguraÁ„o FCL", "fcl_file", new FileType("src/test/resources/fcl/tipper.fcl"), "file", false, null);
+		Setting fileSetting = fuzzyModule.findSetting("fcl_file");
+		if(fileSetting != null){
+			fileSetting.getType().setValue("src/test/resources/fcl/tipperEntrada.fcl");
+		}
+		
 		/* Add Input and Output, but without values */
 		fuzzyModule.addInput(knowledge);
 		fuzzyModule.addInput(skill);
 		fuzzyModule.addInput(attitude);
 		fuzzyModule.addOutput(productivity);
 		fuzzyModule.addSetting(fileSetting);
+		
 		/* Add module to main system */
 		system.addModule(fuzzyModule);
+		
+		FinalConverter finalConverter = new FinalConverter();
+		
+		Input productivity_result = new Input("Resultado da Produtividade", "productivity_result", Real.valueOf(0), "real", false, null);
+		finalConverter.addInput(productivity_result);
+		
+		Output result_file = new Output("Result File", "result_file", new FileType(), "file", false, null);
+		finalConverter.addOutput(result_file);
+		
+		/* Setting with value */
+		Setting formatterSetting = finalConverter.findSetting("formatter");
+		if(formatterSetting != null){
+			formatterSetting.getType().setValue("csv_file");
+		}
+		
+		Setting fileNameSetting = finalConverter.findSetting("file_name");
+		if(fileNameSetting != null){
+			fileNameSetting.getType().setValue("AlocacaoDeEquipes");
+		}
+		
+		finalConverter.addSetting(formatterSetting);
+		finalConverter.addSetting(fileNameSetting);
+		
+		/* Add module */
+		system.addModule(finalConverter);
+		
 		/* Step Four: Define the connections (links) */
 		system.addLink("Conhecimento to Knowledge", csvConverter, fuzzyModule, conhecimento, knowledge);
 		system.addLink("Habilidade to skill", csvConverter, fuzzyModule, habilidade, skill);
 		system.addLink("Atitude to attitude", csvConverter, fuzzyModule, atitude, attitude);
-		/* SimulationData */
-		Simulation simulation = new Simulation("Fuzzy system simulation", system);
 		
-		List<Input> inputs = new LinkedList<Input>();
-		List<Output> outputs = new LinkedList<Output>();
-		List<Setting> settings = new LinkedList<Setting>();
+		system.addLink("Produtividade to Resultado da Produtividade", fuzzyModule, finalConverter, productivity, productivity_result);
 		
-		csvInput.addValue(new FileType("src/test/resources/csv/atitude.csv"));
-		inputs.add(csvInput);
+		system.createAndExecuteSimulation("Fuzzy system simulation");
+	}
+	
+	@Test
+	public void simutationTestAllDataInFinalConverter(){
+		/* Step One: Create system */
+		AthenaSystem system = new AthenaSystem("Fuzzy System", "First system by Athena Services");
+		/* Step Two: Organize the modules */
+		CSVConverter csvConverter = new CSVConverter();
+		/* Step Three: Define Inputs and Outputs */
+		Input csvInput = new Input("CSV File", "csv_file", new FileType(), "file", false, null);
+		csvInput.addValue(new FileType("src/test/resources/csv/candidatos.csv"));
 		
-		outputs.add(conhecimento);
-		outputs.add(habilidade);
-		outputs.add(atitude);
-		outputs.add(salario);
+		Output conhecimento = new Output("Conhecimento", "conhecimento", Real.valueOf(0), "real", false, null);
+		Output habilidade = new Output("Habilidade", "habilidade", Real.valueOf(0), "real", false, null);
+		Output atitude = new Output("Atitude", "atitude", Real.valueOf(0), "real", false, null);
+		Output salario = new Output("Sal√°rio", "salario", Real.valueOf(0), "real", false, null);
 		
-		simulation.addSimulationData(csvConverter, inputs, outputs, null);
-		SimulationData data = new SimulationData(bundle, inputs, outputs, settings)
+		/* Add Input and Output, but without values */
+		csvConverter.addInput(csvInput);
+		csvConverter.addOutput(conhecimento);
+		csvConverter.addOutput(habilidade);
+		csvConverter.addOutput(atitude);
+		csvConverter.addOutput(salario);
 		
+		/* Add module to main system */
+		system.addModule(csvConverter);
+		
+		/* Step Two: Organize the modules */
+		FuzzyModule fuzzyModule = new FuzzyModule();
+		
+		/* Step Three: Define Inputs and Outputs */
+		Input knowledge = new Input("Conhecimento", "knowledge", Real.valueOf(0), "real", false, null);
+		Input skill = new Input("Habilidade", "skill", Real.valueOf(0), "real", false, null);
+		Input attitude = new Input("Atitude", "attitude", Real.valueOf(0), "real", false, null);
+		Output productivity = new Output("Produtividade", "productivity", Real.valueOf(0), "real", false, null);
+		
+		/* Setting with value */
+		Setting fileSetting = fuzzyModule.findSetting("fcl_file");
+		if(fileSetting != null){
+			fileSetting.getType().setValue("src/test/resources/fcl/tipperEntrada.fcl");
+		}
+		
+		/* Add Input and Output, but without values */
+		fuzzyModule.addInput(knowledge);
+		fuzzyModule.addInput(skill);
+		fuzzyModule.addInput(attitude);
+		fuzzyModule.addOutput(productivity);
+		fuzzyModule.addSetting(fileSetting);
+		
+		/* Add module to main system */
+		system.addModule(fuzzyModule);
+		
+		FinalConverter finalConverter = new FinalConverter();
+		
+		Input knowledgeFinal = new Input("Conhecimento", "knowledge_result", Real.valueOf(0), "real", false, null);
+		Input skillFinal = new Input("Habilidade", "skill_result", Real.valueOf(0), "real", false, null);
+		Input attitudeFinal = new Input("Atitude", "attitude_result", Real.valueOf(0), "real", false, null);
+		Input salarioFinal = new Input("Sal√°rio", "salario_result", Real.valueOf(0), "real", false, null);
+		
+		Input productivity_result = new Input("Resultado da Produtividade", "productivity_result", Real.valueOf(0), "real", false, null);
+		finalConverter.addInput(productivity_result);
+		
+		finalConverter.addInput(knowledgeFinal);
+		finalConverter.addInput(skillFinal);
+		finalConverter.addInput(attitudeFinal);
+		finalConverter.addInput(salarioFinal);
+		
+		Output result_file = new Output("Result File", "result_file", new FileType(), "file", false, null);
+		finalConverter.addOutput(result_file);
+		
+		/* Setting with value */
+		Setting formatterSetting = finalConverter.findSetting("formatter");
+		if(formatterSetting != null){
+			formatterSetting.getType().setValue("csv_file");
+		}
+		
+		Setting fileNameSetting = finalConverter.findSetting("file_name");
+		if(fileNameSetting != null){
+			fileNameSetting.getType().setValue("AlocacaoDeEquipesFull");
+		}
+		
+		finalConverter.addSetting(formatterSetting);
+		finalConverter.addSetting(fileNameSetting);
+		
+		/* Add module */
+		system.addModule(finalConverter);
+		
+		/* Step Four: Define the connections (links) */
+		system.addLink("Conhecimento to Knowledge", csvConverter, fuzzyModule, conhecimento, knowledge);
+		system.addLink("Habilidade to skill", csvConverter, fuzzyModule, habilidade, skill);
+		system.addLink("Atitude to attitude", csvConverter, fuzzyModule, atitude, attitude);
+		
+		system.addLink("Knowledge to Knowledge Final", csvConverter, finalConverter, conhecimento, knowledgeFinal);
+		system.addLink("Skill to Skill Final", csvConverter, finalConverter, habilidade, skillFinal);
+		system.addLink("Attitude to Attitude Final", csvConverter, finalConverter, atitude, attitudeFinal);
+		system.addLink("Salary to Salary Final", csvConverter, finalConverter, salario, salarioFinal);
+		
+		system.addLink("Produtividade to Resultado da Produtividade", fuzzyModule, finalConverter, productivity, productivity_result);
+		
+		system.createAndExecuteSimulation("Fuzzy system simulation");
 	}
 }

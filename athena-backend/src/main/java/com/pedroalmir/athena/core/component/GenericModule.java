@@ -17,7 +17,7 @@ import com.pedroalmir.athena.core.solution.Solution;
  * @author Pedro Almir
  *
  */
-public interface GenericModule extends AthenaBundle{
+public interface GenericModule extends AthenaBundle {
 	/**
 	 * Use Factory Pattern to create Algorithm object
 	 * @return algorithm

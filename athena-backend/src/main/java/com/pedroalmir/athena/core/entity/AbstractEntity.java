@@ -1,5 +1,6 @@
 package com.pedroalmir.athena.core.entity;
 
+import com.pedroalmir.athena.common.model.EntityIdFactory;
 import com.pedroalmir.athena.core.algorithm.Algorithm;
 import com.pedroalmir.athena.core.fitness.EntityBasedFitnessCalculator;
 import com.pedroalmir.athena.core.fitness.FitnessCalculator;

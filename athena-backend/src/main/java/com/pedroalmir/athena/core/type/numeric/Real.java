@@ -10,7 +10,10 @@ import com.pedroalmir.athena.core.type.numeric.base.Numeric;
 
 public class Real implements Numeric {
 
-    private static final Bounds DEFAULT_BOUND = new Bounds(-Double.MAX_VALUE, Double.MAX_VALUE);
+    /**
+	 * 
+	 */
+	private static final Bounds DEFAULT_BOUND = new Bounds(-Double.MAX_VALUE, Double.MAX_VALUE);
     private double value;
     private final Bounds bounds;
 
@@ -156,23 +159,25 @@ public class Real implements Numeric {
         return this.bounds;
     }
 
-	@Override
 	public Object getValue() {
 		return this.value;
 	}
 
-	@Override
 	public void setValue(Object object) {
 		this.value = (Double) object;
 	}
 
-	@Override
 	public void setValue(String object) {
 		this.value = Double.valueOf(checkNotNull(object));
 	}
 
-	@Override
 	public Type getClone(String object) {
 		return new Real(Double.valueOf(checkNotNull(object)));
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -17,7 +17,7 @@ import java.util.List;
  */
 public final class Matrix implements Type {
 
-    private final double[][] contents;
+	private final double[][] contents;
 
     private Matrix(int x, int y) {
         Preconditions.checkArgument(x > 0, "Zero row length does not make sense.");
@@ -626,33 +626,33 @@ public final class Matrix implements Type {
         }
     }
 
-	@Override
 	public Type getClone(String object) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Object getValue() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void setValue(Object object) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setValue(String object) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public Object getRepresentation() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
 	}
 }

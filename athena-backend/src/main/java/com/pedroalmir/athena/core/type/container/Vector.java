@@ -1025,7 +1025,6 @@ public class Vector implements VectorMath, RandomAccess, Collection<Numeric> {
         }
     }
 
-	@Override
 	public Vector normalize() {
 		// TODO Auto-generated method stub
 		return null;

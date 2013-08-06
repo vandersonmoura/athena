@@ -25,7 +25,7 @@ public class FuzzySolutionFitness implements Fitness {
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.type.base.Type#getClone(java.lang.String)
 	 */
-	@Override
+	
 	public Type getClone(String object) {
 		return null;
 	}
@@ -33,21 +33,21 @@ public class FuzzySolutionFitness implements Fitness {
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.type.base.Type#setValue(java.lang.Object)
 	 */
-	@Override
+	
 	public void setValue(Object object) {
 	}
 
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.type.base.Type#setValue(java.lang.String)
 	 */
-	@Override
+	
 	public void setValue(String object) {
 	}
 
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.type.base.Type#getRepresentation()
 	 */
-	@Override
+	
 	public Object getRepresentation() {
 		return "real";
 	}
@@ -55,7 +55,7 @@ public class FuzzySolutionFitness implements Fitness {
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	@Override
+	
 	public int compareTo(Fitness o) {
 		return this.compareTo(o);
 	}
@@ -63,7 +63,7 @@ public class FuzzySolutionFitness implements Fitness {
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.solution.Fitness#getClone()
 	 */
-	@Override
+	
 	public Fitness getClone() {
 		return new FuzzySolutionFitness(this.value);
 	}
@@ -71,7 +71,7 @@ public class FuzzySolutionFitness implements Fitness {
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.solution.Fitness#getValue()
 	 */
-	@Override
+	
 	public Double getValue() {
 		return this.value;
 	}
@@ -79,9 +79,15 @@ public class FuzzySolutionFitness implements Fitness {
 	/* (non-Javadoc)
 	 * @see com.pedroalmir.athena.core.solution.Fitness#newInstance(java.lang.Double)
 	 */
-	@Override
+	
 	public Fitness newInstance(Double value) {
 		return new FuzzySolutionFitness(this.value);
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

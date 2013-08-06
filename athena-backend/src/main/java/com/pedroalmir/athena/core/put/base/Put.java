@@ -3,8 +3,11 @@
  */
 package com.pedroalmir.athena.core.put.base;
 
+import java.io.Serializable;
 import java.util.List;
 
+import com.pedroalmir.athena.common.model.EntityIdFactory;
+import com.pedroalmir.athena.common.model.GenericEntity;
 import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.validation.Validation;
 
@@ -14,7 +17,11 @@ import com.pedroalmir.athena.core.validation.Validation;
  * @author Pedro Almir
  *
  */
-public abstract class Put {
+public abstract class Put extends GenericEntity implements Cloneable, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8803610574525928897L;
 	/**
 	 * Put name
 	 * This field represents the name to show in view
@@ -62,12 +69,27 @@ public abstract class Put {
 	 */
 	public Put(String name, String identifier, Type type, String representation, boolean multipleValues,
 			List<Validation> validations) {
+		/* TODO: Change to hibernate generate ID */
+		this.id = EntityIdFactory.getNextId();
 		this.name = name;
 		this.identifier = identifier;
 		this.type = type;
 		this.representation = representation;
 		this.multipleValues = multipleValues;
 		this.validations = validations;
+	}
+	
+	/**
+	 * @param copy
+	 */
+	public Put(Put copy) {
+		this.id = copy.getId();
+		this.name = copy.getName();
+		this.identifier = copy.getIdentifier();
+		this.type = copy.getType();
+		this.representation = copy.getRepresentation();
+		this.multipleValues = copy.isMultipleValues();
+		this.validations = copy.getValidations();
 	}
 	/**
 	 * @return the name
@@ -157,12 +179,14 @@ public abstract class Put {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+		result = prime * result
+				+ ((identifier == null) ? 0 : identifier.hashCode());
 		result = prime * result + (multipleValues ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((representation == null) ? 0 : representation.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + ((validations == null) ? 0 : validations.hashCode());
+		result = prime * result
+				+ ((representation == null) ? 0 : representation.hashCode());
+		result = prime * result
+				+ ((validations == null) ? 0 : validations.hashCode());
 		return result;
 	}
 
@@ -194,11 +218,6 @@ public abstract class Put {
 			if (other.representation != null)
 				return false;
 		} else if (!representation.equals(other.representation))
-			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
 			return false;
 		if (validations == null) {
 			if (other.validations != null)

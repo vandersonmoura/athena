@@ -18,7 +18,8 @@ import com.pedroalmir.athena.core.type.base.Type;
  *
  */
 public class StringType implements Type {
-    /**
+    
+	/**
      * String value
      */
     private String string;
@@ -106,29 +107,29 @@ public class StringType implements Type {
         this.string = ois.readUTF();
     }
 
-	@Override
 	public Object getValue() {
 		return this.string;
 	}
-
-	@Override
+	
 	public void setValue(Object object) {
 		this.string = (String) object;
 	}
 
-	@Override
 	public Object getRepresentation() {
 		return this.string;
 	}
 
-	@Override
 	public void setValue(String object) {
 		this.string = object;
 	}
 
-	@Override
 	public Type getClone(String object) {
 		return new StringType(object);
+	}
+
+	@Override
+	public void clear() {
+		this.string = null;
 	}
 
 }

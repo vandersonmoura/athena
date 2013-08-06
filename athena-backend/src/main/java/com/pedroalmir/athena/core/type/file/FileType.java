@@ -69,23 +69,25 @@ public class FileType implements Type {
 		this.reader = null;
 	}
 	
-	@Override
 	public Type getClone() {
 		return new FileType(this.filePath);
 	}
 
-	@Override
 	public Object getValue() {
 		return this.file;
 	}
 
-	@Override
 	public void setValue(Object object) {
-		checkArgument(object instanceof File, "The Argument is not instance of File");
-		this.file = (File) checkNotNull(object);
+		try {
+			checkArgument(object instanceof File, "The Argument is not instance of File");
+			this.file = (File) checkNotNull(object);
+			this.filePath = file.getAbsolutePath();
+			this.reader = new FileReader(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
-	@Override
 	public Object getRepresentation() {
 		return "file";
 	}
@@ -132,19 +134,25 @@ public class FileType implements Type {
 		this.reader = reader;
 	}
 
-	@Override
 	public void setValue(String object) {
 		try {
 			this.file = new File(checkNotNull(object));
+			this.filePath = file.getAbsolutePath();
 			this.reader = new FileReader(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
 	public Type getClone(String object) {
 		return new FileType(checkNotNull(object));
+	}
+
+	@Override
+	public void clear() {
+		this.file = null;
+		this.filePath = null;
+		this.reader = null;
 	}
 
 }

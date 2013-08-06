@@ -3,10 +3,17 @@
  */
 package com.pedroalmir.athena.impl.converter;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import au.com.bytecode.opencsv.CSVWriter;
+
 import com.pedroalmir.athena.core.component.AbstractBundle;
+import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.component.GenericConverter;
 import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
@@ -16,6 +23,7 @@ import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Int;
 import com.pedroalmir.athena.core.type.numeric.Real;
+import com.pedroalmir.athena.core.type.select.SelectType;
 import com.pedroalmir.athena.core.type.string.StringType;
 
 /**
@@ -25,6 +33,11 @@ import com.pedroalmir.athena.core.type.string.StringType;
 public class FinalConverter extends AbstractBundle implements GenericConverter{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3494925689765011306L;
+
+	/**
 	 * This field represents the list of inputs
 	 */
 	private List<Input> inputs;
@@ -32,71 +45,125 @@ public class FinalConverter extends AbstractBundle implements GenericConverter{
 	 * This field represents the list of outputs
 	 */
 	private List<Output> outputs;
-	
+	/**
+	 * This field represents the list of settings
+	 */
+	private List<Setting> settings;
 	/**
 	 * Default constructor
 	 */
 	public FinalConverter() {
+		super();
 		this.inputs = new LinkedList<Input>();
 		this.outputs = new LinkedList<Output>();
+		this.settings = new LinkedList<Setting>();
 	}
 	
-	@Override
+	public List<Output> convert() {
+		String selectedItemIdentifier = ((SelectType) this.getSettingWithIdentifier("formatter").getType()).getSelectedItemIdentifier();
+		if(selectedItemIdentifier.equals("csv_file")){
+			try {
+				/* TODO: Use HttpRequest !!!*/
+				File file = new File("src/test/resources/results/" + this.getSettingWithIdentifier("file_name").getType().getValue() + ".csv");
+				file.createNewFile();
+				CSVWriter csvWriter = new CSVWriter(new FileWriter(file), ';');
+				
+				List<String[]> data = new ArrayList<String[]>();
+				
+				/* Write header */
+				String[] header = new String[this.inputs.size()];
+				int i = 0;
+				for(Input in : this.inputs){
+					header[i++] = in.getName();
+				}
+				
+				data.add(header);
+				
+				for(int j = 0; j < this.inputs.get(0).getValues().size(); j++){
+					
+					String[] body = new String[this.inputs.size()];
+					i = 0;
+					for(Input in : this.inputs){
+						body[i++] = in.getValues().get(j).getValue() + "";
+					}
+					data.add(body);
+				}
+				
+				csvWriter.writeAll(data);
+				csvWriter.close();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else if(selectedItemIdentifier.equals("text_file")){
+			
+		}else if(selectedItemIdentifier.equals("string_report")){
+			
+		}
+		return null;
+	}
+	
+	/**
+	 * @param identifier
+	 * @return
+	 */
+	public Setting getSettingWithIdentifier(String identifier){
+		for(Setting s : this.settings){
+			if(s.getIdentifier().equals(identifier)){
+				return s;
+			}
+		}
+		return null;
+	}
+	
 	public String getName() {
 		return "Final converter";
 	}
-
-	@Override
+	
 	public String getDescription() {
 		return "Convert the final results in an specified format.";
 	}
-
-	@Override
+	
 	public String getImagePath() {
 		return "";
 	}
-
-	@Override
+	
 	public List<Input> getInputs() {
 		return this.inputs;
 	}
-
-	@Override
+	
 	public List<Output> getOutputs() {
 		return this.outputs;
 	}
-
-	@Override
-	public void addSetting(Setting setting) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	
 	public List<Setting> getSettings() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.settings;
 	}
 
-	@Override
 	public Configuration getConfiguration() {
 		return new Configuration() {
 			
-			@Override
 			public boolean hasSettings() {
 				return true;
 			}
 			
-			@Override
 			public List<Setting> getSettings() {
 				List<Setting> settings = new LinkedList<Setting>();
-				Setting formatter = new Setting("Formatador", "formatter", new StringType(""), "select[]", true, null, true);
+				
+				SelectType selectType = new SelectType();
+				selectType.addSelectTypeItemAvailable("csv_file", "CSV File", "CSV File formatter");
+				selectType.addSelectTypeItemAvailable("text_file", "Text File", "Text File formatter");
+				//selectType.addSelectTypeItemAvailable("string_report", "String Report", "String Report formatter");
+				
+				Setting formatter = new Setting("Formatador", "formatter", selectType, (String) selectType.getRepresentation(), false, null, true);
 				settings.add(formatter);
+				
+				Setting fileName = new Setting("File Name", "file_name", new StringType(""), "string", false, null, true);
+				settings.add(fileName);
 				
 				return settings;
 			}
 			
-			@Override
 			public PutConfiguration getOutputConfiguration() {
 				PutConfiguration putConfiguration = new PutConfiguration();
 				
@@ -110,7 +177,6 @@ public class FinalConverter extends AbstractBundle implements GenericConverter{
 				return putConfiguration;
 			}
 			
-			@Override
 			public PutConfiguration getInputConfiguration() {
 				PutConfiguration putConfiguration = new PutConfiguration();
 				
@@ -128,10 +194,54 @@ public class FinalConverter extends AbstractBundle implements GenericConverter{
 		};
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
-	public List<Output> convert() {
-		// TODO Auto-generated method stub
-		return null;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
+		result = prime * result + ((outputs == null) ? 0 : outputs.hashCode());
+		return result;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(AthenaBundle bundle) {
+		if (this == bundle)
+			return true;
+		if (bundle == null)
+			return false;
+		if (getClass() != bundle.getClass())
+			return false;
+		FinalConverter other = (FinalConverter) bundle;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (inputs == null) {
+			if (other.inputs != null)
+				return false;
+		} else if (!inputs.equals(other.inputs))
+			return false;
+		if (outputs == null) {
+			if (other.outputs != null)
+				return false;
+		} else if (!outputs.equals(other.outputs))
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public void setSettings(List<Setting> settings) {
+		this.settings = settings;
 	}
 
 }

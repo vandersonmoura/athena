@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.pedroalmir.athena.core.component.AbstractBundle;
+import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.component.GenericModule;
 import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
@@ -35,8 +36,13 @@ import com.pedroalmir.athena.impl.fuzzy.factory.FuzzyAlgorithmFactory;
  * @author Pedro Almir
  *
  */
-public class FuzzyModule extends AbstractBundle implements GenericModule{
+public class FuzzyModule extends AbstractBundle implements GenericModule {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3575860159082162952L;
+
 	/**
 	 * List of inputs
 	 */
@@ -65,6 +71,7 @@ public class FuzzyModule extends AbstractBundle implements GenericModule{
 	 * Default constructor
 	 */
 	public FuzzyModule() {
+		super();
 		/* puts */
 		this.inputs = new LinkedList<Input>();
 		this.outputs = new LinkedList<Output>();
@@ -76,12 +83,12 @@ public class FuzzyModule extends AbstractBundle implements GenericModule{
 		this.fuzzyFactory = new FuzzyAlgorithmFactory();
 	}
 
-	@Override
+	
 	public String getName() {
 		return "Fuzzy Module";
 	}
 
-	@Override
+	
 	public String getDescription() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("");
@@ -89,48 +96,37 @@ public class FuzzyModule extends AbstractBundle implements GenericModule{
 		return buffer.toString();
 	}
 
-	@Override
+	
 	public String getImagePath() {
 		/* TODO: Choose image path */
 		return null;
 	}
 
-	@Override
+	
 	public FuzzyAlgorithm getAlgorithm() {
 		return this.fuzzyAlgorithm;
 	}
 
-	@Override
+	
 	public List<Input> getInputs() {
 		return this.inputs;
 	}
 
-	@Override
+	
 	public List<Output> getOutputs() {
 		return this.outputs;
 	}
 
-	@Override
+	
 	public List<Setting> getSettings() {
 		return this.settings;
 	}
 	
-	@Override
-	public void addSetting(Setting setting) {
-		for(Setting s: this.settings){
-			if(s.equals(setting)){
-				return;
-			}
-		}
-		this.getSettings().add(setting);
-	}
-
-	@Override
 	public Configuration getConfiguration() {
 		return new FuzzyConfiguration();
 	}
 
-	@Override
+	
 	public void load(List<Input> inputs, List<Output> outputs, List<Setting> settings) {
 		this.inputs =  inputs;
 		this.outputs = outputs;
@@ -141,23 +137,23 @@ public class FuzzyModule extends AbstractBundle implements GenericModule{
 		this.loaded = true;
 	}
 	
-	@Override
+	
 	public void load() {
 		this.fuzzyAlgorithm = this.fuzzyFactory.createAlgorithm(this.inputs, this.outputs, this.settings);
 		this.loaded = true;
 	}
 
-	@Override
+	
 	public boolean isLoaded() {
 		return this.loaded;
 	}
 
-	@Override
+	
 	public boolean isPublic() {
 		return true;
 	}
 
-	@Override
+	
 	public List<Solution> run() {
 		if(this.fuzzyAlgorithm != null){
 			this.fuzzyAlgorithm.run();
@@ -169,9 +165,67 @@ public class FuzzyModule extends AbstractBundle implements GenericModule{
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
+	
 	public String toString() {
 		return "FuzzyModule [inputs=" + inputs + ", outputs=" + outputs + ", settings=" + settings + "]";
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
+		result = prime * result + ((outputs == null) ? 0 : outputs.hashCode());
+		result = prime * result
+				+ ((settings == null) ? 0 : settings.hashCode());
+		return result;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(AthenaBundle bundle) {
+		if (this == bundle)
+			return true;
+		if (bundle == null)
+			return false;
+		if (getClass() != bundle.getClass())
+			return false;
+		FuzzyModule other = (FuzzyModule) bundle;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (inputs == null) {
+			if (other.inputs != null)
+				return false;
+		} else if (!inputs.equals(other.inputs))
+			return false;
+		if (outputs == null) {
+			if (other.outputs != null)
+				return false;
+		} else if (!outputs.equals(other.outputs))
+			return false;
+		if (settings == null) {
+			if (other.settings != null)
+				return false;
+		} else if (!settings.equals(other.settings))
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public void setSettings(List<Setting> settings) {
+		this.settings = settings;
 	}
 
 }

@@ -3,6 +3,7 @@
  */
 package com.pedroalmir.athena.core.type.base;
 
+
 /**
  * This interface was designed to represent all
  * types accepted in this tool.
@@ -10,7 +11,7 @@ package com.pedroalmir.athena.core.type.base;
  * @author Pedro Almir
  *
  */
-public interface Type extends Cloneable {
+public interface Type extends Cloneable{
 	 /**
      * {@inheritDoc}
      */
@@ -19,6 +20,10 @@ public interface Type extends Cloneable {
      * 
      */
     Type getClone(String object);
+    /**
+     * 
+     */
+    void clear();
     /**
      * Compare the specified object with this type for equality. Returns
      * {@code true} if and only if the specified object is also an instance
@@ -29,7 +34,6 @@ public interface Type extends Cloneable {
      */
     @Override
     boolean equals(Object obj);
-
     /**
      * Returns the hash code value for this list.  The hash code of a list
      * is defined to be the result of the following calculation:

@@ -16,6 +16,7 @@ import au.com.bytecode.opencsv.CSVReader;
 
 import com.google.common.base.Preconditions;
 import com.pedroalmir.athena.core.component.AbstractBundle;
+import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.component.GenericConverter;
 import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
@@ -60,7 +61,10 @@ import com.pedroalmir.athena.core.type.string.StringType;
  *
  */
 public class CSVConverter extends AbstractBundle implements GenericConverter{
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4806972317210521788L;
 	/**
 	 * StringBuffer
 	 */
@@ -78,16 +82,15 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 	 * Default constructor
 	 */
 	public CSVConverter() {
+		super();
 		this.inputs = new LinkedList<Input>();
 		this.outputs = new LinkedList<Output>();
 	}
 	
-	@Override
 	public String getName() {
 		return "CSV Converter";
 	}
 
-	@Override
 	public String getDescription() {
 		buffer = new StringBuffer();
 		buffer.append("This class represents a CSV Converter. \n");
@@ -98,17 +101,14 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 		return buffer.toString();
 	}
 
-	@Override
 	public String getImagePath() {
 		/* TODO: Define image path for this converter. */
 		return "";
 	}
 
-	@Override
 	public Configuration getConfiguration() {
 		return new Configuration() {
 			
-			@Override
 			public List<Setting> getSettings() {
 				/*
 				 * This method return null because this converter
@@ -117,7 +117,6 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 				return null;
 			}
 			
-			@Override
 			public PutConfiguration getOutputConfiguration() {
 				PutConfiguration putConfiguration = new PutConfiguration();
 				/* Set the minimum of outputs */
@@ -135,7 +134,6 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 				return putConfiguration;
 			}
 			
-			@Override
 			public PutConfiguration getInputConfiguration() {
 				PutConfiguration putConfiguration = new PutConfiguration();
 				/* Set the minimum of outputs */
@@ -151,7 +149,6 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 				return putConfiguration;
 			}
 
-			@Override
 			public boolean hasSettings() {
 				return false;
 			}
@@ -159,7 +156,6 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 		};
 	}
 
-	@Override
 	public List<Output> convert() {
 		Input input = Preconditions.checkNotNull(inputs).get(0);
 		/* Verify initial conditions */
@@ -222,25 +218,77 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 		return null;
 	}
 
-	@Override
 	public List<Input> getInputs() {
 		return this.inputs;
 	}
 
-	@Override
 	public List<Output> getOutputs() {
 		return this.outputs;
 	}
 
-	@Override
 	public void addSetting(Setting setting) {
 		/**/
 	}
 
-	@Override
 	public List<Setting> getSettings() {
 		/* This method return null because this converter not have settings. */
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CSVConverter [getName()=" + getName() + ", getInputs()="+ getInputs() + ", getOutputs()=" + getOutputs() + "]";
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
+		result = prime * result + ((outputs == null) ? 0 : outputs.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(AthenaBundle bundle) {
+		if (this == bundle)
+			return true;
+		if (bundle == null)
+			return false;
+		if (getClass() != bundle.getClass())
+			return false;
+		CSVConverter other = (CSVConverter) bundle;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (inputs == null) {
+			if (other.inputs != null)
+				return false;
+		} else if (!inputs.equals(other.inputs))
+			return false;
+		if (outputs == null) {
+			if (other.outputs != null)
+				return false;
+		} else if (!outputs.equals(other.outputs))
+			return false;
+		return true;
+	}
+
+	@Override
+	public void setSettings(List<Setting> settings) {
+		
+	}
+
 }

@@ -155,4 +155,12 @@ public class FileType implements Type {
 		this.reader = null;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "FileType [filePath=" + filePath + "]";
+	}
+
 }

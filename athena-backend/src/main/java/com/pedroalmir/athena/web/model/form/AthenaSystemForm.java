@@ -3,13 +3,20 @@
  */
 package com.pedroalmir.athena.web.model.form;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import com.pedroalmir.athena.core.component.AthenaBundle;
+import com.pedroalmir.athena.core.system.AthenaSystem;
+import com.pedroalmir.athena.core.system.link.Link;
+import com.pedroalmir.athena.web.model.form.bundle.AthenaBundleForm;
+import com.pedroalmir.athena.web.model.form.link.LinkForm;
 
 /**
  * @author Pedro Almir
  *
  */
-public class SystemForm {
+public class AthenaSystemForm {
 	/**
 	 * 
 	 */
@@ -34,7 +41,7 @@ public class SystemForm {
 	/**
 	 * Default constructor
 	 */
-	public SystemForm() {
+	public AthenaSystemForm() {
 		
 	}
 	
@@ -45,7 +52,7 @@ public class SystemForm {
 	 * @param bundles
 	 * @param links
 	 */
-	public SystemForm(Long id, String name, String description,
+	public AthenaSystemForm(Long id, String name, String description,
 			List<AthenaBundleForm> bundles, List<LinkForm> links) {
 		this.id = id;
 		this.name = name;
@@ -53,6 +60,35 @@ public class SystemForm {
 		this.bundles = bundles;
 		this.links = links;
 	}
+	
+	/**
+	 * @param id
+	 * @param name
+	 * @param description
+	 * @param bundles
+	 * @param links
+	 */
+	public AthenaSystemForm(AthenaSystem athenaSystem) {
+		this.id = athenaSystem.getId();
+		this.name = athenaSystem.getName();
+		this.description = athenaSystem.getDescription();
+		
+		AthenaBundleForm athenaBundleForm = null;
+		this.bundles = new LinkedList<AthenaBundleForm>();
+		
+		for(AthenaBundle bundle: athenaSystem.getBundles()){
+			athenaBundleForm = new AthenaBundleForm(bundle);
+			this.bundles.add(athenaBundleForm);
+		}
+		
+		LinkForm linkForm = null;
+		this.links = new LinkedList<LinkForm>();
+		for(Link l : athenaSystem.getLinks()){
+			linkForm = new LinkForm(l);
+			this.links.add(linkForm);
+		}
+	}
+	
 	/**
 	 * @return the id
 	 */
@@ -112,5 +148,13 @@ public class SystemForm {
 	 */
 	public void setLinks(List<LinkForm> links) {
 		this.links = links;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AthenaSystemForm [id=" + id + ", name=" + name + ", description=" + description + ", bundles=" + bundles + ", links=" + links + "]";
 	}
 }

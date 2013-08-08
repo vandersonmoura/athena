@@ -17,15 +17,15 @@ import com.pedroalmir.athena.core.type.base.Type;
  */
 public class PutConfiguration {
 	/**
-	 * 
+	 * Minimum number of input/output
 	 */
 	private int minimum;
 	/**
-	 * 
+	 * Maximum number of input/output
 	 */
 	private int maximum;
 	/**
-	 * 
+	 * List of available types
 	 */
 	private List<Type> availableTypes;
 	

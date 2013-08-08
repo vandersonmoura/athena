@@ -1,4 +1,4 @@
-package com.pedroalmir.athena.common.controller;
+package com.pedroalmir.athena.common.controller.base;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,11 +32,11 @@ public class ControllerBase<E extends GenericDAO> implements MainDAOInterface<E>
 	 */
 	protected UserSession userSession;
 	/**
-	 * Representa o objeto da requisição
+	 * Representa o objeto da requisiÃ§Ã£o
 	 */
 	protected HttpServletRequest request;
 	/**
-	 * Usada para pegar mensagens do arquivo de configuração
+	 * Usada para pegar mensagens do arquivo de configuraÃ§Ã£o
 	 */
 	protected Localization localization;
 	/**

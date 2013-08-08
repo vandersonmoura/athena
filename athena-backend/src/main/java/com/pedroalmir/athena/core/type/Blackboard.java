@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 /**
  * Simple {@code Blackboard} implementation.
@@ -118,7 +119,7 @@ public final class Blackboard<K, V extends Type> implements Type {
 	}
 
 	public Object getValue() {
-		return this.getValue();
+		return this.board;
 	}
 
 	public void setValue(Object object) {
@@ -133,6 +134,13 @@ public final class Blackboard<K, V extends Type> implements Type {
 
 	@Override
 	public void clear() {
-		
+		for(K key : this.board.keySet()){
+			this.board.remove(key);
+		}
+	}
+	
+	@Override
+	public TypeVO getTypeVO() {
+		return new TypeVO(this.getValue(), (String) this.getRepresentation());
 	}
 }

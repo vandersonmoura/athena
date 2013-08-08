@@ -5,6 +5,7 @@ package com.pedroalmir.athena.impl.fuzzy.fitness;
 
 import com.pedroalmir.athena.core.solution.fitness.Fitness;
 import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 /**
  * @author Pedro Almir
@@ -88,6 +89,12 @@ public class FuzzySolutionFitness implements Fitness {
 	public void clear() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public TypeVO getTypeVO() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

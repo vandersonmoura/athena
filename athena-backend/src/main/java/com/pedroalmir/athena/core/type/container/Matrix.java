@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.numeric.base.Numeric;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 import fj.P1;
 
@@ -627,32 +628,36 @@ public final class Matrix implements Type {
     }
 
 	public Type getClone(String object) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Matrix(getRows(), getColumns());
 	}
 
 	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.contents;
 	}
 
 	public void setValue(Object object) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void setValue(String object) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public Object getRepresentation() {
-		// TODO Auto-generated method stub
-		return null;
+		return "matrix[double][double]";
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getColumns(); j++) {
+                this.contents[i][j] = 0.0;
+            }
+        }
+	}
+
+	@Override
+	public TypeVO getTypeVO() {
+		return new TypeVO(this.contents, (String) this.getRepresentation());
 	}
 }

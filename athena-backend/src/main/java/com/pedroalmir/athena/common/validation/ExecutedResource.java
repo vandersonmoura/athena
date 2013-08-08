@@ -1,6 +1,6 @@
 package com.pedroalmir.athena.common.validation;
 
-import com.pedroalmir.athena.common.controller.ControllerBase;
+import com.pedroalmir.athena.common.controller.base.ControllerBase;
 
 /**
  * Maintains information of the method of the controller that is running

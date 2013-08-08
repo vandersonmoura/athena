@@ -35,7 +35,7 @@ public class TestJackson {
 	
 	@Test
 	public void testJacksonWithAthenaSystemForm(){
-		AthenaSystemForm athenaSystemForm = AthenaSystemFactory.createDefaultAthenaSystemForm();
+		//AthenaSystemForm athenaSystemForm = AthenaSystemFactory.createDefaultAthenaSystemForm();
 		//System.out.println(JacksonUtil.serialize(athenaSystemForm));
 		//System.out.println(new Gson().toJson(athenaSystemForm));
 		

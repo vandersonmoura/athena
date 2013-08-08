@@ -15,7 +15,7 @@ import com.pedroalmir.athena.core.type.base.Type;
  * @author Pedro Almir
  *
  */
-public abstract class AbstractBundle extends GenericEntity implements AthenaBundle{
+public abstract class AbstractBundle extends GenericEntity implements AthenaBundle {
 	
 	public AbstractBundle() {
 		/* TODO: Change to hibernate generate ID */

@@ -1,11 +1,13 @@
 package com.pedroalmir.athena.core.type.string;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 /**
  * A general for string that may be returned from {@code measurement} instances.
@@ -116,7 +118,7 @@ public class StringType implements Type {
 	}
 
 	public Object getRepresentation() {
-		return this.string;
+		return "string";
 	}
 
 	public void setValue(String object) {
@@ -130,6 +132,11 @@ public class StringType implements Type {
 	@Override
 	public void clear() {
 		this.string = null;
+	}
+	
+	@Override
+	public TypeVO getTypeVO() {
+		return new TypeVO(this.getValue(), (String) this.getRepresentation());
 	}
 
 }

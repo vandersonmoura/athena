@@ -13,9 +13,9 @@ import br.com.caelum.vraptor.ioc.Container;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 
 import com.pedroalmir.athena.common.annotation.NoJson;
-import com.pedroalmir.athena.common.controller.ControllerBase;
+import com.pedroalmir.athena.common.controller.base.ControllerBase;
 import com.pedroalmir.athena.common.session.UserSession;
-import com.pedroalmir.athena.common.util.ContainerUtil;
+import com.pedroalmir.athena.common.util.vraptor.ContainerUtil;
 import com.pedroalmir.athena.common.validation.DefaultValidation;
 import com.pedroalmir.athena.common.validation.ExecutedResource;
 import com.pedroalmir.athena.common.validation.MessageResult;

@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 /**
  * This class represents a file type in Athena Service.
@@ -161,6 +162,12 @@ public class FileType implements Type {
 	@Override
 	public String toString() {
 		return "FileType [filePath=" + filePath + "]";
+	}
+
+	@Override
+	public TypeVO getTypeVO() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

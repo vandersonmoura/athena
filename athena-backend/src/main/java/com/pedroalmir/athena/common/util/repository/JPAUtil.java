@@ -1,4 +1,4 @@
-package com.pedroalmir.athena.common.util;
+package com.pedroalmir.athena.common.util.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

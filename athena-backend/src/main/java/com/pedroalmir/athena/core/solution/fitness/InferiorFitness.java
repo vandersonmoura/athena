@@ -1,6 +1,7 @@
 package com.pedroalmir.athena.core.solution.fitness;
 
 import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 /**
  * This class is used to represent a fitness value that is always inferior.
@@ -109,6 +110,12 @@ public final class InferiorFitness implements Fitness {
 	public void clear() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public TypeVO getTypeVO() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -3,11 +3,15 @@ package com.pedroalmir.athena.core.type.container;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+
+import org.codehaus.plexus.util.StringUtils;
 
 import com.pedroalmir.athena.core.pattern.Visitor;
 import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.numeric.base.Numeric;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 /**
  * General list container for all {@code Type} instances.
@@ -275,6 +279,30 @@ public class TypeList extends AbstractList<Type> {
 	}
 
 	public Object getRepresentation() {
-		return "typeList";
+		List<String> list = new LinkedList<String>();
+		String actual = "";
+		int count = 0;
+		for(Type t : this.components){
+			String previous = actual;
+			actual = (String) t.getRepresentation();
+			list.add(actual);
+			if(previous.equals(actual)){
+				count++;
+			}
+		}
+		
+		if(list.size() == count){
+			return "List[" + actual + "]";
+		}else{
+			return "List[" + StringUtils.join(list.iterator(), "," ) + "]";
+		}
+		
+	}
+
+
+	@Override
+	public TypeVO getTypeVO() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

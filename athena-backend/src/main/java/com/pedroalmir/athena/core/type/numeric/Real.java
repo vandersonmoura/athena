@@ -7,6 +7,7 @@ import java.util.Random;
 import com.pedroalmir.athena.core.type.base.Bounds;
 import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.numeric.base.Numeric;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 public class Real implements Numeric {
 
@@ -151,7 +152,7 @@ public class Real implements Numeric {
      */
     
     public String getRepresentation() {
-        return "R" + this.bounds.toString();
+        return "double";
     }
 
     
@@ -177,7 +178,11 @@ public class Real implements Numeric {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		this.value = 0.0;
+	}
+
+	@Override
+	public TypeVO getTypeVO() {
+		return new TypeVO(this.getValue(), this.getRepresentation());
 	}
 }

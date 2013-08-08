@@ -9,7 +9,7 @@
 	<!-- Basic Informations -->
 	<name>athena-backend</name>
 	<description>Ferramenta para apoio a utilização de técnicas de inteligência computacional em problemas de Engenharia de Software.</description>
-	<url>http://pedroalmir.com/athena</url>
+	<url>http://pedroalmir.com/athena-backend</url>
 	<packaging>war</packaging>
 
 	<!-- Properties -->
@@ -50,6 +50,39 @@
 			</roles>
 		</developer>
 	</developers>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<url>http://pedroalmir.com/manager/html</url>
+					<server>deploymentServer</server>
+					<username>admin</username>
+					<password>tomcat_pedroalmir</password>
+					<path>/athena-backend</path>
+				</configuration>
+			</plugin>
+			<!-- Maven compiler plugin -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 		<dependency>

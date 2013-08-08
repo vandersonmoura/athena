@@ -7,6 +7,7 @@ import java.util.Random;
 import com.pedroalmir.athena.core.type.base.Bounds;
 import com.pedroalmir.athena.core.type.base.Type;
 import com.pedroalmir.athena.core.type.numeric.base.Numeric;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 public class Int implements Numeric {
 
@@ -167,9 +168,8 @@ public class Int implements Numeric {
 	 * 
 	 * @return The String representation of this <tt>Type</tt> object.
 	 */
-
 	public String getRepresentation() {
-		return "Z" + this.bounds.toString();
+		return "int";
 	}
 
 	public Bounds getBounds() {
@@ -194,7 +194,11 @@ public class Int implements Numeric {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		this.value = 0;
+	}
+
+	@Override
+	public TypeVO getTypeVO() {
+		return new TypeVO(this.getValue(), this.getRepresentation());
 	}
 }

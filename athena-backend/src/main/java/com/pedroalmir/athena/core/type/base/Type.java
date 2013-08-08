@@ -3,6 +3,8 @@
  */
 package com.pedroalmir.athena.core.type.base;
 
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
+
 
 /**
  * This interface was designed to represent all
@@ -72,5 +74,9 @@ public interface Type extends Cloneable{
      * @return object representation for this type
      */
     Object getRepresentation();
-    
+    /**
+     * @return return the type visual object representation
+     * for this object.
+     */
+    TypeVO getTypeVO();
 }

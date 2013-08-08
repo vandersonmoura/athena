@@ -10,6 +10,7 @@ import org.codehaus.plexus.util.StringUtils;
 
 import com.google.common.base.Preconditions;
 import com.pedroalmir.athena.core.type.base.Type;
+import com.pedroalmir.athena.web.model.vo.type.TypeVO;
 
 /**
  * @author Pedro Almir
@@ -210,5 +211,10 @@ public class SelectType implements Type{
 	 */
 	public void setSelectedItem(SelectTypeItem selectedItem) {
 		this.selectedItem = selectedItem;
+	}
+
+	@Override
+	public TypeVO getTypeVO() {
+		return new TypeVO(this.getValue(), (String) this.getRepresentation());
 	}
 }

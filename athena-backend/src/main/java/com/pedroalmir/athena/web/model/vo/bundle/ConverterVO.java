@@ -5,6 +5,8 @@ package com.pedroalmir.athena.web.model.vo.bundle;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.component.GenericConverter;
 import com.pedroalmir.athena.web.model.vo.bundle.base.AthenaBundleVO;
@@ -39,15 +41,15 @@ public class ConverterVO extends AthenaBundleVO {
 	/**
 	 * @param converter
 	 */
-	public ConverterVO(GenericConverter converter){
-		super(converter);
+	public ConverterVO(GenericConverter converter, HttpServletRequest request){
+		super(converter, request);
 	}
 	
 	/**
 	 * @param bundle
 	 */
-	public ConverterVO(AthenaBundle bundle){
-		super(bundle);
+	public ConverterVO(AthenaBundle bundle, HttpServletRequest request){
+		super(bundle, request);
 	}
 
 }

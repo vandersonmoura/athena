@@ -6,6 +6,8 @@ package com.pedroalmir.athena.web.model.vo.bundle.base;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.pedroalmir.athena.AthenaEnvironment;
 import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.put.Input;
@@ -57,8 +59,8 @@ public class AthenaBundleVO {
 	/**
 	 * 
 	 */
-	public <T extends AthenaBundle> AthenaBundleVO(T module){
-		this.uniqueKey = AthenaEnvironment.findBundleUniqueKey(module.getClass());
+	public <T extends AthenaBundle> AthenaBundleVO(T module, HttpServletRequest request){
+		this.uniqueKey = AthenaEnvironment.findBundleUniqueKey(module.getClass(), request);
 		this.name = module.getName();
 		this.description = module.getDescription();
 		this.imagePath = module.getImagePath();

@@ -3,12 +3,8 @@
  */
 package com.pedroalmir.athena.impl.fuzzy.configuration;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
 import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.PutConfiguration;
@@ -24,6 +20,7 @@ import com.pedroalmir.athena.core.type.string.StringType;
  */
 public class FuzzyConfiguration implements Configuration {
 	
+	@SuppressWarnings("unused")
 	private final String FUZZY_PROPERTIES_PATH = "src/main/resources/algorithms/fuzzy.properties";
 
 	/* (non-Javadoc)
@@ -68,16 +65,16 @@ public class FuzzyConfiguration implements Configuration {
 		List<Setting> settings = new LinkedList<Setting>();
 		
         try {
-        	InputStream inputStream = new FileInputStream(this.FUZZY_PROPERTIES_PATH);
-        	Properties fuzzyProperties = new Properties();
+        	/* TODO: Problem with file location */
+        	//InputStream inputStream = new FileInputStream(this.FUZZY_PROPERTIES_PATH);
+        	//Properties fuzzyProperties = new Properties();
         	/* load properties */
-        	fuzzyProperties.load(inputStream);
+        	//fuzzyProperties.load(inputStream);
         	
-        	Setting fclFile = new Setting("Arquivo de Configuração FCL", fuzzyProperties.getProperty("fuzzy.setting.fcl"), 
-        			new FileType(), "file", false, null, true);
+        	Setting fclFile = new Setting("Arquivo de Configuração FCL", "fcl_file", new FileType(), "file", false, null, true);
         	
         	settings.add(fclFile);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 		return settings;

@@ -19,6 +19,18 @@ import com.pedroalmir.athena.web.model.form.type.TypeForm;
 public class InputForm extends PutForm{
 	
 	/**
+	 * Name in lower case
+	 */
+	private String frontIdentifier;
+	/**
+	 * Front name
+	 */
+	private String frontName;
+	/**
+	 * Selected type
+	 */
+	private String frontType;
+	/**
 	 * 
 	 */
 	private List<TypeForm> components;
@@ -94,6 +106,48 @@ public class InputForm extends PutForm{
 	@Override
 	public String toString() {
 		return "InputForm [components=" + components + ", linked=" + linked + "]";
+	}
+
+	/**
+	 * @return the frontIdentifier
+	 */
+	public String getFrontIdentifier() {
+		return frontIdentifier;
+	}
+
+	/**
+	 * @param frontIdentifier the frontIdentifier to set
+	 */
+	public void setFrontIdentifier(String frontIdentifier) {
+		this.frontIdentifier = frontIdentifier;
+	}
+
+	/**
+	 * @return the frontName
+	 */
+	public String getFrontName() {
+		return frontName;
+	}
+
+	/**
+	 * @param frontName the frontName to set
+	 */
+	public void setFrontName(String frontName) {
+		this.frontName = frontName;
+	}
+
+	/**
+	 * @return the frontType
+	 */
+	public String getFrontType() {
+		return frontType;
+	}
+
+	/**
+	 * @param frontType the frontType to set
+	 */
+	public void setFrontType(String frontType) {
+		this.frontType = frontType;
 	}
 	
 	

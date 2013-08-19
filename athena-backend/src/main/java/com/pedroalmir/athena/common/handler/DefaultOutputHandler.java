@@ -26,5 +26,8 @@ public interface DefaultOutputHandler {
 	 * Response error
 	 */
 	void responseError();
-
+	/**
+	 * 
+	 */
+	void responsePermissionDenied();
 }

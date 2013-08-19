@@ -55,4 +55,13 @@ public class OutputHandler implements DefaultOutputHandler {
 
 		result.use(getOutputType()).from(resultEntity);
 	}
+
+	public void responsePermissionDenied() {
+		ResultEntity resultEntity = new ResultEntity();
+		messageResult.add("permission", "permission.denied");
+		resultEntity.setErrors(messageResult.getMessages());
+		resultEntity.returnPermissionDenied();
+
+		result.use(getOutputType()).from(resultEntity);
+	}
 }

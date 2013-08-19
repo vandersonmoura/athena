@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.google.gson.Gson;
 import com.pedroalmir.athena.AthenaEnvironment;
 import com.pedroalmir.athena.core.component.AthenaBundle;
@@ -36,8 +38,8 @@ public class SystemEditorVO {
 	/**
 	 * Default constructor
 	 */
-	public SystemEditorVO() {
-		Map<String, Class<AthenaBundle>> availableBundles = AthenaEnvironment.getAvailableBundles();
+	public SystemEditorVO(HttpServletRequest request) {
+		Map<String, Class<AthenaBundle>> availableBundles = AthenaEnvironment.getAvailableBundles(request);
 		this.availableModules = new LinkedList<ModuleVO>();
 		this.availableConverters = new LinkedList<ConverterVO>();
 		
@@ -47,9 +49,9 @@ public class SystemEditorVO {
 				AthenaBundle bundle = bundleKlass.newInstance();
 				
 				if(GenericModule.class.isAssignableFrom(bundle.getClass())){
-					this.availableModules.add(new ModuleVO(bundle));
+					this.availableModules.add(new ModuleVO(bundle, request));
 				}else if(GenericConverter.class.isAssignableFrom(bundle.getClass())){
-					this.availableConverters.add(new ConverterVO(bundle));
+					this.availableConverters.add(new ConverterVO(bundle, request));
 				}
 			} catch (InstantiationException e) {
 				e.printStackTrace();
@@ -74,7 +76,7 @@ public class SystemEditorVO {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(new Gson().toJson(new SystemEditorVO()));
+		System.out.println(new Gson().toJson(new SystemEditorVO(null)));
 	}
 	
 }

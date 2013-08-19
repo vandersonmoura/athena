@@ -41,6 +41,10 @@ public class ResultEntity {
 	public void returnError() {
 		this.code = ResultType.ERROR.getCode();
 	}
+	
+	public void returnPermissionDenied() {
+		this.code = ResultType.PERMISSION_DENIED.getCode();
+	}
 
 	/**
 	 * @return code

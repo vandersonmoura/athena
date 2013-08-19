@@ -38,9 +38,17 @@ public class User implements PersistentEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	/**
+	 * 
+	 */
+	private String name;
+	/**
 	 * email
 	 */
 	private String email;
+	/**
+	 * profileImage
+	 */
+	private String profileImage;
 	/**
 	 * password
 	 * Used to access the system
@@ -53,7 +61,10 @@ public class User implements PersistentEntity{
 	 */
 	@Enumerated(EnumType.STRING)
 	private EnumProfile profile;
-	
+	/**
+	 * 
+	 */
+	private boolean facebookUser;
 	/**
 	 * Default constructor
 	 */
@@ -176,6 +187,48 @@ public class User implements PersistentEntity{
 		if (profile != other.profile)
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the profileImage
+	 */
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	/**
+	 * @param profileImage the profileImage to set
+	 */
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	/**
+	 * @return the facebookUser
+	 */
+	public boolean isFacebookUser() {
+		return facebookUser;
+	}
+
+	/**
+	 * @param facebookUser the facebookUser to set
+	 */
+	public void setFacebookUser(boolean facebookUser) {
+		this.facebookUser = facebookUser;
 	}
 
 }

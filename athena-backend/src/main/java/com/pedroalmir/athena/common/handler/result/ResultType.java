@@ -15,7 +15,11 @@ public enum ResultType {
 	/**
 	 * Request with an error
 	 */
-	ERROR(500);
+	ERROR(500),
+	/**
+	 * Request with PERMISSION_DENIED
+	 */
+	PERMISSION_DENIED(403);
 
 	/**
 	 * code

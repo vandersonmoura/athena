@@ -6,6 +6,11 @@ package com.pedroalmir.athena.core.system;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
 import com.pedroalmir.athena.common.model.EntityIdFactory;
 import com.pedroalmir.athena.common.model.GenericEntity;
 import com.pedroalmir.athena.common.util.copy.DeepCopy;
@@ -25,6 +30,7 @@ import com.pedroalmir.athena.core.system.simulation.SimulationData;
  * @author Pedro Almir
  *
  */
+@Entity
 public class AthenaSystem extends GenericEntity {
 	/**
 	 * 
@@ -37,18 +43,22 @@ public class AthenaSystem extends GenericEntity {
 	/**
 	 * System description
 	 */
+	@Column(columnDefinition="LONGTEXT")
 	private String description;
 	/**
 	 * List of bundles
 	 */
+	@Transient
 	private List<AthenaBundle> bundles;
 	/**
 	 * List of links
 	 */
+	@Transient
 	private List<Link> links;
 	/**
 	 * List of simulations
 	 */
+	@OneToMany(mappedBy = "system", targetEntity = Simulation.class)
 	private List<Simulation> simulation;
 	
 	/**

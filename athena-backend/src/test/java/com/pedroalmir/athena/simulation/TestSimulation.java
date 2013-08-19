@@ -20,7 +20,7 @@ import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
  *
  */
 public class TestSimulation {
-	//@Test
+	@Test
 	public void simutationTest(){
 		/* Step One: Create system */
 		AthenaSystem system = new AthenaSystem("Fuzzy System", "First system by Athena Services");

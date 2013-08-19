@@ -9,14 +9,14 @@ import com.pedroalmir.athena.common.repository.MyJPACustomProvider;
 
 /**
  * 
- * Os mÈtodos dos controllers que estiverem anotados com essa anotaÁ„o ser„o executados
- * dentro de uma transaÁ„o JPA com commit ao final. <br/>
+ * Os m√©todos dos controllers que estiverem anotados com essa anota√ß√£o ser√£o executados
+ * dentro de uma transa√ß√£o JPA com commit ao final. <br/>
  * 
  * A qualquer momento podemos desativar isso e voltar a usar JPACustomProvider ao inves da {@link MyJPACustomProvider}. <br/>
- * Isso porque este modo exige que sempre lembremos de adicionar arroba transactional nos mÈtodos persistentes. <br/>
+ * Isso porque este modo exige que sempre lembremos de adicionar arroba transactional nos m√©todos persistentes. <br/>
  * 
- * N„o sei ao certo os ganhos de usar isso em termos de performance, ent„o talvez seja melhor n„o utilizar e n„o correr o risco de
- * adicionar erro por esquecimento de adicionar essa anotaÁ„o.
+ * N√£o sei ao certo os ganhos de usar isso em termos de performance, ent√£o talvez seja melhor n√£o utilizar e n√£o correr o risco de
+ * adicionar erro por esquecimento de adicionar essa anota√ß√£o.
  * 
  * @author Willame
  */

@@ -7,6 +7,15 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 import com.google.common.base.Preconditions;
 import com.pedroalmir.athena.common.model.GenericEntity;
 import com.pedroalmir.athena.core.component.AthenaBundle;
@@ -33,6 +42,7 @@ import com.pedroalmir.athena.core.type.base.Type;
  * @author Pedro Almir
  *
  */
+@Entity
 public class Simulation extends GenericEntity implements Runnable {
 	/**
 	 * 
@@ -45,22 +55,32 @@ public class Simulation extends GenericEntity implements Runnable {
 	/**
 	 * AthenaSystem without simulation data
 	 */
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, targetEntity = AthenaSystem.class)
+	@JoinTable(name="simulation_system",
+    	joinColumns = @JoinColumn(name="simulation_id"),
+    	inverseJoinColumns = @JoinColumn(name="system_id"))
 	private AthenaSystem system;
 	/**
 	 * List of simulation data to execute this simulation
 	 */
+	@Transient
 	private List<SimulationData> info;
 	/**
 	 * Execution date
 	 */
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date executionDate;
 	/**
 	 * List of results
+	 * TODO
 	 */
+	@Transient
 	private List<Type> results;
 	/**
 	 * List of solutions
+	 * TODO
 	 */
+	@Transient
 	private List<Solution> solutions;
 	
 	/**

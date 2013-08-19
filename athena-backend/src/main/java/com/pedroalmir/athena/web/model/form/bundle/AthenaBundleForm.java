@@ -20,6 +20,18 @@ import com.pedroalmir.athena.web.model.form.put.SettingForm;
  */
 public class AthenaBundleForm {
 	/**
+	 * Ex.: fuzzyModule_1
+	 */
+	private String frontIdentifier;
+	/**
+	 * Started with 1.
+	 */
+	private int frontOrder;
+	/**
+	 * Unique Key that represent this module
+	 */
+	private String uniqueKey;
+	/**
 	 * This field represents the list of inputs
 	 */
 	private List<InputForm> inputs;
@@ -141,5 +153,47 @@ public class AthenaBundleForm {
 	public String toString() {
 		return "AthenaBundleForm [inputs=" + inputs + ", outputs=" + outputs
 				+ ", settings=" + settings + "]";
+	}
+
+	/**
+	 * @return the frontIdentifier
+	 */
+	public String getFrontIdentifier() {
+		return frontIdentifier;
+	}
+
+	/**
+	 * @param frontIdentifier the frontIdentifier to set
+	 */
+	public void setFrontIdentifier(String frontIdentifier) {
+		this.frontIdentifier = frontIdentifier;
+	}
+
+	/**
+	 * @return the frontOrder
+	 */
+	public int getFrontOrder() {
+		return frontOrder;
+	}
+
+	/**
+	 * @param frontOrder the frontOrder to set
+	 */
+	public void setFrontOrder(int frontOrder) {
+		this.frontOrder = frontOrder;
+	}
+
+	/**
+	 * @return the uniqueKey
+	 */
+	public String getUniqueKey() {
+		return uniqueKey;
+	}
+
+	/**
+	 * @param uniqueKey the uniqueKey to set
+	 */
+	public void setUniqueKey(String uniqueKey) {
+		this.uniqueKey = uniqueKey;
 	}
 }

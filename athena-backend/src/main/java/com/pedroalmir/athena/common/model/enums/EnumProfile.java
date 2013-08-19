@@ -11,7 +11,7 @@ package com.pedroalmir.athena.common.model.enums;
  */
 public enum EnumProfile {
 
-	USER("Usu·rio"), ADMIN("Administrador");
+	USER("Usu√°rio"), ADMIN("Administrador");
 	
 	/**
 	 * description

@@ -7,11 +7,11 @@ import br.com.caelum.vraptor.util.jpa.EntityManagerFactoryCreator;
 
 
 /**
- * De forma similar a classe {JPACustomProvider}, registro as entidades que se encarregar„o de me fornecer o entityManagerFactory e entityManager. <br/>
- * AlÈm disso, adiciono o nosso prÛprio transaction interceptor, que sÛ ir· interceptar mÈtodos anotados com arroba Transactional.<br/>
- * Para que ela seja utilizada pelo vraptor, adicionei uma configuraÁ„o no web.xml que aponta para essa classe.
+ * De forma similar a classe {JPACustomProvider}, registro as entidades que se encarregar√£o de me fornecer o entityManagerFactory e entityManager. <br/>
+ * Al√©m disso, adiciono o nosso pr√≥prio transaction interceptor, que s√≥ ir√° interceptar m√©todos anotados com arroba Transactional.<br/>
+ * Para que ela seja utilizada pelo vraptor, adicionei uma configura√ß√£o no web.xml que aponta para essa classe.
  * 
- * Ver coment·rios na classe {Transactional}
+ * Ver coment√°rios na classe {Transactional}
  * 
  * @author Willame
  *

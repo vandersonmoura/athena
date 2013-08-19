@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.interceptor.ParametersInstantiatorInterceptor;
@@ -29,17 +28,17 @@ public class PermissionInterceptor implements Interceptor {
 	/**
 	 * PERMISSION_DENIED_FILE
 	 */
+	@SuppressWarnings("unused")
 	private static final String PERMISSION_DENIED_FILE = "/permission-denied.jsp";
 
 	/**
 	 * userSession
 	 */
 	private UserSession userSession;
-
 	/**
-	 * result
+	 * outputHandler
 	 */
-	private Result result;
+	private OutputHandler outputHandler;
 
 	/**
 	 * Default constructor
@@ -47,30 +46,30 @@ public class PermissionInterceptor implements Interceptor {
 	 * @param userSession
 	 * @param result
 	 */
-	public PermissionInterceptor(UserSession userSession, Result result) {
+	public PermissionInterceptor(UserSession userSession, OutputHandler outputHandler) {
 		this.userSession = userSession;
-		this.result = result;
+		this.outputHandler = outputHandler;
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
 		/*
-		 * Verifica se o usu·rio est· logado
+		 * Verifica se o usu√∫rio est√° logado
 		 * */
 		if(userSession.isLogged()){
-			/* Recolhe as informaÁıes da anotaÁ„o Permission presente no mÈtodo. */
+			/* Recolhe as informa√ß√µes da anota√ß√£o Permission presente no m√©todo. */
 			Permission methodPermission = method.getMethod().getAnnotation(Permission.class);
-			/* Recolhe as informaÁıes da anotaÁ„o Permission presente no controller. */
+			/* Recolhe as informa√ß√µes da anota√ß√£o Permission presente no controller. */
 			Permission controllerPermission = method.getResource().getType().getAnnotation(Permission.class);
-			/* Verifica se realmente o usu·rio tem essa permiss„o. */
+			/* Verifica se realmente o usu√°rio tem essa permiss√£o. */
 			if (!this.hasAccess(methodPermission) && !this.hasAccess(controllerPermission)) {
-				/* Redireciona o usu·rio para a p·gina de permiss„o negada. */
-				result.redirectTo(PERMISSION_DENIED_FILE);
+				/* Redireciona o usu√°rio para a p√°gina de permiss√£o negada. */
+				outputHandler.responsePermissionDenied();
 			}else{
 				stack.next(method, resourceInstance);
 			}
 		}else{
-			/* Redireciona o usu·rio para a p·gina de permiss„o negada. */
-			result.redirectTo(PERMISSION_DENIED_FILE);
+			/* Redireciona o usu√°rio para a p√°gina de permiss√£o negada. */
+			outputHandler.responsePermissionDenied();
 		}
 		
 	}
@@ -94,7 +93,7 @@ public class PermissionInterceptor implements Interceptor {
 	 */
 	private boolean hasAccess(Permission permission) {
 	    if (permission == null) {
-	        return true;
+	        return false;
 	    }
 
 	    Collection<EnumProfile> profileList = Arrays.asList(permission.value());

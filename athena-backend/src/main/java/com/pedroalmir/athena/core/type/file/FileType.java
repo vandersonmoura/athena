@@ -166,8 +166,7 @@ public class FileType implements Type {
 
 	@Override
 	public TypeVO getTypeVO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TypeVO(this.filePath, (String) this.getRepresentation());
 	}
 
 }

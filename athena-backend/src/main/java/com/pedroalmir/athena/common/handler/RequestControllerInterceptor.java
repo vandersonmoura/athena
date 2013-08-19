@@ -1,6 +1,7 @@
 package com.pedroalmir.athena.common.handler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
@@ -64,6 +65,10 @@ public class RequestControllerInterceptor implements Interceptor {
 	 * request
 	 */
 	private HttpServletRequest request;
+	/**
+	 * 
+	 */
+	private HttpServletResponse response;
 
 	/**
 	 * Default constructor
@@ -79,7 +84,7 @@ public class RequestControllerInterceptor implements Interceptor {
 	public RequestControllerInterceptor(MethodInfo info,
 			OutputHandler outputHandler, MessageResult messageResult,
 			Container container, UserSession userSession,
-			Localization localization, HttpServletRequest request) {
+			Localization localization, HttpServletRequest request, HttpServletResponse response) {
 		this.info = info;
 		this.outputHandler = outputHandler;
 		this.messageResult = messageResult;
@@ -87,13 +92,14 @@ public class RequestControllerInterceptor implements Interceptor {
 		this.userSession = userSession;
 		this.localization = localization;
 		this.request = request;
+		this.response = response;
 		this.executedResource = ExecutedResource.getInstance(info
 				.getResourceMethod().getResource().getType(), info
 				.getResourceMethod().getMethod().getName());
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object resourceInstance) throws InterceptionException {
-
+		
 		try {
 			/* Fill controller */
 			fillController(resourceInstance);
@@ -117,7 +123,9 @@ public class RequestControllerInterceptor implements Interceptor {
 				if (method.getMethod().isAnnotationPresent(NoJson.class)) {
 					stack.next(method, resourceInstance);
 				} else {
-					// else, serialize
+					/* To allow access from all domains, a server can send the following response header */
+					response.addHeader("Access-Control-Allow-Origin", "*");
+					/* else, serialize */
 					outputHandler.response(result);
 				}
 			}

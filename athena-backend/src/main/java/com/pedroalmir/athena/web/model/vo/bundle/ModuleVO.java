@@ -5,6 +5,8 @@ package com.pedroalmir.athena.web.model.vo.bundle;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.component.GenericModule;
 import com.pedroalmir.athena.web.model.vo.bundle.base.AthenaBundleVO;
@@ -42,15 +44,15 @@ public class ModuleVO extends AthenaBundleVO {
 	/**
 	 * @param module
 	 */
-	public ModuleVO(GenericModule module) {
-		super(module);
+	public ModuleVO(GenericModule module, HttpServletRequest request) {
+		super(module, request);
 	}
 	
 	/**
 	 * @param bundle
 	 */
-	public ModuleVO(AthenaBundle bundle){
-		super(bundle);
+	public ModuleVO(AthenaBundle bundle, HttpServletRequest request){
+		super(bundle, request);
 	}
 	
 }

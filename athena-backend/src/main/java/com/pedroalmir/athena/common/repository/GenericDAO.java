@@ -45,8 +45,8 @@ public abstract class GenericDAO<T extends PersistentEntity> implements Serializ
 	protected Container container;
 	
 	/**
-	 * Essa anotação diz para o vraptor (que por dentro tem o spring) que esse objeto deve ser criado e setado pelo vraptor.<br/>
-	 * Para isso, o spring utilizada o método setEntityManager.
+	 * Essa anotaÃ§Ã£o diz para o vraptor (que por dentro tem o spring) que esse objeto deve ser criado e setado pelo vraptor.<br/>
+	 * Para isso, o spring utilizada o mÃ©todo setEntityManager.
 	 */
 	@Autowired
 	protected EntityManager em; 

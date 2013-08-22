@@ -29,4 +29,11 @@ public class IndexController extends ControllerBase<GenericDAO>{
 	public void index(){
 		
 	}
+	
+	@Get("/test")
+	@NoJson
+	@PublicResource
+	public void test(){
+		
+	}
 }

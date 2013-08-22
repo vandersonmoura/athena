@@ -1,0 +1,21 @@
+@PublicResource
+	@Post("/uploadFilea")
+	public String uploadFilea(HttpServletRequest request) throws FileNotFoundException{
+		if (ServletFileUpload.isMultipartContent(request)) {
+			FileReturn fileReturn = HttpRequestMultipart.processRequest(request);
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			
+			while(multipartRequest.getFileNames().hasNext()){
+				String fileName = multipartRequest.getFileNames().next();
+				FileInputStream fileInputStream = new FileInputStream((File) multipartRequest.getFiles(fileName));
+				
+				fileUtil.saveUserFile(new FileReturn(fileName, fileInputStream));
+			}
+			
+			if(fileReturn != null && fileReturn.getInputStream() != null && fileReturn.getFileName() != null){
+				String saveUserFilePath = fileUtil.saveUserFile(fileReturn);
+				return saveUserFilePath;
+			}
+		}
+		return null;
+	}

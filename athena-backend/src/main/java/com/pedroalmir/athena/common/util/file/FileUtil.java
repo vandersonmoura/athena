@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -27,6 +28,10 @@ public class FileUtil {
 	 * request
 	 */
 	private HttpServletRequest request;
+	/**
+	 * 
+	 */
+	private static final String USER_FILE_FOLDER = "user/";
 
 	/**
 	 * @param request
@@ -34,15 +39,42 @@ public class FileUtil {
 	public FileUtil(HttpServletRequest request) {
 		this.request = request;
 	}
-
+	
 	/**
 	 * @param fileStream
 	 * @param directory
 	 *            
 	 * @return the generated file name
 	 */
-	public String saveUserImage(InputStream fileStream, String directory) {
-		return createFile(fileStream, directory);
+	public String saveUserFile(InputStream fileStream) {
+		return createFile(fileStream, USER_FILE_FOLDER, "default.txt");
+	}
+	
+	/**
+	 * @param fileStream
+	 * @param directory
+	 *            
+	 * @return the generated file name
+	 */
+	public String saveUserFile(InputStream fileStream, String directory) {
+		return createFile(fileStream, directory, "default.txt");
+	}
+	
+	/**
+	 * @param fileReturn
+	 * @return
+	 */
+	public String saveUserFile(FileReturn fileReturn) {
+		return createFile(fileReturn.getInputStream(), USER_FILE_FOLDER, fileReturn.getFileName());
+	}
+	
+	/**
+	 * @param fileReturn
+	 * @param directory
+	 * @return
+	 */
+	public String saveUserFile(FileReturn fileReturn, String directory) {
+		return createFile(fileReturn.getInputStream(), directory, fileReturn.getFileName());
 	}
 
 	/**
@@ -61,7 +93,7 @@ public class FileUtil {
 	 *            Directory to be saved
 	 * @return Filename generated
 	 */
-	private String createFile(InputStream fileStream, String dir) {
+	private String createFile(InputStream fileStream, String dir, String fileName) {
 
 		dir = getRealPath(dir);
 
@@ -88,10 +120,12 @@ public class FileUtil {
 			throw new RuntimeException("Byte Array Nulo");
 		}
 
-		String fileName = "file_" + new Date().getTime();
+		String newFileName = "file_" + new Date().getTime() + "." +  FilenameUtils.getExtension(fileName);
 
-		File file = new File(dir, fileName);
+		File file = new File(dir, newFileName);
+		
 		try {
+			file.createNewFile();
 			file.mkdirs();
 			fos = new FileOutputStream(file);
 			fos.write(byteArray);
@@ -103,7 +137,7 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 
-		return fileName;
+		return USER_FILE_FOLDER + newFileName;
 
 	}
 }

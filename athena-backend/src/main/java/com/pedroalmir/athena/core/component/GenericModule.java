@@ -24,6 +24,10 @@ public interface GenericModule extends AthenaBundle {
 	 */
 	Algorithm getAlgorithm();
 	/**
+	 * @return <code>true</code> if is optimization algorithm
+	 */
+	boolean isOptimizationAlgorithm();
+	/**
 	 * Load and prepare this module for execution.
 	 * 
 	 * @param inputs

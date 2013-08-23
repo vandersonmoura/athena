@@ -12,6 +12,7 @@ import java.util.List;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
+import com.pedroalmir.athena.AthenaEnvironment;
 import com.pedroalmir.athena.core.component.AbstractBundle;
 import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.component.GenericConverter;
@@ -23,14 +24,13 @@ import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Int;
 import com.pedroalmir.athena.core.type.numeric.Real;
-import com.pedroalmir.athena.core.type.select.SelectType;
 import com.pedroalmir.athena.core.type.string.StringType;
 
 /**
  * @author Pedro Almir
  *
  */
-public class FinalConverter extends AbstractBundle implements GenericConverter{
+public class ToCSVConverter extends AbstractBundle implements GenericConverter{
 	
 	/**
 	 * 
@@ -52,7 +52,7 @@ public class FinalConverter extends AbstractBundle implements GenericConverter{
 	/**
 	 * Default constructor
 	 */
-	public FinalConverter() {
+	public ToCSVConverter() {
 		super();
 		this.inputs = new LinkedList<Input>();
 		this.outputs = new LinkedList<Output>();
@@ -60,45 +60,49 @@ public class FinalConverter extends AbstractBundle implements GenericConverter{
 	}
 	
 	public List<Output> convert() {
-		String selectedItemIdentifier = ((SelectType) this.getSettingWithIdentifier("formatter").getType()).getSelectedItemIdentifier();
-		if(selectedItemIdentifier.equals("csv_file")){
-			try {
-				/* TODO: Use HttpRequest !!!*/
-				File file = new File("src/test/resources/results/" + this.getSettingWithIdentifier("file_name").getType().getValue() + ".csv");
-				file.createNewFile();
-				CSVWriter csvWriter = new CSVWriter(new FileWriter(file), ';');
-				
-				List<String[]> data = new ArrayList<String[]>();
-				
-				/* Write header */
-				String[] header = new String[this.inputs.size()];
-				int i = 0;
-				for(Input in : this.inputs){
-					header[i++] = in.getName();
-				}
-				
-				data.add(header);
-				
-				for(int j = 0; j < this.inputs.get(0).getValues().size(); j++){
-					
-					String[] body = new String[this.inputs.size()];
-					i = 0;
-					for(Input in : this.inputs){
-						body[i++] = in.getValues().get(j).getValue() + "";
-					}
-					data.add(body);
-				}
-				
-				csvWriter.writeAll(data);
-				csvWriter.close();
-				
-			} catch (IOException e) {
-				e.printStackTrace();
+		try {
+			/* TODO: Use HttpRequest !!!*/
+			File file = null;
+			/* 
+			 * Verify if ATHENA_RESULT_FOLDER_FULL_PATH is different of null, ie,
+			 * Athena is running in Tomcat.
+			 * */
+			if(AthenaEnvironment.ATHENA_RESULT_FOLDER_FULL_PATH != null){
+				file = new File(AthenaEnvironment.ATHENA_RESULT_FOLDER_FULL_PATH + "\\" + this.getSettingWithIdentifier("file_name").getType().getValue() + ".csv");
+			}else{
+				file = new File("src/test/resources/results/" + this.getSettingWithIdentifier("file_name").getType().getValue() + ".csv");
 			}
-		}else if(selectedItemIdentifier.equals("text_file")){
+			file.createNewFile();
+			CSVWriter csvWriter = new CSVWriter(new FileWriter(file), ';');
 			
-		}else if(selectedItemIdentifier.equals("string_report")){
+			List<String[]> data = new ArrayList<String[]>();
 			
+			/* Write header */
+			String[] header = new String[this.inputs.size()];
+			int i = 0;
+			for(Input in : this.inputs){
+				header[i++] = in.getName();
+			}
+			
+			data.add(header);
+			
+			for(int j = 0; j < this.inputs.get(0).getValues().size(); j++){
+				
+				String[] body = new String[this.inputs.size()];
+				i = 0;
+				for(Input in : this.inputs){
+					body[i++] = in.getValues().get(j).getValue() + "";
+				}
+				data.add(body);
+			}
+			
+			csvWriter.writeAll(data);
+			csvWriter.close();
+			
+			this.outputs.get(0).getType().setValue(file);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -117,7 +121,11 @@ public class FinalConverter extends AbstractBundle implements GenericConverter{
 	}
 	
 	public String getName() {
-		return "Final converter";
+		return "ToCSV Converter";
+	}
+	
+	public String getShortName(){
+		return "ToCSV";
 	}
 	
 	public String getDescription() {
@@ -149,14 +157,6 @@ public class FinalConverter extends AbstractBundle implements GenericConverter{
 			
 			public List<Setting> getSettings() {
 				List<Setting> settings = new LinkedList<Setting>();
-				
-				SelectType selectType = new SelectType();
-				selectType.addSelectTypeItemAvailable("csv_file", "CSV File", "CSV File formatter");
-				selectType.addSelectTypeItemAvailable("text_file", "Text File", "Text File formatter");
-				//selectType.addSelectTypeItemAvailable("string_report", "String Report", "String Report formatter");
-				
-				Setting formatter = new Setting("Formatador", "formatter", selectType, (String) selectType.getRepresentation(), false, null, true);
-				settings.add(formatter);
 				
 				Setting fileName = new Setting("File Name", "file_name", new StringType(""), "string", false, null, true);
 				settings.add(fileName);
@@ -219,7 +219,7 @@ public class FinalConverter extends AbstractBundle implements GenericConverter{
 			return false;
 		if (getClass() != bundle.getClass())
 			return false;
-		FinalConverter other = (FinalConverter) bundle;
+		ToCSVConverter other = (ToCSVConverter) bundle;
 		if (id == null) {
 			if (other.id != null)
 				return false;

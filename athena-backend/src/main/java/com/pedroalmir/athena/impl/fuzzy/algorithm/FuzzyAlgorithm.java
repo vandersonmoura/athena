@@ -14,6 +14,7 @@ import java.util.Properties;
 import net.sourceforge.jFuzzyLogic.FIS;
 
 import com.google.common.base.Preconditions;
+import com.pedroalmir.athena.AthenaEnvironment;
 import com.pedroalmir.athena.core.algorithm.AbstractAlgorithm;
 import com.pedroalmir.athena.core.problem.objective.Maximise;
 import com.pedroalmir.athena.core.problem.objective.Minimise;
@@ -65,6 +66,7 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 	private FIS fuzzyInferenceSystem;
 	private Properties fuzzyProperties;
 	private final String FUZZY_PROPERTIES_PATH = "src/main/resources/algorithms/fuzzy.properties";
+	private final String FUZZY_PROPERTIES_PATH_WAR = "WEB-INF/classes/algorithms/fuzzy.properties";
 
 	/**
 	 * @param inputs
@@ -172,7 +174,14 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 	 */
 	private void loadProperties() {
         try {
-        	InputStream inputStream = new FileInputStream(this.FUZZY_PROPERTIES_PATH);
+        	InputStream inputStream = null;
+        	
+        	if(AthenaEnvironment.IN_TOMCAT){
+        		inputStream = new FileInputStream(AthenaEnvironment.addRootPath(this.FUZZY_PROPERTIES_PATH_WAR));
+        	}else{
+        		inputStream = new FileInputStream(this.FUZZY_PROPERTIES_PATH);
+        	}
+        	
         	if(fuzzyProperties == null)
         		fuzzyProperties = new Properties();
         	/* load properties */

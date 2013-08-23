@@ -1,0 +1,10 @@
+
+Tarefas Pendentes:
+
+1. Implementar módulo algorítmico NSGAII e AntSystem;
+
+2. Simular o sistema Fuzzy em produção;
+
+3. Verificar locais onde é necessário usar o HttpServletRequest para identificar o real local dos arquivos;
+
+4.  

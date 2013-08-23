@@ -85,6 +85,17 @@ public class FileUtil {
 	public String getRealPath(String dir) {
 		return request.getServletContext().getRealPath(dir);
 	}
+	
+	/**
+	 * @return
+	 */
+	public String getRealPathOfUserDir() {
+		return request.getServletContext().getRealPath(USER_FILE_FOLDER);
+	}
+	
+	public String getRealPathOfRootDir() {
+		return request.getServletContext().getRealPath("/");
+	}
 
 	/**
 	 * @param fileStream

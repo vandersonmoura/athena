@@ -15,20 +15,21 @@
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>messages</param-value>
 	</context-param>
-	
-	<!-- Esse provider utiliza os componentes internos do vraptor que são responsáveis por instanciar o entityManagerFactory, 
-	injetar um entityManager onde necessário e gerenciar as transações, fazendo commit ou rollback ao final da execução de métodos -->
+
+	<!-- Esse provider utiliza os componentes internos do vraptor que são responsáveis 
+		por instanciar o entityManagerFactory, injetar um entityManager onde necessário 
+		e gerenciar as transações, fazendo commit ou rollback ao final da execução 
+		de métodos -->
 	<context-param>
-	    <param-name>br.com.caelum.vraptor.provider</param-name>
-	    <param-value>com.pedroalmir.athena.common.repository.MyJPACustomProvider</param-value>
+		<param-name>br.com.caelum.vraptor.provider</param-name>
+		<param-value>com.pedroalmir.athena.common.repository.MyJPACustomProvider</param-value>
 	</context-param>
 
-	
 	<filter>
 		<filter-name>sitemesh</filter-name>
 		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>sitemesh</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -38,6 +39,12 @@
 		<filter-name>vraptor</filter-name>
 		<filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
 	</filter>
+
+	<servlet>
+		<servlet-name>AthenaStartup</servlet-name>
+		<servlet-class>com.pedroalmir.athena.AthenaStartup</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
 	<filter-mapping>
 		<filter-name>vraptor</filter-name>

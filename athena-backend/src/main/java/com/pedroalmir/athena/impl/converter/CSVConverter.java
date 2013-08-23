@@ -88,7 +88,11 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 	}
 	
 	public String getName() {
-		return "CSV Converter";
+		return "FromCSV Converter";
+	}
+	
+	public String getShortName(){
+		return "FromCSV";
 	}
 
 	public String getDescription() {

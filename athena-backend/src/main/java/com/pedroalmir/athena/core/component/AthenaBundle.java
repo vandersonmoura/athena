@@ -30,6 +30,11 @@ public interface AthenaBundle extends PersistentEntity{
 	 */
 	String getName();
 	/**
+	 * This method should return the short name of the module.
+	 * @return the short name of the module
+	 */
+	String getShortName();
+	/**
 	 * This method should return the description of how
 	 * the module works.
 	 * This will help the user to understand the workings

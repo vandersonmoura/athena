@@ -4843,3 +4843,27 @@ td.visible-print {
     display: none !important;
   }
 }
+
+.test{
+	min-height: 100px;
+	background-color: #ddd;
+	border: 1px solid #FFF;
+}
+
+.text-justified{
+	text-align: justify;
+}
+
+.fun_image {
+	-webkit-box-shadow: 0px 0px 4px #333333;
+	-moz-box-shadow: 0px 0px 4px #333333;
+	box-shadow: 0px 0px 4px #333333;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	margin: 20px;
+}
+
+.thin-header{
+	padding: 5px 15px;
+}

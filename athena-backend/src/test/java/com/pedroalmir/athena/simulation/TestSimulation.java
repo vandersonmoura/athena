@@ -12,7 +12,7 @@ import com.pedroalmir.athena.core.system.AthenaSystem;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Real;
 import com.pedroalmir.athena.impl.converter.CSVConverter;
-import com.pedroalmir.athena.impl.converter.FinalConverter;
+import com.pedroalmir.athena.impl.converter.ToCSVConverter;
 import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
 
 /**
@@ -70,7 +70,7 @@ public class TestSimulation {
 		/* Add module to main system */
 		system.addModule(fuzzyModule);
 		
-		FinalConverter finalConverter = new FinalConverter();
+		ToCSVConverter finalConverter = new ToCSVConverter();
 		
 		Input productivity_result = new Input("Resultado da Produtividade", "productivity_result", Real.valueOf(0), "real", false, null);
 		finalConverter.addInput(productivity_result);
@@ -79,17 +79,11 @@ public class TestSimulation {
 		finalConverter.addOutput(result_file);
 		
 		/* Setting with value */
-		Setting formatterSetting = finalConverter.findSetting("formatter");
-		if(formatterSetting != null){
-			formatterSetting.getType().setValue("csv_file");
-		}
-		
 		Setting fileNameSetting = finalConverter.findSetting("file_name");
 		if(fileNameSetting != null){
 			fileNameSetting.getType().setValue("AlocacaoDeEquipes");
 		}
 		
-		finalConverter.addSetting(formatterSetting);
 		finalConverter.addSetting(fileNameSetting);
 		
 		/* Add module */
@@ -155,7 +149,7 @@ public class TestSimulation {
 		/* Add module to main system */
 		system.addModule(fuzzyModule);
 		
-		FinalConverter finalConverter = new FinalConverter();
+		ToCSVConverter finalConverter = new ToCSVConverter();
 		
 		Input knowledgeFinal = new Input("Conhecimento", "knowledge_result", Real.valueOf(0), "real", false, null);
 		Input skillFinal = new Input("Habilidade", "skill_result", Real.valueOf(0), "real", false, null);
@@ -174,17 +168,11 @@ public class TestSimulation {
 		finalConverter.addOutput(result_file);
 		
 		/* Setting with value */
-		Setting formatterSetting = finalConverter.findSetting("formatter");
-		if(formatterSetting != null){
-			formatterSetting.getType().setValue("csv_file");
-		}
-		
 		Setting fileNameSetting = finalConverter.findSetting("file_name");
 		if(fileNameSetting != null){
 			fileNameSetting.getType().setValue("AlocacaoDeEquipesFull");
 		}
 		
-		finalConverter.addSetting(formatterSetting);
 		finalConverter.addSetting(fileNameSetting);
 		
 		/* Add module */

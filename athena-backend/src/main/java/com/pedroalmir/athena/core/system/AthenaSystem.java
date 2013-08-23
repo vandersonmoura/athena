@@ -85,6 +85,20 @@ public class AthenaSystem extends GenericEntity {
 	}
 	
 	/**
+	 * @param identifier
+	 * @return list of bundles with this specific name
+	 */
+	public List<AthenaBundle> findBundleByName(String name){
+		List<AthenaBundle> result = new LinkedList<AthenaBundle>();
+		for(AthenaBundle bundle : this.bundles){
+			if(bundle.getName().equals(name)){
+				result.add(bundle);
+			}
+		}
+		return result;
+	}
+	
+	/**
 	 * @param bundle
 	 */
 	public void addModule(AthenaBundle bundle){

@@ -87,6 +87,10 @@ public class FuzzyModule extends AbstractBundle implements GenericModule {
 	public String getName() {
 		return "Fuzzy Module";
 	}
+	
+	public String getShortName(){
+		return "Fuzzy";
+	}
 
 	
 	public String getDescription() {
@@ -226,6 +230,12 @@ public class FuzzyModule extends AbstractBundle implements GenericModule {
 	@Override
 	public void setSettings(List<Setting> settings) {
 		this.settings = settings;
+	}
+
+
+	@Override
+	public boolean isOptimizationAlgorithm() {
+		return false;
 	}
 
 }

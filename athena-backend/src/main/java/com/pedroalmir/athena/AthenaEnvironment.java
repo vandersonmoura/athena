@@ -27,6 +27,11 @@ public class AthenaEnvironment {
 	 */
 	private static final String ATHENA_PROPERTIES_PATH = "src/main/resources/athena.properties";
 	private static final String ATHENA_PROPERTIES_PATH_IN_WAR = "WEB-INF/classes/athena.properties";
+	public static final String ATHENA_RESULT_FOLDER = "user/system/results";
+	public static String ATHENA_RESULT_FOLDER_FULL_PATH = null;
+	public static String ATHENA_ROOT_PATH = null;
+	public static boolean IN_TOMCAT = false;
+	public static final String ATHENA_BASE_URL = "http://localhost:8080/athena-backend/";
 	
 	public static void main(String[] args) {
 		Map<String, Class<AthenaBundle>> availableModules = AthenaEnvironment.getAvailableBundles(null);
@@ -106,4 +111,28 @@ public class AthenaEnvironment {
         }
         return null;
 	}
+
+	/**
+	 * @return the aTHENA_RESULT_FOLDER_FULL_PATH
+	 */
+	public static String getATHENA_RESULT_FOLDER_FULL_PATH() {
+		return ATHENA_RESULT_FOLDER_FULL_PATH;
+	}
+
+	/**
+	 * @param aTHENA_RESULT_FOLDER_FULL_PATH the aTHENA_RESULT_FOLDER_FULL_PATH to set
+	 */
+	public static void setATHENA_RESULT_FOLDER_FULL_PATH(
+			String aTHENA_RESULT_FOLDER_FULL_PATH) {
+		ATHENA_RESULT_FOLDER_FULL_PATH = aTHENA_RESULT_FOLDER_FULL_PATH;
+	}
+
+	/**
+	 * @param path
+	 * @return
+	 */
+	public static String addRootPath(String path) {
+		return ATHENA_ROOT_PATH + path;
+	}
+
 }

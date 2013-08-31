@@ -125,7 +125,7 @@
 						    <input type="text" class="form-control" id="tamanhoDaEquipe" name="tamanhoDaEquipe" placeholder="Enter the team size">
 						  </div>
 						  
-						  <div class="form-group">
+						  <!-- div class="form-group">
 						    <label for="exampleInputEmail1">Crossover Operator</label>
 						    <select class="form-control">
 						    	<option>Single Point Crossover</option>
@@ -144,7 +144,7 @@
 						    <select class="form-control">
 						    	<option>Binary Tournament</option>
 						    </select>
-						  </div>
+						  </div-->
 						  
 						  <div class="panel panel-default" style="padding: 8px; background-color: #E7E7E7; border-color: #A4C6E4;">
 						  	<div class="panel-body text-center" style="font-weight: bold;">Fuzzy: Evaluation of the generated solutions</div>
@@ -194,13 +194,13 @@
 						</c:if>
 					</div>
 				</div>
-				<div class="panel panel-primary" style="height: 270px;">
+				<!-- div class="panel panel-primary" style="height: 270px;">
 					<div class="panel-heading thin-header">
 						<h3 class="panel-title">Results of Execution</h3>
 					</div>
 					<div class="panel-body">
 					</div>
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>

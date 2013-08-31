@@ -31,7 +31,7 @@ public class AthenaEnvironment {
 	public static String ATHENA_RESULT_FOLDER_FULL_PATH = null;
 	public static String ATHENA_ROOT_PATH = null;
 	public static boolean IN_TOMCAT = false;
-	public static final String ATHENA_BASE_URL = "http://localhost:8080/athena-backend/";
+	public static final String ATHENA_BASE_URL = "http://pedroalmir.com/athena-backend/";
 	
 	public static void main(String[] args) {
 		Map<String, Class<AthenaBundle>> availableModules = AthenaEnvironment.getAvailableBundles(null);

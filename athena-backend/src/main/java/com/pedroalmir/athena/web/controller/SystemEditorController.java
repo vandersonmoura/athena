@@ -151,7 +151,9 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 		try{
 			if ((ServletFileUpload.isMultipartContent(request) && csvFile != null) && (fclFileIn != null) && (fclFileOut != null)) {
 				csvFileRealPath = fileUtil.saveUserFile(new FileReturn(csvFile.getFileName(), csvFile.getFile()));
+				Thread.sleep(100);
 				fclFileInRealPath = fileUtil.saveUserFile(new FileReturn(fclFileIn.getFileName(), fclFileIn.getFile()));
+				Thread.sleep(100);
 				fclFileOutRealPath = fileUtil.saveUserFile(new FileReturn(fclFileOut.getFileName(), fclFileOut.getFile()));
 				
 				String basePath = fileUtil.getRealPathOfRootDir();
@@ -228,6 +230,7 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 		try{
 			if (ServletFileUpload.isMultipartContent(request) && csvFile != null && fclFile != null) {
 				csvFileRealPath = fileUtil.saveUserFile(new FileReturn(csvFile.getFileName(), csvFile.getFile()));
+				Thread.sleep(100);
 				fclFileRealPath = fileUtil.saveUserFile(new FileReturn(fclFile.getFileName(), fclFile.getFile()));
 				
 				String basePath = fileUtil.getRealPathOfRootDir();

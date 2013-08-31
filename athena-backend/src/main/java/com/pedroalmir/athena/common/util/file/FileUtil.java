@@ -10,7 +10,6 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -131,7 +130,8 @@ public class FileUtil {
 			throw new RuntimeException("Byte Array Nulo");
 		}
 
-		String newFileName = "file_" + new Date().getTime() + "." +  FilenameUtils.getExtension(fileName);
+		//String newFileName = "file_" + new Date().getTime() + "." +  FilenameUtils.getExtension(fileName);
+		String newFileName = "file_" + new Date().getTime() + "_" + fileName;
 
 		File file = new File(dir, newFileName);
 		

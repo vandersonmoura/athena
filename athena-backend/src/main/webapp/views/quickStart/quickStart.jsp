@@ -74,20 +74,36 @@
 		<hr style="border-bottom: 1px solid #aaa; margin: 15px 0 35px 0px;">
 		<div class="row">
 			<div class="col-lg-5">
-				<div class="panel panel-primary" style="height: 270px;">
+				<div class="panel panel-primary" style="height: 410px;">
 					<div class="panel-heading thin-header">
 						<h3 class="panel-title">Execute Fuzzy System</h3>
 					</div>
 					<div class="panel-body">
 						<form role="form" action="${pageContext.request.contextPath}/editor/executeFuzzySystem" method="post" enctype="multipart/form-data">
+						  
+						  <div class="panel panel-default" style="padding: 8px; background-color: #E7E7E7; border-color: #A4C6E4;">
+						  	<div class="panel-body text-center" style="font-weight: bold;">FromCSV Data</div>
+						  </div>
+						  
 						  <div class="form-group">
-						    <label for="exampleInputFile">CSV Input File</label>
-						    <input type="file" id="exampleInputFile" name="csvFile">
+						  	<div>
+						    	<label for="exampleInputFile">CSV Input File</label>
+						    </div>
+						    <input type="file" id="exampleInputFile" name="csvFile" class="btn btn-default" title="Search for a file to add">
+						    
 						    <p class="help-block">Choose a CSV File with developers informations.</p>
 						  </div>
+						  
+						  <div class="panel panel-default" style="padding: 8px; background-color: #E7E7E7; border-color: #A4C6E4;">
+						  	<div class="panel-body text-center" style="font-weight: bold;">Fuzzy: Estimation of developers productivity</div>
+						  </div>
+						  
 						  <div class="form-group">
-						    <label for="exampleInputFile">FCL Setting File</label>
-						    <input type="file" id="exampleInputFile" name="fclFile">
+						  	<div>
+						    	<label for="exampleInputFile">FCL Setting File</label>
+						    </div>
+						    
+						    <input type="file" id="exampleInputFile" name="fclFile" class="btn btn-default" title="Search for a file to add">
 						    <p class="help-block">Choose a FCL File to configure the Fuzzy Algorithm.</p>
 						  </div>
 						  <button type="submit" class="btn btn-default">Submit</button>
@@ -97,7 +113,7 @@
 			</div>
 			
 			<div class="col-lg-7">
-				<div class="panel panel-primary" style="height: 270px;">
+				<div class="panel panel-primary" style="height: 410px;">
 					<div class="panel-heading thin-header">
 						<h3 class="panel-title">Results of Execution</h3>
 					</div>

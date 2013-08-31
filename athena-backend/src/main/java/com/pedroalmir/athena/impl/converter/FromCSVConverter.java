@@ -60,7 +60,7 @@ import com.pedroalmir.athena.core.type.string.StringType;
  * @author Pedro Almir
  *
  */
-public class CSVConverter extends AbstractBundle implements GenericConverter{
+public class FromCSVConverter extends AbstractBundle implements GenericConverter{
 	/**
 	 * 
 	 */
@@ -81,7 +81,7 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 	/**
 	 * Default constructor
 	 */
-	public CSVConverter() {
+	public FromCSVConverter() {
 		super();
 		this.inputs = new LinkedList<Input>();
 		this.outputs = new LinkedList<Output>();
@@ -271,7 +271,7 @@ public class CSVConverter extends AbstractBundle implements GenericConverter{
 			return false;
 		if (getClass() != bundle.getClass())
 			return false;
-		CSVConverter other = (CSVConverter) bundle;
+		FromCSVConverter other = (FromCSVConverter) bundle;
 		if (id == null) {
 			if (other.id != null)
 				return false;

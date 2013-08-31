@@ -1,12 +1,17 @@
 package com.pedroalmir.athena.web.controller;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import au.com.bytecode.opencsv.CSVWriter;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -30,6 +35,10 @@ import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.web.model.form.AthenaSystemForm;
 import com.pedroalmir.athena.web.model.vo.AthenaSystemVO;
 import com.pedroalmir.athena.web.model.vo.SystemEditorVO;
+import com.pedroalmir.athena.impl.teamAllocation.controller.TeamAllocationApproach;
+import com.pedroalmir.athena.impl.teamAllocation.model.Desenvolvedor;
+import com.pedroalmir.athena.impl.teamAllocation.model.TeamAllocationResult;
+import com.pedroalmir.athena.impl.teamAllocation.util.Arquivo;
 
 /**
  * System Editor Controller
@@ -129,6 +138,87 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 	 * @return
 	 */
 	@PublicResource
+	@Post("/executeTeamAllocationSystem")
+	public void executeTeamAllocationSystem(UploadedFile csvFile, UploadedFile fclFileIn, UploadedFile fclFileOut, int populationSize, 
+			int maxEvaluations, int tamanhoDaEquipe){
+		
+		Long beginRequest = System.currentTimeMillis();
+		
+		String csvFileRealPath = null;
+		String fclFileInRealPath = null;
+		String fclFileOutRealPath = null;
+		
+		try{
+			if ((ServletFileUpload.isMultipartContent(request) && csvFile != null) && (fclFileIn != null) && (fclFileOut != null)) {
+				csvFileRealPath = fileUtil.saveUserFile(new FileReturn(csvFile.getFileName(), csvFile.getFile()));
+				fclFileInRealPath = fileUtil.saveUserFile(new FileReturn(fclFileIn.getFileName(), fclFileIn.getFile()));
+				fclFileOutRealPath = fileUtil.saveUserFile(new FileReturn(fclFileOut.getFileName(), fclFileOut.getFile()));
+				
+				String basePath = fileUtil.getRealPathOfRootDir();
+				
+				csvFileRealPath = basePath + csvFileRealPath;
+				fclFileInRealPath = basePath + fclFileInRealPath;
+				fclFileOutRealPath = basePath + fclFileOutRealPath;
+				
+				List<Desenvolvedor> desenvolvedores = Arquivo.load(csvFileRealPath);
+				TeamAllocationResult executionResult = new TeamAllocationApproach().execute(fclFileInRealPath, fclFileOutRealPath, desenvolvedores, 
+						populationSize, maxEvaluations, tamanhoDaEquipe, false);
+				
+				File file = new File(fileUtil.getRealPathOfUserDir(), "resultTeamAllocationSystem_" + new Date().getTime() + ".csv");
+				file.createNewFile();
+				CSVWriter csvWriter = new CSVWriter(new FileWriter(file), ';');
+				csvWriter.writeAll(executionResult.parseToCSV());
+				csvWriter.close();
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM dd, yyyy", Locale.ENGLISH);
+				dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+				
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+				simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+				
+				String executionDate = dateFormat.format(new Date()) + " at " + simpleDateFormat.format(new Date());
+				String resultFileURL = file.getAbsolutePath().replace(AthenaEnvironment.ATHENA_ROOT_PATH, AthenaEnvironment.ATHENA_BASE_URL);
+				
+				@SuppressWarnings("unused")
+				SimpleDateFormat completeFormatter = new SimpleDateFormat("mm 'minutes' ':' ss 'seconds' SSS 'milliseconds'");
+				SimpleDateFormat secondsFormatter = new SimpleDateFormat("ss 'seconds' SSS 'milliseconds'");
+				SimpleDateFormat millisecondsFormatter = new SimpleDateFormat("SSS 'milliseconds'");
+				
+				String executionTimeFuzzyI = millisecondsFormatter.format(executionResult.getInputFuzzyExecutionTime());
+				String executionTimeNSGA = millisecondsFormatter.format(executionResult.getNsgaIIExecutionTime());
+				String executionTimeFuzzyII = millisecondsFormatter.format(executionResult.getOutputFuzzyExecutionTime());
+				
+				String totalExecutionTime = millisecondsFormatter.format(executionResult.getInputFuzzyExecutionTime() 
+						+ executionResult.getNsgaIIExecutionTime() + executionResult.getOutputFuzzyExecutionTime());
+				
+				String requestTime = secondsFormatter.format(System.currentTimeMillis() - beginRequest);
+				
+				result.include("execution", true);
+				result.include("executionDate", executionDate);
+				
+				result.include("executionTimeFuzzyI", executionTimeFuzzyI);
+				result.include("executionTimeNSGA", executionTimeNSGA);
+				result.include("executionTimeFuzzyII", executionTimeFuzzyII);
+				result.include("totalExecutionTime", totalExecutionTime);
+				
+				result.include("requestTime", requestTime);
+				
+				result.include("linkToFile", resultFileURL);
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+			result.include("execution", false);
+		}
+		
+		result.redirectTo(QuickStartController.class).teamAllocation();
+	}
+	
+	/**
+	 * @param csvFile
+	 * @param fclFile
+	 * @return
+	 */
+	@PublicResource
 	@Post("/executeFuzzySystem")
 	public void executeFuzzySystem(UploadedFile csvFile, UploadedFile fclFile){
 		
@@ -142,8 +232,8 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 				
 				String basePath = fileUtil.getRealPathOfRootDir();
 				
-				csvFileRealPath = basePath + "\\" + csvFileRealPath;
-				fclFileRealPath = basePath + "\\" + fclFileRealPath;
+				csvFileRealPath = basePath + "/" + csvFileRealPath;
+				fclFileRealPath = basePath + "/" + fclFileRealPath;
 				
 				AthenaSystem fuzzySystem = SystemFactory.createFuzzySystem(fclFileRealPath, csvFileRealPath, "");
 	
@@ -153,18 +243,25 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 				
 				long diff = end - begin;
 				
-				String executionTime = new SimpleDateFormat("mm:ss SSS").format(diff);
-				String executionDate = new SimpleDateFormat("MMMMM dd, yyyy", Locale.ENGLISH).format(new Date()) + " at " + new SimpleDateFormat("HH:mm:ss").format(new Date());
+				String executionTime = new SimpleDateFormat("mm 'min' ':' ss 'sec' SSS 'mili'").format(diff);
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM dd, yyyy", Locale.ENGLISH);
+				dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+				
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+				simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+				
+				String executionDate = dateFormat.format(new Date()) + " at " + simpleDateFormat.format(new Date());
 				
 				int iterations = ((GenericModule) fuzzySystem.findBundleByName("Fuzzy Module").get(0)).getAlgorithm().getIterations();
 				String resultFilePath = ((FileType) ((GenericConverter) fuzzySystem.findBundleByName("ToCSV Converter").get(0)).getOutputs().get(0).getType()).getFilePath();
 				
 				String resultFileURL = resultFilePath.replace(AthenaEnvironment.ATHENA_ROOT_PATH, AthenaEnvironment.ATHENA_BASE_URL);
-				System.out.println(resultFileURL);
+				//System.out.println(resultFileURL);
 				
 				result.include("execution", true);
 				result.include("executionDate", executionDate);
-				result.include("iterations", iterations);
+				result.include("iterations", iterations + " iterations");
 				result.include("executionTime", executionTime);
 				result.include("linkToFile", resultFileURL);
 			}

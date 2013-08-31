@@ -86,6 +86,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+            
+		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
@@ -262,13 +268,13 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- JMetal -->
-		<dependency>
-			<groupId>jmetal</groupId>
-			<artifactId>jmetal</artifactId>
-			<version>4.3</version>
-			<scope>system</scope>
-			<systemPath>${web-inf.lib}/jmetal.jar</systemPath>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>jmetal</groupId> -->
+<!-- 			<artifactId>jmetal</artifactId> -->
+<!-- 			<version>4.3</version> -->
+<!-- 			<scope>system</scope> -->
+<!-- 			<systemPath>${web-inf.lib}/jmetal.jar</systemPath> -->
+<!-- 		</dependency> -->
 		<!-- JFuzzyLogic -->
 		<dependency>
 			<groupId>net.sf.jfuzzylogic</groupId>
@@ -277,6 +283,15 @@
 			<scope>system</scope>
 			<systemPath>${web-inf.lib}/jFuzzyLogic_v3.0.jar</systemPath>
 		</dependency>
+		
+		<!-- TeamAllocation -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.pedroalmir</groupId> -->
+<!-- 			<artifactId>teamAllocation</artifactId> -->
+<!-- 			<version>1.0</version> -->
+<!-- 			<scope>system</scope> -->
+<!-- 			<systemPath>${web-inf.lib}/teamAllocation.jar</systemPath> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 </project>

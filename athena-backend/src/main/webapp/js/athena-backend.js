@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	
+	$('input[type=file]').bootstrapFileInput();
+	$('.file-inputs').bootstrapFileInput();
+	
 	if(document.location.toString().indexOf("quick-start") != -1){
 		$('#homeLI').attr("class", "");
 		$('#quickStartLI').attr("class", "active");

@@ -11,7 +11,7 @@ import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.system.AthenaSystem;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Real;
-import com.pedroalmir.athena.impl.converter.CSVConverter;
+import com.pedroalmir.athena.impl.converter.FromCSVConverter;
 import com.pedroalmir.athena.impl.converter.ToCSVConverter;
 import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
 
@@ -25,7 +25,7 @@ public class TestSimulation {
 		/* Step One: Create system */
 		AthenaSystem system = new AthenaSystem("Fuzzy System", "First system by Athena Services");
 		/* Step Two: Organize the modules */
-		CSVConverter csvConverter = new CSVConverter();
+		FromCSVConverter csvConverter = new FromCSVConverter();
 		/* Step Three: Define Inputs and Outputs */
 		Input csvInput = new Input("CSV File", "csv_file", new FileType(), "file", false, null);
 		csvInput.addValue(new FileType("src/test/resources/csv/candidatos.csv"));
@@ -104,7 +104,7 @@ public class TestSimulation {
 		/* Step One: Create system */
 		AthenaSystem system = new AthenaSystem("Fuzzy System", "First system by Athena Services");
 		/* Step Two: Organize the modules */
-		CSVConverter csvConverter = new CSVConverter();
+		FromCSVConverter csvConverter = new FromCSVConverter();
 		/* Step Three: Define Inputs and Outputs */
 		Input csvInput = new Input("CSV File", "csv_file", new FileType(), "file", false, null);
 		csvInput.addValue(new FileType("src/test/resources/csv/candidatos.csv"));

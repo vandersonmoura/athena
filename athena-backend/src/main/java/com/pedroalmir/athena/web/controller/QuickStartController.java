@@ -12,7 +12,6 @@ import com.pedroalmir.athena.common.annotation.NoJson;
 import com.pedroalmir.athena.common.annotation.PublicResource;
 import com.pedroalmir.athena.common.controller.base.ControllerBase;
 import com.pedroalmir.athena.common.repository.GenericDAO;
-
 /**
  * @author Pedro Almir
  *
@@ -30,6 +29,16 @@ public class QuickStartController extends ControllerBase<GenericDAO> {
 	@NoJson
 	@PublicResource
 	public void quickStart(){
+		
+	}
+	
+	/**
+	 * Redirect to quickStart.jsp
+	 */
+	@Get("/teamAllocation")
+	@NoJson
+	@PublicResource
+	public void teamAllocation(){
 		
 	}
 }

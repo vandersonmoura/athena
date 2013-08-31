@@ -17,9 +17,10 @@
 	<!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="${pageContext.request.contextPath}/css/bootstrap-glyphicons.css" rel="stylesheet" media="screen">
-    <link rel="shortcut icon" href="img/2640692.png" type="image/png" />
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/2640692.png" type="image/png" />
     <!-- Custom styles for this template -->
 	<link href="${pageContext.request.contextPath}/css/justified-nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/athena-backend.css" rel="stylesheet">
 	
     <decorator:head />
     
@@ -33,7 +34,7 @@
 				<h3 class="text-muted">Athena Service (Back-end)</h3>
 				<ul class="nav navbar-nav nav-justified">
 					<li id="homeLI" class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
-					<li id="quickStartLI"><a href="${pageContext.request.contextPath}/quick-start">Quick-Start</a></li>
+					<li id="quickStartLI"><a href="${pageContext.request.contextPath}/quick-start">QuickStart</a></li>
 					<li id="documentationLI"><a href="${pageContext.request.contextPath}/documentation">Documentation</a></li>
 					<li id="downloadsLI"><a href="${pageContext.request.contextPath}/downloads">Downloads</a></li>
 					<li id="aboutLI"><a href="${pageContext.request.contextPath}/about">About</a></li>
@@ -58,6 +59,8 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.file-input.js"></script>
     <script src="${pageContext.request.contextPath}/js/athena-backend.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap-button.js"></script>
 </body>
 </html>

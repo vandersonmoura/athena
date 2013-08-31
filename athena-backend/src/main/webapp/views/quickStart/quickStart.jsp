@@ -54,7 +54,7 @@
 					</div>
 					<div class="panel-body">
 						<p><a href="#">
-							<img src="img/systems/1.jpg" alt="" class="fun_image" style="width:94%;">
+							<img src="${pageContext.request.contextPath}/img/systems/1.jpg" alt="" class="fun_image" style="width:94%;">
 						</a></p>
 						
 						<p style="margin: 10px 0px 0px 0px; text-align: right;">

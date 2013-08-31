@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -68,10 +69,15 @@ public class ToCSVConverter extends AbstractBundle implements GenericConverter{
 			 * Athena is running in Tomcat.
 			 * */
 			if(AthenaEnvironment.ATHENA_RESULT_FOLDER_FULL_PATH != null){
-				file = new File(AthenaEnvironment.ATHENA_RESULT_FOLDER_FULL_PATH + "\\" + this.getSettingWithIdentifier("file_name").getType().getValue() + ".csv");
+				file = new File(AthenaEnvironment.ATHENA_RESULT_FOLDER_FULL_PATH 
+						+ "/" + this.getSettingWithIdentifier("file_name").getType().getValue() 
+						+ "_" + new Date().getTime() + ".csv");
 			}else{
 				file = new File("src/test/resources/results/" + this.getSettingWithIdentifier("file_name").getType().getValue() + ".csv");
 			}
+			
+			System.out.println(file.getAbsolutePath());
+			
 			file.createNewFile();
 			CSVWriter csvWriter = new CSVWriter(new FileWriter(file), ';');
 			

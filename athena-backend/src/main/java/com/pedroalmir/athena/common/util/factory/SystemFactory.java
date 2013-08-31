@@ -9,7 +9,7 @@ import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.system.AthenaSystem;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.core.type.numeric.Real;
-import com.pedroalmir.athena.impl.converter.CSVConverter;
+import com.pedroalmir.athena.impl.converter.FromCSVConverter;
 import com.pedroalmir.athena.impl.converter.ToCSVConverter;
 import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
 
@@ -34,7 +34,7 @@ public class SystemFactory {
 		/* Step One: Create system */
 		AthenaSystem system = new AthenaSystem("Fuzzy System", "First system by Athena Services");
 		/* Step Two: Organize the modules */
-		CSVConverter csvConverter = new CSVConverter();
+		FromCSVConverter csvConverter = new FromCSVConverter();
 		/* Step Three: Define Inputs and Outputs */
 		Input csvInput = new Input("CSV File", "csv_file", new FileType(), "file", false, null);
 		csvInput.addValue(new FileType(csvPath));
@@ -42,7 +42,7 @@ public class SystemFactory {
 		Output conhecimento = new Output("Conhecimento", "conhecimento", Real.valueOf(0), "real", false, null);
 		Output habilidade = new Output("Habilidade", "habilidade", Real.valueOf(0), "real", false, null);
 		Output atitude = new Output("Atitude", "atitude", Real.valueOf(0), "real", false, null);
-		Output salario = new Output("Salário", "salario", Real.valueOf(0), "real", false, null);
+		Output salario = new Output("Salario", "salario", Real.valueOf(0), "real", false, null);
 		
 		/* Add Input and Output, but without values */
 		csvConverter.addInput(csvInput);
@@ -84,15 +84,16 @@ public class SystemFactory {
 		Input knowledgeFinal = new Input("Conhecimento", "knowledge_result", Real.valueOf(0), "real", false, null);
 		Input skillFinal = new Input("Habilidade", "skill_result", Real.valueOf(0), "real", false, null);
 		Input attitudeFinal = new Input("Atitude", "attitude_result", Real.valueOf(0), "real", false, null);
-		Input salarioFinal = new Input("Salário", "salario_result", Real.valueOf(0), "real", false, null);
+		Input salarioFinal = new Input("Salario", "salario_result", Real.valueOf(0), "real", false, null);
 		
 		Input productivity_result = new Input("Resultado da Produtividade", "productivity_result", Real.valueOf(0), "real", false, null);
-		ToCSVConverter.addInput(productivity_result);
 		
 		ToCSVConverter.addInput(knowledgeFinal);
 		ToCSVConverter.addInput(skillFinal);
 		ToCSVConverter.addInput(attitudeFinal);
 		ToCSVConverter.addInput(salarioFinal);
+		
+		ToCSVConverter.addInput(productivity_result);
 		
 		Output result_file = new Output("Result File", "result_file", new FileType(), "file", false, null);
 		ToCSVConverter.addOutput(result_file);

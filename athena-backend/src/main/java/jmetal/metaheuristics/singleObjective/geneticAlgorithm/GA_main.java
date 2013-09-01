@@ -1,87 +1,100 @@
 /**
  * GA_main.java
- *
+ * 
  * @author Antonio J. Nebro
  * @version 1.0
  */
 
 package jmetal.metaheuristics.singleObjective.geneticAlgorithm;
 
-import jmetal.base.*;
-import jmetal.base.operator.crossover.*;
-import jmetal.base.operator.mutation.*;
-import jmetal.base.operator.selection.*;
-import jmetal.metaheuristics.singleObjective.geneticAlgorithm.gGA;
-import jmetal.problems.singleObjective.*;
+import jmetal.base.Algorithm;
+import jmetal.base.Operator;
+import jmetal.base.Problem;
+import jmetal.base.SolutionSet;
+import jmetal.base.operator.crossover.CrossoverFactory;
+import jmetal.base.operator.mutation.MutationFactory;
+import jmetal.base.operator.selection.SelectionFactory;
+import jmetal.problems.pedroalmir.StringProblem;
 import jmetal.util.JMException;
 
 /**
- * This class runs a single-objective genetic algorithm (GA). The GA can be 
- * a steady-state GA (class SSGA) or a generational GA (class GGA). The OneMax
+ * This class runs a single-objective genetic algorithm (GA). The GA can be
+ * a steady-state GA (class ssGA), a generational GA (class gGA), a synchronous
+ * cGA (class scGA) or an asynchronous cGA (class acGA). The OneMax
  * problem is used to test the algorithms.
  */
 public class GA_main {
+	
+	public static void main(String[] args) {
+		String candidates = "áÁãÃâÂõÕôÔóÓéêÉÊíQWERTYUIOPASDFGHJKLÇZXCVBNMqwertyuiopasdfghjklçzxcvbnm ";
+		try {
+			GA_main.execute(9, candidates.toCharArray(), "Olá Mundo");
+		} catch (JMException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
-  public static void main(String [] args) throws JMException, ClassNotFoundException {
-    Problem   problem   ;         // The problem to solve
-    Algorithm algorithm ;         // The algorithm to use
-    Operator  crossover ;         // Crossover operator
-    Operator  mutation  ;         // Mutation operator
-    Operator  selection ;         // Selection operator
-            
-    //int bits ; // Length of bit string in the OneMax problem
-  
-    //int bits = 512 ;
-    //problem = new OneMax(bits);
- 
-    problem = new Pro1("Real", 61) ;
-   //problem = new Easom("Real") ;
-   // problem = new Griewank("Real", 10) ;
-    
-    algorithm = new gGA(problem) ; // Generational GA
-   // algorithm = new ssGA(problem); // Steady-state GA
-    //algorithm = new scGA(problem) ; // Synchronous cGA
-    //algorithm = new acGA(problem) ;   // Asynchronous cGA
-    
-    /* Algorithm parameters*/////
-    algorithm.setInputParameter("populationSize", 100);
-    algorithm.setInputParameter("maxEvaluations", 20000);
-    
-    // Mutation and Crossover for Real codification 
-    crossover = CrossoverFactory.getCrossoverOperator("SBXCrossover");                   
-    crossover.setParameter("probability",1.0);                   
-    crossover.setParameter("distributionIndex",20.0);
+	public static void execute(int stringLength, char[] candidates, String goal) throws JMException, ClassNotFoundException {
+		Problem problem; // The problem to solve
+		Algorithm algorithm; // The algorithm to use
+		Operator crossover; // Crossover operator
+		Operator mutation; // Mutation operator
+		Operator selection; // Selection operator
 
-    mutation = MutationFactory.getMutationOperator("PolynomialMutation");                    
-    mutation.setParameter("probability",1.0/problem.getNumberOfVariables());
-    mutation.setParameter("distributionIndex",20.0);    
-    
-    /*
-    // Mutation and Crossover for Binary codification 
-    crossover = CrossoverFactory.getCrossoverOperator("SinglePointCrossover");                   
-    crossover.setParameter("probability",0.95);                   
-    mutation = MutationFactory.getMutationOperator("BitFlipMutation");                    
-    mutation.setParameter("probability",1.0/bits); 
-    */
-    
-    /* Selection Operator */
-    selection = SelectionFactory.getSelectionOperator("BinaryTournament") ;                            
-    
-    /* Add the operators to the algorithm*/
-    algorithm.addOperator("crossover",crossover);
-    algorithm.addOperator("mutation",mutation);
-    algorithm.addOperator("selection",selection);
- 
-    /* Execute the Algorithm */
-    long initTime = System.currentTimeMillis();
-    SolutionSet population = algorithm.execute();
-    long estimatedTime = System.currentTimeMillis() - initTime;
-    System.out.println("Total execution time: " + estimatedTime);
+		problem = new StringProblem(candidates, goal);
 
-    /* Log messages */
-    System.out.println("Objectives values have been writen to file FUN");
-    population.printObjectivesToFile("FUN");
-    System.out.println("Variables values have been writen to file VAR");
-    population.printVariablesToFileGA("VAR");          
-  } //main
+		// problem = new Sphere("Real", 10) ;
+		// problem = new Easom("Real") ;
+		// problem = new Griewank("Real", 10) ;
+
+		algorithm = new gGA(problem); // Generational GA
+		// algorithm = new ssGA(problem); // Steady-state GA
+		// algorithm = new scGA(problem) ; // Synchronous cGA
+		// algorithm = new acGA(problem) ; // Asynchronous cGA
+
+		/* Algorithm parameters */
+		algorithm.setInputParameter("populationSize", 512);
+		algorithm.setInputParameter("maxEvaluations", 25000);
+		/*
+		 * // Mutation and Crossover for Real codification
+		 * parameters = new HashMap() ;
+		 * parameters.put("probability", 0.9) ;
+		 * parameters.put("distributionIndex", 20.0) ;
+		 * crossover = CrossoverFactory.getCrossoverOperator("SBXCrossover", parameters);
+		 * parameters = new HashMap() ;
+		 * parameters.put("probability", 1.0/problem.getNumberOfVariables()) ;
+		 * parameters.put("distributionIndex", 20.0) ;
+		 * mutation = MutationFactory.getMutationOperator("PolynomialMutation", parameters);
+		 */
+
+		/* Mutation and Crossover for Real codification */
+		crossover = CrossoverFactory.getCrossoverOperator("SinglePointCrossover");
+		crossover.setParameter("probability", 0.6);
+
+		mutation = MutationFactory.getMutationOperator("BitFlipMutation");
+		mutation.setParameter("probability", 0.1);
+
+		/* Selection Operator */
+		selection = SelectionFactory.getSelectionOperator("BinaryTournament");
+
+		/* Add the operators to the algorithm */
+		algorithm.addOperator("crossover", crossover);
+		algorithm.addOperator("mutation", mutation);
+		algorithm.addOperator("selection", selection);
+
+		/* Execute the Algorithm */
+		long initTime = System.currentTimeMillis();
+		SolutionSet population = algorithm.execute();
+		long estimatedTime = System.currentTimeMillis() - initTime;
+		System.out.println("Total execution time: " + estimatedTime);
+
+		/* Log messages */
+		System.out.println("Objectives values have been writen to file FUN");
+		population.printObjectivesToFile("FUN");
+		System.out.println("Variables values have been writen to file VAR");
+		population.printVariablesToFile("VAR", candidates, goal.length());
+	} // main
 } // GA_main
+

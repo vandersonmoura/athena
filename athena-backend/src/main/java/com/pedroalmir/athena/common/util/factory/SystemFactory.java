@@ -3,6 +3,9 @@
  */
 package com.pedroalmir.athena.common.util.factory;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
@@ -12,6 +15,7 @@ import com.pedroalmir.athena.core.type.numeric.Real;
 import com.pedroalmir.athena.impl.converter.FromCSVConverter;
 import com.pedroalmir.athena.impl.converter.ToCSVConverter;
 import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
+import com.pedroalmir.athena.impl.fuzzy.stoppingCondition.FuzzyCompleteEvaluationStoppingCondition;
 
 /**
  * @author Pedro Almir
@@ -122,5 +126,35 @@ public class SystemFactory {
 		system.addLink("Produtividade to Resultado da Produtividade", fuzzyModule, ToCSVConverter, productivity, productivity_result);
 		
 		return system;
+	}
+
+	public static FuzzyModule createTipperFuzzySystem(Double service, Double food, String fclFileRealPath) {
+		
+		List<Input> inputs = new LinkedList<Input>();
+		List<Output> outputs = new LinkedList<Output>();
+		List<Setting> settings = new LinkedList<Setting>();
+		/* Create inputs */
+		Input inputService = new Input("Qualidade do Serviço", "service", Real.valueOf(0), "real", false, null);
+		Input inputFood = new Input("Qualidade da Comida", "food", Real.valueOf(0), "real", false, null);
+		
+		inputService.addValue(Real.valueOf(service));
+		inputFood.addValue(Real.valueOf(food));
+		
+		inputs.add(inputService);
+		inputs.add(inputFood);
+		/* Create outputs */
+		Output outputTip = new Output("Valor da gorjeta", "tip", Real.valueOf(0), "real", false, null);
+		outputs.add(outputTip);
+		/* Create settings */
+		Setting fileSetting = new Setting("Arquivo de Configuração FCL", "fcl_file", new FileType(fclFileRealPath), "file", false, null);
+		settings.add(fileSetting);
+		
+		FuzzyModule fuzzyModule = new FuzzyModule();
+		
+		fuzzyModule.load(inputs, outputs, settings);
+		fuzzyModule.getAlgorithm().addStoppingCondition(new FuzzyCompleteEvaluationStoppingCondition(inputs));
+		
+		/* Add module to main system */
+		return fuzzyModule;
 	}
 }

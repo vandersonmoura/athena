@@ -30,7 +30,7 @@ public class TestFuzzyAlgorithm {
 		List<Output> outputs = new LinkedList<Output>();
 		List<Setting> settings = new LinkedList<Setting>();
 		/* Create inputs */
-		Input inputService = new Input("Qualidade do Serviço", "service", Real.valueOf(0), "real", false, null);
+		Input inputService = new Input("Qualidade do ServiÃ§o", "service", Real.valueOf(0), "real", false, null);
 		Input inputFood = new Input("Qualidade da Comida", "food", Real.valueOf(0), "real", false, null);
 		
 		inputService.addValue(Real.valueOf(3));
@@ -42,7 +42,7 @@ public class TestFuzzyAlgorithm {
 		Output outputTip = new Output("Valor da gorjeta", "tip", Real.valueOf(0), "real", false, null);
 		outputs.add(outputTip);
 		/* Create settings */
-		Setting fileSetting = new Setting("Arquivo de Configuração FCL", "fcl_file", new FileType("src/test/resources/fcl/tipper.fcl"), "file", false, null);
+		Setting fileSetting = new Setting("Arquivo de ConfiguraÃ§Ã£o FCL", "fcl_file", new FileType("src/test/resources/fcl/tipper.fcl"), "file", false, null);
 		settings.add(fileSetting);
 		
 		FuzzyAlgorithm fuzzyAlgorithm = new FuzzyAlgorithm(inputs, outputs, settings);
@@ -59,7 +59,7 @@ public class TestFuzzyAlgorithm {
 		List<Output> outputs = new LinkedList<Output>();
 		List<Setting> settings = new LinkedList<Setting>();
 		/* Create inputs */
-		Input inputService = new Input("Qualidade do Serviço", "service", Real.valueOf(0), "real", false, null);
+		Input inputService = new Input("Qualidade do ServiÃ§o", "service", Real.valueOf(0), "real", false, null);
 		Input inputFood = new Input("Qualidade da Comida", "food", Real.valueOf(0), "real", false, null);
 		
 		inputService.addValue(Real.valueOf(3));
@@ -71,7 +71,7 @@ public class TestFuzzyAlgorithm {
 		Output outputTip = new Output("Valor da gorjeta", "tip", Real.valueOf(0), "real", false, null);
 		outputs.add(outputTip);
 		/* Create settings */
-		Setting fileSetting = new Setting("Arquivo de Configuração FCL", "fcl_file", new FileType("src/test/resources/fcl/tipper.fcl"), "file", false, null);
+		Setting fileSetting = new Setting("Arquivo de ConfiguraÃ§Ã£o FCL", "fcl_file", new FileType("src/test/resources/fcl/tipper.fcl"), "file", false, null);
 		settings.add(fileSetting);
 		
 		FuzzyModule fuzzyModule = new FuzzyModule();

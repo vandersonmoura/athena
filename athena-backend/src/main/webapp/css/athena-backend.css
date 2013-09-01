@@ -2,3 +2,12 @@
 	overflow: auto;
 	zoom: 1;
 }
+
+.paragrafo{
+	text-indent: 3em;
+	margin-right: 10px;
+}
+
+.justified{
+	text-align: justify;
+}

@@ -62,5 +62,6 @@
     <script src="${pageContext.request.contextPath}/js/bootstrap.file-input.js"></script>
     <script src="${pageContext.request.contextPath}/js/athena-backend.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap-button.js"></script>
+    <script src="${pageContext.request.contextPath}/js/documentation.js"></script>
 </body>
 </html>

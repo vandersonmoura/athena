@@ -41,4 +41,14 @@ public class QuickStartController extends ControllerBase<GenericDAO> {
 	public void teamAllocation(){
 		
 	}
+	
+	/**
+	 * Redirect to quickStart.jsp
+	 */
+	@Get("/tipper")
+	@NoJson
+	@PublicResource
+	public void fuzzySystem(){
+		
+	}
 }

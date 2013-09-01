@@ -136,7 +136,7 @@ public class SolutionSet implements Serializable {
 	public int size() {
 		return solutionsList_.size();
 	} // size
-	
+
 	/**
 	 * @param desenvolvedores
 	 * @return
@@ -146,49 +146,49 @@ public class SolutionSet implements Serializable {
 		Equipe equipe = null;
 
 		int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
-		
+
 		for (int i = 0; i < solutionsList_.size(); i++) {
 			/* Nova equipe */
 			equipe = new Equipe();
-			
+
 			for (int j = 0; j < numberOfVariables; j++) {
-				if (solutionsList_.get(i).getDecisionVariables()[j].toString().equals("1")){
+				if (solutionsList_.get(i).getDecisionVariables()[j].toString().equals("1")) {
 					equipe.addDesenvolvedor(desenvolvedores.get(j));
 				}
 			}
-			
+
 			String[] values = solutionsList_.get(i).toStringResults().split(";");
-			
+
 			DecimalFormat fmt = new DecimalFormat("0.00");
-		    double produtividade = Double.valueOf(values[0]);
-		    produtividade = Double.valueOf(fmt.format(produtividade).replaceAll(",", "."));
+			double produtividade = Double.valueOf(values[0]);
+			produtividade = Double.valueOf(fmt.format(produtividade).replaceAll(",", "."));
 			equipe.setProdutividade(produtividade);
-			
+
 			double custo = Double.valueOf(values[1]);
 			custo = Double.valueOf(fmt.format(custo).replaceAll(",", "."));
 			equipe.setCusto(custo);
-			
+
 			equipes.add(equipe);
-			
+
 		}
 
 		return equipes;
 	}
-	
+
 	/**
 	 * @return
 	 */
 	public Map<String, List<Double>> getListObjetivos() {
 		Map<String, List<Double>> objetivos = new HashMap<String, List<Double>>();
-		
+
 		List<Double> objetivo1 = new LinkedList<Double>();
 		List<Double> objetivo2 = new LinkedList<Double>();
-		
+
 		for (int i = 0; i < solutionsList_.size(); i++) {
-			
+
 			Double valueObjetivo1 = Math.abs(solutionsList_.get(i).getObjective(0));
 			Double valueObjetivo2 = solutionsList_.get(i).getObjective(1);
-			
+
 			objetivo1.add(valueObjetivo1);
 			objetivo2.add(valueObjetivo2);
 		}
@@ -196,12 +196,12 @@ public class SolutionSet implements Serializable {
 		objetivos.put("Produtividade", objetivo1);
 		objetivos.put("Custo", objetivo2);
 		return objetivos;
-	} 
+	}
 
 	public List<Equipe> printResultsToFile(String folder, String filePath, List<Desenvolvedor> desenvolvedores) {
 		List<Equipe> equipes = new LinkedList<Equipe>();
 		Equipe equipe = null;
-		
+
 		try {
 			FileOutputStream fos = new FileOutputStream(folder + filePath, true);
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
@@ -212,24 +212,24 @@ public class SolutionSet implements Serializable {
 				/* Nova equipe */
 				equipe = new Equipe();
 				for (int j = 0; j < numberOfVariables; j++) {
-					if (solutionsList_.get(i).getDecisionVariables()[j].toString().equals("1")){
+					if (solutionsList_.get(i).getDecisionVariables()[j].toString().equals("1")) {
 						bw.write(desenvolvedores.get(j).getNome() + ", ");
 						equipe.addDesenvolvedor(desenvolvedores.get(j));
 					}
 				}
 				String[] values = solutionsList_.get(i).toStringResults().split(";");
-				
+
 				DecimalFormat fmt = new DecimalFormat("0.00");
-			    double produtividade = Double.valueOf(values[0]);
-			    produtividade = Double.valueOf(fmt.format(produtividade).replaceAll(",", "."));
+				double produtividade = Double.valueOf(values[0]);
+				produtividade = Double.valueOf(fmt.format(produtividade).replaceAll(",", "."));
 				equipe.setProdutividade(produtividade);
-				
+
 				double custo = Double.valueOf(values[1]);
 				custo = Double.valueOf(fmt.format(custo).replaceAll(",", "."));
 				equipe.setCusto(custo);
-				
+
 				equipes.add(equipe);
-				
+
 				bw.write("; " + solutionsList_.get(i).toStringResults());
 				bw.newLine();
 			}
@@ -288,23 +288,23 @@ public class SolutionSet implements Serializable {
 			FileOutputStream file2 = new FileOutputStream(folder + "resultados/CustoEquipe.csv", true);
 			OutputStreamWriter sw2 = new OutputStreamWriter(file2);
 			BufferedWriter print2 = new BufferedWriter(sw2);
-			
+
 			List<Double> objetivo1 = new LinkedList<Double>();
 			List<Double> objetivo2 = new LinkedList<Double>();
-			
+
 			for (int i = 0; i < solutionsList_.size(); i++) {
 				bw.write(solutionsList_.get(i).toString());
 				bw.newLine();
-				
+
 				Double valueObjetivo1 = Math.abs(solutionsList_.get(i).getObjective(0));
 				Double valueObjetivo2 = solutionsList_.get(i).getObjective(1);
-				
+
 				print1.write(valueObjetivo1 + "");
 				print1.newLine();
 
 				print2.write(valueObjetivo2 + "");
 				print2.newLine();
-				
+
 				objetivo1.add(valueObjetivo1);
 				objetivo2.add(valueObjetivo2);
 			}
@@ -313,7 +313,7 @@ public class SolutionSet implements Serializable {
 			bw.close();
 			print1.close();
 			print2.close();
-			
+
 			objetivos.put("Produtividade", objetivo1);
 			objetivos.put("Custo", objetivo2);
 			return objetivos;
@@ -323,27 +323,65 @@ public class SolutionSet implements Serializable {
 		}
 		return null;
 	} // printObjectivesToFile
-
-	/**
-	 * Writes the decision variable values of the <code>Solution</code> solutions objects into the set in a file.
-	 * 
-	 * @param path
-	 *            The output file name
-	 */
+	
 	public void printVariablesToFile(String path) {
 		try {
 			/* Open the file */
 			FileOutputStream fos = new FileOutputStream(path);
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
 			BufferedWriter bw = new BufferedWriter(osw);
-
+			
+			
 			int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
+			
 			for (int i = 0; i < solutionsList_.size(); i++) {
-				for (int j = 0; j < numberOfVariables; j++)
+				for (int j = 0; j < numberOfVariables; j++){
 					bw.write(solutionsList_.get(i).getDecisionVariables()[j].toString() + " ");
+					
+				}
 				bw.newLine();
 			}
 
+			/* Close the file */
+			bw.close();
+		} catch (IOException e) {
+			Configuration.logger_.severe("Error acceding to the file");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Writes the decision variable values of the <code>Solution</code> solutions objects into the set in a file.
+	 * 
+	 * @param path
+	 *            The output file name
+	 */
+	public void printVariablesToFile(String path, char[] candidates, int goalLength) {
+		try {
+			/* Open the file */
+			FileOutputStream fos = new FileOutputStream(path);
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			BufferedWriter bw = new BufferedWriter(osw);
+			
+			
+			int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
+			char[] generatedSolution = new char[numberOfVariables];
+			
+			for (int i = 0; i < solutionsList_.size(); i++) {
+				for (int j = 0; j < numberOfVariables; j++){
+					
+					bw.write(solutionsList_.get(i).getDecisionVariables()[j].toString() + " ");
+					
+					int index = Integer.valueOf(solutionsList_.get(i).getDecisionVariables()[j].toString()) - 1;
+					
+					generatedSolution[index] = candidates[j];
+					
+				}
+				bw.newLine();
+			}
+			
+			System.out.println("Better solution: " + String.copyValueOf(generatedSolution, 0, goalLength));
+			
 			/* Close the file */
 			bw.close();
 		} catch (IOException e) {

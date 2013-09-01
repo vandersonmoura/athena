@@ -3,6 +3,7 @@ package com.pedroalmir.athena.web.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -32,13 +33,14 @@ import com.pedroalmir.athena.core.component.GenericConverter;
 import com.pedroalmir.athena.core.component.GenericModule;
 import com.pedroalmir.athena.core.system.AthenaSystem;
 import com.pedroalmir.athena.core.type.file.FileType;
-import com.pedroalmir.athena.web.model.form.AthenaSystemForm;
-import com.pedroalmir.athena.web.model.vo.AthenaSystemVO;
-import com.pedroalmir.athena.web.model.vo.SystemEditorVO;
+import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
 import com.pedroalmir.athena.impl.teamAllocation.controller.TeamAllocationApproach;
 import com.pedroalmir.athena.impl.teamAllocation.model.Desenvolvedor;
 import com.pedroalmir.athena.impl.teamAllocation.model.TeamAllocationResult;
 import com.pedroalmir.athena.impl.teamAllocation.util.Arquivo;
+import com.pedroalmir.athena.web.model.form.AthenaSystemForm;
+import com.pedroalmir.athena.web.model.vo.AthenaSystemVO;
+import com.pedroalmir.athena.web.model.vo.SystemEditorVO;
 
 /**
  * System Editor Controller
@@ -246,7 +248,7 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 				
 				long diff = end - begin;
 				
-				String executionTime = new SimpleDateFormat("mm 'min' ':' ss 'sec' SSS 'mili'").format(diff);
+				String executionTime = new SimpleDateFormat("SSS 'milliseconds'").format(diff);
 				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM dd, yyyy", Locale.ENGLISH);
 				dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
@@ -274,5 +276,58 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 		}
 		
 		result.redirectTo(QuickStartController.class).quickStart();
+	}
+	
+	/**
+	 * @param csvFile
+	 * @param fclFile
+	 * @return
+	 */
+	@PublicResource
+	@Post("/tipperFuzzySystem")
+	public void executeFuzzySystem(Double service, Double food, UploadedFile fclFile){
+		
+		String fclFileRealPath = null;
+		
+		try{
+			if (ServletFileUpload.isMultipartContent(request) && fclFile != null) {
+				fclFileRealPath = fileUtil.saveUserFile(new FileReturn(fclFile.getFileName(), fclFile.getFile()));
+				
+				String basePath = fileUtil.getRealPathOfRootDir();
+				
+				fclFileRealPath = basePath + "/" + fclFileRealPath;
+				
+				FuzzyModule fuzzySystem = SystemFactory.createTipperFuzzySystem(service, food, fclFileRealPath);
+	
+				long begin = System.currentTimeMillis();
+				fuzzySystem.run();
+				long diff = System.currentTimeMillis() - begin;
+				
+				
+				String executionTime = new SimpleDateFormat("SSS 'milliseconds'").format(diff);
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM dd, yyyy", Locale.ENGLISH);
+				dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+				
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+				simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+				
+				String executionDate = dateFormat.format(new Date()) + " at " + simpleDateFormat.format(new Date());
+				
+				DecimalFormat fmt = new DecimalFormat("0.00");
+				Double tipValue = fuzzySystem.getAlgorithm().getSolutions().iterator().next().getFitness().getValue();
+				tipValue = Double.valueOf(fmt.format(tipValue).replaceAll(",", "."));
+				
+				result.include("execution", true);
+				result.include("executionDate", executionDate);
+				result.include("executionTime", executionTime);
+				result.include("tip", tipValue);
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+			result.include("execution", false);
+		}
+		
+		result.redirectTo(QuickStartController.class).fuzzySystem();
 	}
 }

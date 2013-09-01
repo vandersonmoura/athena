@@ -78,9 +78,10 @@ public class NSGAII_main {
 		QualityIndicator indicators;
 
 		indicators = null;
+		
 		problem = new TeamAllocation(desenvolvedores, tamanhoDaEquipe);
 		algorithm = new NSGAII(problem);
-
+		
 		/* Algorithm parameters */
 		algorithm.setInputParameter("populationSize", populationSize);
 		algorithm.setInputParameter("maxEvaluations", maxEvaluations);

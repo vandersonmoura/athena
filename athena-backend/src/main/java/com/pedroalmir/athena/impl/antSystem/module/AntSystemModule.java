@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pedroalmir.athena.impl.nsga.module;
+package com.pedroalmir.athena.impl.antSystem.module;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.solution.Solution;
-import com.pedroalmir.athena.impl.nsga.configuration.NSGAIIConfiguration;
+import com.pedroalmir.athena.impl.antSystem.configuration.AntSystemConfiguration;
 
 /**
  * @author Pedro Almir
  *
  */
-public class NSGAIIModule extends AbstractBundle implements GenericModule {
+public class AntSystemModule extends AbstractBundle implements GenericModule {
 	
 	/**
 	 * 
@@ -44,11 +44,11 @@ public class NSGAIIModule extends AbstractBundle implements GenericModule {
 	private boolean loaded;
 	
 	public String getName() {
-		return "NSGA II Algorithm Module";
+		return "Ant System Algorithm Module";
 	}
 
 	public String getShortName() {
-		return "NSGA-II";
+		return "Ant";
 	}
 
 	public String getDescription() {
@@ -83,7 +83,7 @@ public class NSGAIIModule extends AbstractBundle implements GenericModule {
 
 	@Override
 	public Configuration getConfiguration() {
-		return new NSGAIIConfiguration();
+		return new AntSystemConfiguration();
 	}
 
 	/* (non-Javadoc)
@@ -97,7 +97,7 @@ public class NSGAIIModule extends AbstractBundle implements GenericModule {
 			return false;
 		if (getClass() != bundle.getClass())
 			return false;
-		NSGAIIModule other = (NSGAIIModule) bundle;
+		AntSystemModule other = (AntSystemModule) bundle;
 		if (id == null) {
 			if (other.id != null)
 				return false;

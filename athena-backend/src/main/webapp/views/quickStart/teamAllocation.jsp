@@ -177,17 +177,17 @@
 									<p><strong>Fuzzy: Developers productivity:</strong></p>
 									<p><strong>NSGA-II: Generation of Teams:</strong></p>
 									<p><strong>Fuzzy: Evaluation of the solutions:</strong></p>
-									<p><strong>Total Execution Time:</strong></p>
+									<!-- p><strong>Total Execution Time:</strong></p>
 									<p><strong>Total Request Time:</strong></p>
-									<p><strong>Result File:</strong></p>
+									<p><strong>Result File:</strong></p-->
 								</div>
-								<div class="col-lg-4" style="text-align: left;">
+								<div class="col-lg-6" style="text-align: left;">
 									<p>${executionDate}</p>
 									<p>${executionTimeFuzzyI}</p>
 									<p>${executionTimeNSGA}</p>
 									<p>${executionTimeFuzzyII}</p>
-									<p>${totalExecutionTime}</p>
-									<p>${requestTime}</p>
+									<!--p>${totalExecutionTime}</p>
+									<p>${requestTime}</p -->
 									<p><a href="${linkToFile}" class="btn btn-success">Download Result File</a></p>
 								</div>
 							</div>

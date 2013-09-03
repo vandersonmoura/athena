@@ -14,7 +14,6 @@ import jmetal.util.JMException;
 import net.sourceforge.jFuzzyLogic.FIS;
 
 import com.pedroalmir.athena.impl.teamAllocation.model.Desenvolvedor;
-import com.pedroalmir.athena.impl.teamAllocation.model.Equipe;
 import com.pedroalmir.athena.impl.teamAllocation.model.NSGAIIResult;
 import com.pedroalmir.athena.impl.teamAllocation.model.TeamAllocationResult;
 
@@ -81,7 +80,9 @@ public class TeamAllocationApproach {
 		/* 2. Execute NSGA-II */
 		System.out.println("Gerando Equipes...");
 		NSGAIIResult nsgaiiResult = null;
-		for (int i = 0; i < 30; i++) {
+		long beginNSGAII = System.currentTimeMillis();
+		
+		for (int i = 0; i < 10; i++) {
 			/* Just for debug */
 			if(debug){
 				System.out.println("Avaliação " + i);
@@ -99,6 +100,8 @@ public class TeamAllocationApproach {
 			}
 		}
 		
+		long time = System.currentTimeMillis() - beginNSGAII;
+		nsgaiiResult.setExecutionTime(time);
 		/* 3. Execute output fuzzy */
 		System.out.println("Qualificando Equipes...");
 		
@@ -127,7 +130,7 @@ public class TeamAllocationApproach {
 		}
 		long outputFuzzyExecutionTime = System.currentTimeMillis() - beginFinal;
 		
-		/*  */
+		/*  
 		System.out.println("Processo Finalizado!");
 		if(debug){
 			System.out.println("Equipes Geradas:\n");
@@ -135,6 +138,7 @@ public class TeamAllocationApproach {
 				System.out.println(e.toString());
 			}
 		}
+		*/
 		return new TeamAllocationResult(inputFuzzyExecutionTime, outputFuzzyExecutionTime, nsgaiiResult.getExecutionTime(), nsgaiiResult.getEquipes(), desenvolvedores);
 	}
 	

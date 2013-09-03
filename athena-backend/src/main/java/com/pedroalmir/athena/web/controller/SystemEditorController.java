@@ -153,9 +153,9 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 		try{
 			if ((ServletFileUpload.isMultipartContent(request) && csvFile != null) && (fclFileIn != null) && (fclFileOut != null)) {
 				csvFileRealPath = fileUtil.saveUserFile(new FileReturn(csvFile.getFileName(), csvFile.getFile()));
-				Thread.sleep(100);
+				Thread.sleep(50);
 				fclFileInRealPath = fileUtil.saveUserFile(new FileReturn(fclFileIn.getFileName(), fclFileIn.getFile()));
-				Thread.sleep(100);
+				Thread.sleep(50);
 				fclFileOutRealPath = fileUtil.saveUserFile(new FileReturn(fclFileOut.getFileName(), fclFileOut.getFile()));
 				
 				String basePath = fileUtil.getRealPathOfRootDir();
@@ -168,11 +168,13 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 				TeamAllocationResult executionResult = new TeamAllocationApproach().execute(fclFileInRealPath, fclFileOutRealPath, desenvolvedores, 
 						populationSize, maxEvaluations, tamanhoDaEquipe, false);
 				
+				//Long beginFileCreation = System.currentTimeMillis();
 				File file = new File(fileUtil.getRealPathOfUserDir(), "resultTeamAllocationSystem_" + new Date().getTime() + ".csv");
 				file.createNewFile();
 				CSVWriter csvWriter = new CSVWriter(new FileWriter(file), ';');
 				csvWriter.writeAll(executionResult.parseToCSV());
 				csvWriter.close();
+				//Long fileCreation = System.currentTimeMillis() - beginFileCreation;
 				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM dd, yyyy", Locale.ENGLISH);
 				dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
@@ -183,13 +185,13 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 				String executionDate = dateFormat.format(new Date()) + " at " + simpleDateFormat.format(new Date());
 				String resultFileURL = file.getAbsolutePath().replace(AthenaEnvironment.ATHENA_ROOT_PATH, AthenaEnvironment.ATHENA_BASE_URL);
 				
-				@SuppressWarnings("unused")
-				SimpleDateFormat completeFormatter = new SimpleDateFormat("mm 'minutes' ':' ss 'seconds' SSS 'milliseconds'");
+				//@SuppressWarnings("unused")
+				//SimpleDateFormat completeFormatter = new SimpleDateFormat("mm 'minutes' ':' ss 'seconds' SSS 'milliseconds'");
 				SimpleDateFormat secondsFormatter = new SimpleDateFormat("ss 'seconds' SSS 'milliseconds'");
 				SimpleDateFormat millisecondsFormatter = new SimpleDateFormat("SSS 'milliseconds'");
 				
 				String executionTimeFuzzyI = millisecondsFormatter.format(executionResult.getInputFuzzyExecutionTime());
-				String executionTimeNSGA = millisecondsFormatter.format(executionResult.getNsgaIIExecutionTime());
+				String executionTimeNSGA = secondsFormatter.format(executionResult.getNsgaIIExecutionTime());
 				String executionTimeFuzzyII = millisecondsFormatter.format(executionResult.getOutputFuzzyExecutionTime());
 				
 				String totalExecutionTime = millisecondsFormatter.format(executionResult.getInputFuzzyExecutionTime() 
@@ -206,8 +208,14 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 				result.include("totalExecutionTime", totalExecutionTime);
 				
 				result.include("requestTime", requestTime);
-				
 				result.include("linkToFile", resultFileURL);
+				
+				//System.out.println("Fuzzy I: " + executionTimeFuzzyI);
+				//System.out.println("NSGA-II: " + executionTimeNSGA);
+				//System.out.println("Fuzzy II: " + executionTimeFuzzyII);
+				
+				//System.out.println("Request: " + requestTime);
+				//System.out.println("File Creation Time: " + secondsFormatter.format(fileCreation));
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();

@@ -24,6 +24,19 @@
 		<url>http://labeasy.com</url>
 	</organization>
 
+	<repositories>
+		<repository>
+			<id>sonatype-oss-snapshot</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots </url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<!-- Developers -->
 	<developers>
 		<developer>
@@ -90,7 +103,7 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.1</version>
 		</dependency>
-            
+
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
@@ -168,11 +181,19 @@
 			<artifactId>xstream</artifactId>
 			<version>1.3.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
 			<version>3.4.0</version>
 		</dependency>
+
+		<!-- dependency>
+			<groupId>br.com.caelum.vraptor</groupId>
+			<artifactId>vraptor-jpa</artifactId>
+			<version>1.0.0</version>
+		</dependency-->
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
@@ -268,13 +289,13 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- JMetal -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>jmetal</groupId> -->
-<!-- 			<artifactId>jmetal</artifactId> -->
-<!-- 			<version>4.3</version> -->
-<!-- 			<scope>system</scope> -->
-<!-- 			<systemPath>${web-inf.lib}/jmetal.jar</systemPath> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>jmetal</groupId> -->
+		<!-- <artifactId>jmetal</artifactId> -->
+		<!-- <version>4.3</version> -->
+		<!-- <scope>system</scope> -->
+		<!-- <systemPath>${web-inf.lib}/jmetal.jar</systemPath> -->
+		<!-- </dependency> -->
 		<!-- JFuzzyLogic -->
 		<dependency>
 			<groupId>net.sf.jfuzzylogic</groupId>
@@ -284,14 +305,22 @@
 			<systemPath>${web-inf.lib}/jFuzzyLogic_v3.0.jar</systemPath>
 		</dependency>
 		
-		<!-- TeamAllocation -->
 <!-- 		<dependency> -->
-<!-- 			<groupId>com.pedroalmir</groupId> -->
-<!-- 			<artifactId>teamAllocation</artifactId> -->
-<!-- 			<version>1.0</version> -->
+<!-- 			<groupId>com.thetransactioncompany</groupId> -->
+<!-- 			<artifactId>cors-filter</artifactId> -->
+<!-- 			<version>1.7.1</version> -->
 <!-- 			<scope>system</scope> -->
-<!-- 			<systemPath>${web-inf.lib}/teamAllocation.jar</systemPath> -->
+<!-- 			<systemPath>${web-inf.lib}/cors-filter-1.7.1.jar</systemPath> -->
 <!-- 		</dependency> -->
+
+		<!-- TeamAllocation -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.pedroalmir</groupId> -->
+		<!-- <artifactId>teamAllocation</artifactId> -->
+		<!-- <version>1.0</version> -->
+		<!-- <scope>system</scope> -->
+		<!-- <systemPath>${web-inf.lib}/teamAllocation.jar</systemPath> -->
+		<!-- </dependency> -->
 	</dependencies>
 
 </project>

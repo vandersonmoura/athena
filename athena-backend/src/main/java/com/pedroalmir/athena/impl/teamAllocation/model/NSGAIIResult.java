@@ -18,7 +18,7 @@ public class NSGAIIResult {
 	/**
 	 * 
 	 */
-	private final long executionTime;
+	private long executionTime;
 	/**
 	 * 
 	 */
@@ -53,6 +53,13 @@ public class NSGAIIResult {
 	 */
 	public Map<String, List<Double>> getObjetivos() {
 		return objetivos;
+	}
+
+	/**
+	 * @param executionTime the executionTime to set
+	 */
+	public void setExecutionTime(long executionTime) {
+		this.executionTime = executionTime;
 	}
 	
 	

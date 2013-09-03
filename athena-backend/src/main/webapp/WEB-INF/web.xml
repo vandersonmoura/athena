@@ -20,11 +20,21 @@
 		por instanciar o entityManagerFactory, injetar um entityManager onde necessário 
 		e gerenciar as transações, fazendo commit ou rollback ao final da execução 
 		de métodos -->
-	<context-param>
-		<param-name>br.com.caelum.vraptor.provider</param-name>
+	<context-param> 
+		<param-name>br.com.caelum.vraptor.provider</param-name> 
 		<param-value>com.pedroalmir.athena.common.repository.MyJPACustomProvider</param-value>
 	</context-param>
+	
+	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.pedroalmir.athena.CORSFilter</filter-class>
+	</filter>
 
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<filter>
 		<filter-name>sitemesh</filter-name>
 		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>

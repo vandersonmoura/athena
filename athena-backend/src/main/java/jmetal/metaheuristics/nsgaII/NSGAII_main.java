@@ -64,54 +64,36 @@ public class NSGAII_main {
 			throws JMException, SecurityException, IOException, ClassNotFoundException {
 		long begin = System.currentTimeMillis();
 		/* The problem to solve */
-		Problem problem = null;
-		/* The algorithm to use */
-		Algorithm algorithm = null; 
-		/* Crossover operator */
-		Operator crossover = null; 
-		/* Mutation operator */
-		Operator mutation = null;
-		/* Selection operator */ 
-		Operator selection = null; 
-
-		/* Object to get quality indicators */
-		QualityIndicator indicators;
-
-		indicators = null;
-		
-		problem = new TeamAllocation(desenvolvedores, tamanhoDaEquipe);
-		algorithm = new NSGAII(problem);
+		Problem problem = new TeamAllocation(desenvolvedores, tamanhoDaEquipe);
+		Algorithm algorithm = new NSGAII(problem);
 		
 		/* Algorithm parameters */
 		algorithm.setInputParameter("populationSize", populationSize);
 		algorithm.setInputParameter("maxEvaluations", maxEvaluations);
 
 		/* Mutation and Crossover for Real codification */
-		crossover = CrossoverFactory.getCrossoverOperator("SinglePointCrossover");
+		Operator crossover = CrossoverFactory.getCrossoverOperator("SinglePointCrossover");
 		crossover.setParameter("probability", 0.9);
 		crossover.setParameter("distributionIndex", 20.0);
 
-		mutation = MutationFactory.getMutationOperator("BitFlipMutation");
+		Operator mutation = MutationFactory.getMutationOperator("BitFlipMutation");
 		mutation.setParameter("probability", 0.05);
 		mutation.setParameter("distributionIndex", 20.0);
 
 		/* Selection Operator */
-		selection = SelectionFactory.getSelectionOperator("BinaryTournament2");
+		Operator selection = SelectionFactory.getSelectionOperator("BinaryTournament2");
 
 		/* Add the operators to the algorithm */
 		algorithm.addOperator("crossover", crossover);
 		algorithm.addOperator("mutation", mutation);
 		algorithm.addOperator("selection", selection);
 
-		/* Add the indicator object to the algorithm */
-		algorithm.setInputParameter("indicators", indicators);
-
 		/* Execute the Algorithm */
 		SolutionSet population = algorithm.execute();
 
 		/* Result messages */
 		//logger_.info("Total execution time: " + executionTime + "ms");
-		population.sort(new jmetal.base.operator.comparator.CrowdingDistanceComparator());
+		//population.sort(new jmetal.base.operator.comparator.CrowdingDistanceComparator());
 		
 		List<Equipe> equipes = population.getListOfResults(desenvolvedores);
 		Map<String, List<Double>> objetivos = population.getListObjetivos();

@@ -16,7 +16,7 @@ public class TeamAllocationResult {
 	 */
 	private final long inputFuzzyExecutionTime;
 	private final long outputFuzzyExecutionTime;
-	private final long nsgaIIExecutionTime;
+	private long nsgaIIExecutionTime;
 	
 	/**
 	 * 
@@ -154,5 +154,12 @@ public class TeamAllocationResult {
 	 */
 	public List<Desenvolvedor> getDesenvolvedores() {
 		return desenvolvedores;
+	}
+
+	/**
+	 * @param nsgaIIExecutionTime the nsgaIIExecutionTime to set
+	 */
+	public void setNsgaIIExecutionTime(long nsgaIIExecutionTime) {
+		this.nsgaIIExecutionTime = nsgaIIExecutionTime;
 	}
 }

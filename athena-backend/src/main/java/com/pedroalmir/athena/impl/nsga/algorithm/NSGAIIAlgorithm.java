@@ -4,12 +4,17 @@
 package com.pedroalmir.athena.impl.nsga.algorithm;
 
 import java.util.List;
+import java.util.Properties;
 
+import jmetal.metaheuristics.nsgaII.NSGAII;
+
+import com.google.common.base.Preconditions;
 import com.pedroalmir.athena.core.algorithm.AbstractAlgorithm;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.solution.Solution;
+import com.pedroalmir.athena.impl.fuzzy.algorithm.FuzzyAlgorithm;
 
 /** 
  *  Implementation of NSGA-II.
@@ -27,47 +32,39 @@ public class NSGAIIAlgorithm extends AbstractAlgorithm {
 	/**
 	 * 
 	 */
-	//private NSGAII nsgaii;
+	private NSGAII nsgaii;
 	
 	protected NSGAIIAlgorithm(List<Input> inputs, List<Output> outputs, List<Setting> settings) {
 		super(inputs, outputs, settings);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.pedroalmir.athena.impl.team.athena.core.configuration.ConfigurableAlgorithm#addSetting(com.pedroalmir.athena.impl.team.athena.core.put.Setting)
+	/**
+	 * @param copy
 	 */
+	public NSGAIIAlgorithm(AbstractAlgorithm copy) {
+		super(copy);
+	}
+
 	@Override
 	public void addSetting(Setting setting) {
-
+		this.settings.add(Preconditions.checkNotNull(setting));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.pedroalmir.athena.impl.team.athena.core.configuration.ConfigurableAlgorithm#removeSetting(com.pedroalmir.athena.impl.team.athena.core.put.Setting)
-	 */
 	@Override
 	public void removeSetting(Setting setting) {
-
+		this.settings.remove(Preconditions.checkNotNull(setting));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.pedroalmir.athena.impl.team.athena.core.algorithm.AbstractAlgorithm#getClone()
-	 */
 	@Override
 	public AbstractAlgorithm getClone() {
-		return null;
+		return new NSGAIIAlgorithm(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.pedroalmir.athena.impl.team.athena.core.algorithm.AbstractAlgorithm#algorithmIteration()
-	 */
 	@Override
 	protected void algorithmIteration() {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.pedroalmir.athena.impl.team.athena.core.algorithm.AbstractAlgorithm#algorithmInitialisation()
-	 */
 	@Override
 	public void algorithmInitialisation() {
 

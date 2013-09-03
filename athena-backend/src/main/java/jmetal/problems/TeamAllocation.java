@@ -56,6 +56,7 @@ public class TeamAllocation extends Problem {
 		double produtividadeTotal = 0.0;
 		double salarioTotal = 0.0;
 		int equipeFormada = 0;
+		
 		for (int i = 0; i < numberOfVariables_; i++) {
 			x[i] = solution.getDecisionVariables()[i].getValue();
 			produtividadeTotal += candidatos.get(i).getProdutividade() * x[i];

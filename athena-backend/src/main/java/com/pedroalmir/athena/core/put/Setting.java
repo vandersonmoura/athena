@@ -24,6 +24,7 @@ public class Setting extends Put {
 	 */
 	private static final long serialVersionUID = -1896325039622417404L;
 	private boolean required;
+	private String value;
 
 	/**
 	 * Default constructor
@@ -93,6 +94,20 @@ public class Setting extends Put {
 	@Override
 	protected Setting clone() throws CloneNotSupportedException {
 		return new Setting(this);
+	}
+
+	/**
+	 * @return the value
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(String value) {
+		this.value = value;
 	}
 	
 }

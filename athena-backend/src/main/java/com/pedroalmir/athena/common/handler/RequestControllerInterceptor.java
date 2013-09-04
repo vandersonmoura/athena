@@ -68,6 +68,7 @@ public class RequestControllerInterceptor implements Interceptor {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private HttpServletResponse response;
 
 	/**
@@ -124,12 +125,10 @@ public class RequestControllerInterceptor implements Interceptor {
 					stack.next(method, resourceInstance);
 				} else {
 					/* To allow access from all domains, a server can send the following response header */
-					response.addHeader("Access-Control-Allow-Origin", "*");
-					response.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-					response.addHeader("Access-Control-Max-Age", "1728000");
-					response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, accept, origin");
-					response.addHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
-					response.addHeader("Access-Control-Allow-Credentials", "true");
+					//response.addHeader("Access-Control-Allow-Origin", "*");
+					//response.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+					//response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, accept, origin");
+					//response.addHeader("Access-Control-Allow-Credentials", "true");
 					
 					/* else, serialize */
 					outputHandler.response(result);

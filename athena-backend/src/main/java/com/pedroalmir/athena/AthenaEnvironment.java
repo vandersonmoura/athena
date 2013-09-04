@@ -32,6 +32,8 @@ public class AthenaEnvironment {
 	public static String ATHENA_ROOT_PATH = null;
 	public static boolean IN_TOMCAT = false;
 	public static final String ATHENA_BASE_URL = "http://pedroalmir.com/athena-backend/";
+	public static final String LOG_SEPARATOR_I = "###########################################################################################################";
+	public static final String LOG_SEPARATOR_II = "-----------------------------------------------------------------------------------------------------------";
 	
 	public static void main(String[] args) {
 		Map<String, Class<AthenaBundle>> availableModules = AthenaEnvironment.getAvailableBundles(null);
@@ -88,6 +90,31 @@ public class AthenaEnvironment {
 			}
 		}
 		return availableModules;
+	}
+	
+	/**
+	 * Find bundle class from unique key
+	 * 
+	 * @param uniqueKey
+	 * @param request
+	 * @return athena bundle class
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T extends AthenaBundle> Class<T> getBundleFromUniqueKey(String uniqueKey, HttpServletRequest request){
+		
+		try {
+			Properties athenaProperties = loadProperties(request);
+			
+			String klass = athenaProperties.getProperty(uniqueKey);
+			
+			Class<T> bundle = (Class<T>) Class.forName(klass);
+			
+			return bundle;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	/**

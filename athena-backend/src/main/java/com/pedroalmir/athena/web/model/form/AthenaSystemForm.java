@@ -22,6 +22,10 @@ public class AthenaSystemForm {
 	 */
 	private Long id;
 	/**
+	 * FrontIdentifer
+	 */
+	private String identifier;
+	/**
 	 * System name
 	 */
 	private String name;
@@ -29,6 +33,7 @@ public class AthenaSystemForm {
 	 * System description
 	 */
 	private String description;
+	
 	/**
 	 * List of bundles
 	 */
@@ -156,5 +161,19 @@ public class AthenaSystemForm {
 	@Override
 	public String toString() {
 		return "AthenaSystemForm [id=" + id + ", name=" + name + ", description=" + description + ", bundles=" + bundles + ", links=" + links + "]";
+	}
+
+	/**
+	 * @return the identifier
+	 */
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	/**
+	 * @param identifier the identifier to set
+	 */
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 }

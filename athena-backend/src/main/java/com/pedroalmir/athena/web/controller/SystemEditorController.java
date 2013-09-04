@@ -2,7 +2,9 @@ package com.pedroalmir.athena.web.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +13,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import au.com.bytecode.opencsv.CSVWriter;
 import br.com.caelum.vraptor.Get;
@@ -20,6 +25,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 
+import com.google.gson.Gson;
 import com.pedroalmir.athena.AthenaEnvironment;
 import com.pedroalmir.athena.common.annotation.MainDAO;
 import com.pedroalmir.athena.common.annotation.PublicResource;
@@ -31,6 +37,7 @@ import com.pedroalmir.athena.common.util.file.FileReturn;
 import com.pedroalmir.athena.common.util.file.FileUtil;
 import com.pedroalmir.athena.core.component.GenericConverter;
 import com.pedroalmir.athena.core.component.GenericModule;
+import com.pedroalmir.athena.core.report.ExecutionLog;
 import com.pedroalmir.athena.core.system.AthenaSystem;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
@@ -82,22 +89,16 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 		return new SystemEditorVO(this.request);
 	}
 	
-	/**
-	 * Upload File
-	 * 
-	 * @param uploadedFile
-	 * @return uploaded file path
-	 * @throws FileNotFoundException
-	 * @throws AthenaException
-	 */
 	@PublicResource
-	@Post("/uploadFile")
-	public String uploadFile(UploadedFile uploadedFile) throws FileNotFoundException, AthenaException{
-		if (ServletFileUpload.isMultipartContent(request) && uploadedFile != null) {
-			String uploadedUserFile = fileUtil.saveUserFile(new FileReturn(uploadedFile.getFileName(), uploadedFile.getFile()));
-			return this.request.getContextPath() + "/" + uploadedUserFile;
-		}
-		throw new AthenaException();
+	@Get("/json")
+	public Object json() throws IOException, ParseException{
+		String realPath = fileUtil.getRealPath("WEB-INF/classes/json.json");
+		
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(new FileReader(realPath));
+		JSONObject jsonObject = (JSONObject) obj;
+		
+		return jsonObject;
 	}
 	
 	/**
@@ -122,6 +123,48 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 	@Post("/system/execute")
 	public String execute(AthenaSystemForm system){
 		return "log of execution";
+	}
+	
+	/**
+	 * Execute AthenaSystem
+	 * @param system
+	 * @return
+	 */
+	@PublicResource
+	@Post("/system/executetest")
+	public ExecutionLog execute(String system){
+		try {
+			AthenaSystemForm systemForm = new Gson().fromJson(system, AthenaSystemForm.class);
+			AthenaSystem completeSystem = SystemFactory.createSystemFromView(systemForm, this.request);
+			return completeSystem.createAndExecuteSimulation("Seja o que Deus quiser!!!");
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Upload File
+	 * 
+	 * @param uploadedFile
+	 * @return uploaded file path
+	 * @throws FileNotFoundException
+	 * @throws AthenaException
+	 */
+	@PublicResource
+	@Post("/uploadFile")
+	public String uploadFile(UploadedFile uploadedFile) throws FileNotFoundException, AthenaException{
+		if (ServletFileUpload.isMultipartContent(request) && uploadedFile != null) {
+			String uploadedUserFile = fileUtil.saveUserFile(new FileReturn(uploadedFile.getFileName(), uploadedFile.getFile()));
+			String url = "http://pedroalmir.com/" + this.request.getContextPath() + "/" + uploadedUserFile;
+			String realFullPath = this.fileUtil.getRealPath(uploadedUserFile);
+			System.out.println("File uploaded: " + url);
+			System.out.println("Real path: " + realFullPath);
+			return realFullPath;
+		}
+		throw new AthenaException();
 	}
 	
 	/**

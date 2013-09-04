@@ -40,9 +40,15 @@ public class FileType implements Type {
 	 */
 	public FileType(String filePath) {
 		try {
-			this.file = new File(checkNotNull(filePath));
-			this.filePath = filePath;
-			this.reader = new FileReader(file);
+			if(filePath != null){
+				this.file = new File(filePath);
+				this.filePath = filePath;
+				this.reader = new FileReader(file);
+			}else{
+				this.file = null;
+				this.filePath = null;
+				this.reader = null;
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

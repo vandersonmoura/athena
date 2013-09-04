@@ -6,14 +6,11 @@
  */
 package jmetal.base;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -371,9 +368,7 @@ public class SolutionSet implements Serializable {
 				for (int j = 0; j < numberOfVariables; j++){
 					
 					bw.write(solutionsList_.get(i).getDecisionVariables()[j].toString() + " ");
-					
 					int index = Integer.valueOf(solutionsList_.get(i).getDecisionVariables()[j].toString()) - 1;
-					
 					generatedSolution[index] = candidates[j];
 					
 				}
@@ -422,227 +417,6 @@ public class SolutionSet implements Serializable {
 		}
 	}
 
-	@SuppressWarnings("resource")
-	public void printVariablesToFileGA(String path) {
-		try {
-			/* Open the file */
-			FileOutputStream fos = new FileOutputStream(path);
-			OutputStreamWriter osw = new OutputStreamWriter(fos);
-			BufferedWriter bw = new BufferedWriter(osw);
-			/**
-			 * int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length ;
-			 * for (int i = 0; i < solutionsList_.size(); i++) {
-			 * for (int j = 0; j < numberOfVariables; j++)
-			 * bw.write(solutionsList_.get(i).getDecisionVariables()[j].toString() + " ");
-			 * bw.newLine();
-			 * 
-			 * 
-			 * 
-			 * }
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * /* Close the file
-			 */
-
-			PrintWriter saida = new PrintWriter(new OutputStreamWriter(new FileOutputStream("tipperGA2.fcl"), "UTF-8"));
-			BufferedReader incopia = new BufferedReader(new FileReader("tipper.fcl"));
-			ArrayList<Integer> regras = new ArrayList<Integer>();
-			int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
-			for (int i = 0; i < solutionsList_.size(); i++) {
-				for (int j = 0; j < numberOfVariables; j++) {
-					float temp = Float.parseFloat(solutionsList_.get(i).getDecisionVariables()[j].toString());
-					int valor = java.lang.Math.round(temp);
-					regras.add(valor);
-					bw.write(Integer.toString(valor));
-					bw.newLine();
-				}
-			}
-
-			try {
-
-				PrintWriter saida2 = new PrintWriter(new OutputStreamWriter(new FileOutputStream("fconhecimento.fcl"), "UTF-8"));
-
-				saida2.println("TERM ConhecimentoPouca := (0.0, 1) ("
-						+ new DecimalFormat("0.00").format(regras.get(2)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM ConhecimentoMedia := (" + new DecimalFormat("0.00").format(regras.get(1)).replace(',', '.')
-						+ ", 0) (" + new DecimalFormat("0.00").format(regras.get(3)).replace(',', '.') + ",1) ("
-						+ new DecimalFormat("0.00").format(regras.get(5)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM ConhecimentoMuita := (" + new DecimalFormat("0.00").format(regras.get(4)).replace(',', '.')
-						+ ", 0) (10.0, 1);");
-
-				saida2.close();
-			} catch (IOException e) {
-			}
-
-			try {
-
-				PrintWriter saida2 = new PrintWriter(new OutputStreamWriter(new FileOutputStream("fhabilidade.fcl"), "UTF-8"));
-
-				saida2.println("TERM HabilidadePouca := (0.0, 1) ("
-						+ new DecimalFormat("0.00").format(regras.get(9)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM HabilidadeMedia := (" + new DecimalFormat("0.00").format(regras.get(8)).replace(',', '.')
-						+ ", 0) (" + new DecimalFormat("0.00").format(regras.get(10)).replace(',', '.') + ",1) ("
-						+ new DecimalFormat("0.00").format(regras.get(12)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM HabilidadeMuita := (" + new DecimalFormat("0.00").format(regras.get(11)).replace(',', '.')
-						+ ", 0) (10.0, 1);");
-
-				// JOptionPane.showMessageDialog(null,"complexidade!","Aviso", JOptionPane.INFORMATION_MESSAGE);
-
-				saida2.close();
-			} catch (IOException e) {
-			}
-
-			try {
-
-				PrintWriter saida2 = new PrintWriter(new OutputStreamWriter(new FileOutputStream("fatitude.fcl"), "UTF-8"));
-
-				saida2.println("TERM AtitudeRuim := (0.0, 1) ("
-						+ new DecimalFormat("0.00").format(regras.get(16)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM AtitudeRegular := (" + new DecimalFormat("0.00").format(regras.get(15)).replace(',', '.')
-						+ ", 0) (" + new DecimalFormat("0.00").format(regras.get(17)).replace(',', '.') + ",1) ("
-						+ new DecimalFormat("0.00").format(regras.get(19)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM AtitudeBoa := (" + new DecimalFormat("0.00").format(regras.get(18)).replace(',', '.')
-						+ ", 0) (10.0, 1);");
-
-				// JOptionPane.showMessageDialog(null,"volatilidade!","Aviso", JOptionPane.INFORMATION_MESSAGE);
-
-				saida2.close();
-			} catch (IOException e) {
-			}
-
-			try {
-
-				PrintWriter saida2 = new PrintWriter(new OutputStreamWriter(new FileOutputStream("fprodutividade.fcl"), "UTF-8"));
-
-				saida2.println("TERM ProdutividadeMuitoBaixa := (0.0, 1) ("
-						+ new DecimalFormat("0.00").format(regras.get(23)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM ProdutividadeBaixa := ("
-						+ new DecimalFormat("0.00").format(regras.get(22)).replace(',', '.') + ", 0) ("
-						+ new DecimalFormat("0.00").format(regras.get(24)).replace(',', '.') + ",1) ("
-						+ new DecimalFormat("0.00").format(regras.get(26)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM ProdutividadeMedia := ("
-						+ new DecimalFormat("0.00").format(regras.get(25)).replace(',', '.') + ", 0) ("
-						+ new DecimalFormat("0.00").format(regras.get(27)).replace(',', '.') + ",1) ("
-						+ new DecimalFormat("0.00").format(regras.get(28)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM ProdutividadeAlta := (" + new DecimalFormat("0.00").format(regras.get(28)).replace(',', '.')
-						+ ", 0) (" + new DecimalFormat("0.00").format(regras.get(30)).replace(',', '.') + ",1) ("
-						+ new DecimalFormat("0.00").format(regras.get(32)).replace(',', '.') + ",0);");
-
-				saida2.println("TERM ProdutividadeMuitoAlta := ("
-						+ new DecimalFormat("0.00").format(regras.get(31)).replace(',', '.') + ", 0) (10.0, 1);");
-
-				// JOptionPane.showMessageDialog(null,"volatilidade!","Aviso", JOptionPane.INFORMATION_MESSAGE);
-
-				saida2.close();
-
-			} catch (IOException e) {
-			}
-
-			int listaRegras = 34;
-			int controle = 1;
-			while (incopia.ready()) {
-				String str = incopia.readLine();
-
-				if (str.equals("-;")) {
-					if (regras.get(listaRegras) == 1.0) {
-						saida.println("ProdutividadeMuitoBaixa;");
-					}
-					if (regras.get(listaRegras) == 2.0) {
-						saida.println("ProdutividadeBaixa;");
-					}
-					if (regras.get(listaRegras) == 3.0) {
-						saida.println("ProdutividadeMedia;");
-					}
-					if (regras.get(listaRegras) == 4.0) {
-						saida.println("ProdutividadeAlta;");
-					}
-					if (regras.get(listaRegras) == 5.0) {
-						saida.println("ProdutividadeMuitoAlta;");
-					}
-
-					listaRegras = listaRegras + 1;
-					controle = 0;
-
-				}
-
-				if (str.equals("---2;")) {
-					BufferedReader inentrada = new BufferedReader(new FileReader("fconhecimento.fcl"));
-					while (inentrada.ready()) {
-						str = inentrada.readLine();
-						if (str.equals("NaN"))
-							str = "0.0";
-						saida.println(str);
-					}
-					inentrada.close();
-					saida.println("END_FUZZIFY");
-					saida.println(" ");
-					inentrada = new BufferedReader(new FileReader("fhabilidade.fcl"));
-					saida.println("// Fuzzify input variable 'Habilidade'");
-					saida.println("FUZZIFY Habilidade");
-					while (inentrada.ready()) {
-						str = inentrada.readLine();
-						if (str.equals("NaN"))
-							str = "0.0";
-						saida.println(str);
-					}
-
-					controle = 0;
-					inentrada.close();
-				}
-
-				if (str.equals("---3;")) {
-					BufferedReader inentrada = new BufferedReader(new FileReader("fatitude.fcl"));
-					while (inentrada.ready()) {
-						str = inentrada.readLine();
-						if (str.equals("NaN"))
-							str = "0.0";
-						saida.println(str);
-					}
-					controle = 0;
-
-				}
-
-				if (str.equals("---4;")) {
-					BufferedReader inentrada = new BufferedReader(new FileReader("fprodutividade.fcl"));
-					while (inentrada.ready()) {
-						str = inentrada.readLine();
-						if (str.equals("NaN"))
-							str = "0.0";
-						saida.println(str);
-					}
-					controle = 0;
-
-				}
-
-				if (controle == 1) {
-					saida.println(str);
-				}
-
-				controle = 1;
-
-			}
-			saida.close();
-
-			incopia.close();
-
-			bw.close();
-		} catch (IOException e) {
-			Configuration.logger_.severe("Error acceding to the file");
-			e.printStackTrace();
-		}
-	} // printVariablesToFile
 
 	/**
 	 * Empties the SolutionSet

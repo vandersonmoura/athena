@@ -3,6 +3,7 @@
  */
 package com.pedroalmir.athena.core.system.simulation;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.google.common.base.Preconditions;
+import com.pedroalmir.athena.AthenaEnvironment;
 import com.pedroalmir.athena.common.model.GenericEntity;
 import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.component.GenericConverter;
@@ -24,6 +26,7 @@ import com.pedroalmir.athena.core.component.GenericModule;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
+import com.pedroalmir.athena.core.report.ExecutionLog;
 import com.pedroalmir.athena.core.solution.Solution;
 import com.pedroalmir.athena.core.system.AthenaSystem;
 import com.pedroalmir.athena.core.system.link.Link;
@@ -82,6 +85,11 @@ public class Simulation extends GenericEntity implements Runnable {
 	 */
 	@Transient
 	private List<Solution> solutions;
+	/**
+	 * 
+	 */
+	@Transient
+	private ExecutionLog executionLog;
 	
 	/**
 	 * @param description
@@ -94,6 +102,7 @@ public class Simulation extends GenericEntity implements Runnable {
 		this.system = system;
 		this.info = new LinkedList<SimulationData>();
 		this.executionDate = new Date();
+		this.executionLog = new ExecutionLog();
 	}
 	
 	/**
@@ -108,6 +117,7 @@ public class Simulation extends GenericEntity implements Runnable {
 		this.system = system;
 		this.info = info;
 		this.executionDate = new Date();
+		this.executionLog = new ExecutionLog();
 	}
 	
 	/**
@@ -122,6 +132,14 @@ public class Simulation extends GenericEntity implements Runnable {
 		this.system = system;
 		this.info = info;
 		this.executionDate = executionDate;
+		this.executionLog = new ExecutionLog();
+	}
+	
+	/**
+	 * 
+	 */
+	public void generateExecutionLog(){
+		
 	}
 	
 	/**
@@ -153,6 +171,7 @@ public class Simulation extends GenericEntity implements Runnable {
 	}
 
 	/**
+	 * TODO: Verificar a necessidade desse método.
 	 * @return
 	 */
 	public String getResult(){
@@ -196,14 +215,19 @@ public class Simulation extends GenericEntity implements Runnable {
 	}
 	
 	/**
-	 * 
+	 * TODO: Implement this validation...
 	 */
 	public void checkAndValidateResults() {
 		
 	}
 
 	public void run() {
+		executionLog.appendLogLine(AthenaEnvironment.LOG_SEPARATOR_I);
+		executionLog.appendLogLine("Simulação: " + this.description);
+		executionLog.appendLogLine("Data: " + new SimpleDateFormat("dd'/'MM'/'yyyy 'às' HH':'mm").format(this.executionDate));
+		executionLog.appendLogLine(AthenaEnvironment.LOG_SEPARATOR_I);
 		for (AthenaBundle bundle : this.system.getBundles()) {
+			long begin = System.currentTimeMillis();
 			if(bundle instanceof GenericConverter){
 				populateInputs(bundle);
 				populateSettings(bundle);
@@ -227,7 +251,29 @@ public class Simulation extends GenericEntity implements Runnable {
 				
 				propagateResults(bundle);
 			}
+			
+			
+			SimpleDateFormat formatter = null;
+			long totalExecutionTime = System.currentTimeMillis() - begin;
+			
+			if(totalExecutionTime <= 999){
+				formatter = new SimpleDateFormat("SSS 'milisegundo(s)'");
+			}else if(totalExecutionTime > 999 && totalExecutionTime <= 59999){
+				formatter = new SimpleDateFormat("ss 'segundo(s)' SSS 'milisegundo(s)'");
+			}else{
+				formatter = new SimpleDateFormat("mm 'minuto(s)' ':' ss 'segundo(s)' SSS 'milisegundo(s)'");
+			}
+			
+			executionLog.appendLogLine("Nome do Módulo: " + bundle.getName());
+			executionLog.appendLogLine("Tempo de Execução: " + formatter.format(executionDate) + "\n");
+			executionLog.appendLogLine("Log de Execução: ");
+			executionLog.appendLog(bundle.getExecutionLog().getExecutionReport().toString() + "\n");
+			executionLog.appendLogLine(AthenaEnvironment.LOG_SEPARATOR_I);
+			
+			executionLog.getGeneratedFilesRealPath().addAll(bundle.getExecutionLog().getGeneratedFilesRealPath());
+			executionLog.getGeneratedFilesUserPath().addAll(bundle.getExecutionLog().getGeneratedFilesUserPath());
 		}
+		System.out.println(executionLog.getExecutionReport().toString());
 	}
 
 	/**
@@ -413,5 +459,19 @@ public class Simulation extends GenericEntity implements Runnable {
 	public String toString() {
 		return "Simulation [description=" + description + ", system=" + system
 				+ ", executionDate=" + executionDate + "]";
+	}
+
+	/**
+	 * @return the executionLog
+	 */
+	public ExecutionLog getExecutionLog() {
+		return executionLog;
+	}
+
+	/**
+	 * @param executionLog the executionLog to set
+	 */
+	public void setExecutionLog(ExecutionLog executionLog) {
+		this.executionLog = executionLog;
 	}
 }

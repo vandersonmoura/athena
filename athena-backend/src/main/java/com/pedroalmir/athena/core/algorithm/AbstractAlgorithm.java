@@ -13,6 +13,7 @@ import com.pedroalmir.athena.core.problem.Problem;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
+import com.pedroalmir.athena.core.report.ExecutionLog;
 import com.pedroalmir.athena.core.solution.Solution;
 import com.pedroalmir.athena.core.stoppingCondition.base.Stoppable;
 import com.pedroalmir.athena.core.stoppingCondition.base.StoppingCondition;
@@ -90,6 +91,10 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable, Configu
      * It'll be populated after the end of algorithm execution.
      */
     protected List<Solution> solutions;
+    /**
+     * Execution Log
+     */
+    protected ExecutionLog executionLog;
 
     /**
      * Default constructor for {@linkplain Algorithm} classes. Sets up the correct state
@@ -117,6 +122,7 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable, Configu
         		
         running = false;
         initialised = false;
+        executionLog = new ExecutionLog();
     }
     
     public abstract AbstractAlgorithm getClone();
@@ -164,6 +170,7 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable, Configu
         iteration = 0;
         running = true;
         initialised = true;
+        executionLog = new ExecutionLog();
 
         algorithmInitialisation();
     }
@@ -207,6 +214,7 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable, Configu
      * @exception InitialisationException algorithm was not properly initialized.
      */
     public void run() {
+    	long begin = System.currentTimeMillis();
         if (!initialised) {
             performInitialisation();
         }
@@ -214,6 +222,9 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable, Configu
         fireAlgorithmStarted();
         runAlgorithm();
         fireAlgorithmFinished();
+        
+        this.executionLog.setIterations(this.iteration);
+        this.executionLog.setExecutionTime(System.currentTimeMillis() - begin);
         cleanUp();
     }
 
@@ -364,5 +375,19 @@ public abstract class AbstractAlgorithm implements Algorithm, Stoppable, Configu
      * {@inheritDoc}
      */
     public abstract <T extends Solution> Iterable<T> getSolutions();
+
+	/**
+	 * @return the executionLog
+	 */
+	public ExecutionLog getExecutionLog() {
+		return executionLog;
+	}
+
+	/**
+	 * @param executionLog the executionLog to set
+	 */
+	public void setExecutionLog(ExecutionLog executionLog) {
+		this.executionLog = executionLog;
+	}
 
 }

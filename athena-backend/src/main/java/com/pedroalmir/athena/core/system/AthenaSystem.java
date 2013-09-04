@@ -18,6 +18,7 @@ import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
+import com.pedroalmir.athena.core.report.ExecutionLog;
 import com.pedroalmir.athena.core.system.link.Link;
 import com.pedroalmir.athena.core.system.simulation.Simulation;
 import com.pedroalmir.athena.core.system.simulation.SimulationData;
@@ -106,6 +107,12 @@ public class AthenaSystem extends GenericEntity {
 	}
 	
 	/**
+	 * @param bundles
+	 */
+	public void addAllModule(List<AthenaBundle> bundles) {
+		this.bundles.addAll(bundles);
+	}
+	/**
 	 * @param label
 	 * @param srcBundle
 	 * @param dstBundle
@@ -119,6 +126,15 @@ public class AthenaSystem extends GenericEntity {
 	}
 	
 	/**
+	 * @param listOfLinks
+	 */
+	public void addAllLink(List<Link> listOfLinks){
+		this.links.addAll(listOfLinks);
+	}
+	
+	
+	
+	/**
 	 * Create and execute a simulation for this system.
 	 * <ol>
 	 *   <li>Create means extract data from inputs and outputs then make a simulation entity for each bundle of system.</li>
@@ -126,13 +142,14 @@ public class AthenaSystem extends GenericEntity {
 	 *   <li>Execute created simulation</li>
 	 * </ol>
 	 */
-	public void createAndExecuteSimulation(String simulationDescription) {
+	public ExecutionLog createAndExecuteSimulation(String simulationDescription) {
 		Simulation simulation = extractSimulationData(simulationDescription);
 		
 		//if(!checkIfExist(simulation))
 		simulation.run();
 		
 		simulation.checkAndValidateResults();
+		return simulation.getExecutionLog();
 	}
 	
 

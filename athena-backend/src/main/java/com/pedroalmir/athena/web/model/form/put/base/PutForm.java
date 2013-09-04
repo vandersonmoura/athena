@@ -5,111 +5,160 @@ package com.pedroalmir.athena.web.model.form.put.base;
 
 import java.util.List;
 
-import com.pedroalmir.athena.core.validation.Validation;
-
 /**
  * @author Pedro Almir
  *
  */
 public class PutForm {
+	protected boolean frontCanDelete;
 	/**
-	 * Put name
-	 * This field represents the name to show in view
+	 * TODO: Remover esse campo. Nem ser pra que ele serve.
 	 */
-	private String name;
+	protected String inoutputtype;
 	/**
-	 * Put identifier
-	 * This field must be unique in same module
+	 * Name in lower case
 	 */
-	private String identifier;
+	protected String frontIdentifier;
+	/**
+	 * Front name
+	 */
+	protected String frontName;
+	/**
+	 * Selected type
+	 */
+	protected String frontType;
+	/**
+	 * TODO: Alterar o nome desse campo para values
+	 */
+	protected List<String> frontComponents;
 	/**
 	 * Put type
-	 */
-	private String type;
-	/**
+	 * private String type;
+	 * 
 	 * Put representation
 	 * For example:
 	 * List[valueA, valueB]
+	 * private String representation;
+	 * 
+	 * TODO: Remover esse campo e adicionar esses dois.
 	 */
-	private String representation;
+	@Deprecated
+	//protected TypeForm type;
 	/**
+	 * TODO: Incluir no front-end
+	 */
+	protected boolean linked;
+	/**
+	 * TODO: Incluir no front-end
+	 * 
 	 * If this field is <code>true</code> so this
 	 * Put may have multiple values.
 	 */
-	private boolean multipleValues;
+	protected boolean multipleValues;
+	
 	/**
-	 * List of view validations
+	 * Default constructor
 	 */
-	private List<Validation> validations;
-	
-	
+	public PutForm() {
+		
+	}
 	
 	/**
-	 * @param name
-	 * @param identifier
+	 * @param frontCanDelete
+	 * @param inoutputtype
+	 * @param frontIdentifier
+	 * @param frontName
+	 * @param frontType
+	 * @param frontComponents
 	 * @param type
-	 * @param representation
+	 * @param linked
 	 * @param multipleValues
-	 * @param validations
 	 */
-	public PutForm(String name, String identifier, String type,
-			String representation, boolean multipleValues,
-			List<Validation> validations) {
+	public PutForm(String inoutputtype, String frontIdentifier, String frontName, String frontType,
+			List<String> frontComponents, boolean linked, boolean multipleValues) {
 		super();
-		this.name = name;
-		this.identifier = identifier;
-		this.type = type;
-		this.representation = representation;
+		this.inoutputtype = inoutputtype;
+		this.frontIdentifier = frontIdentifier;
+		this.frontName = frontName;
+		this.frontType = frontType;
+		this.frontComponents = frontComponents;
+		this.linked = linked;
 		this.multipleValues = multipleValues;
-		this.validations = validations;
 	}
 	/**
-	 * @return the name
+	 * @return the frontCanDelete
 	 */
-	public String getName() {
-		return name;
+	/**
+	 * @return the inoutputtype
+	 */
+	public String getInoutputtype() {
+		return inoutputtype;
 	}
 	/**
-	 * @param name the name to set
+	 * @param inoutputtype the inoutputtype to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setInoutputtype(String inoutputtype) {
+		this.inoutputtype = inoutputtype;
 	}
 	/**
-	 * @return the identifier
+	 * @return the frontIdentifier
 	 */
-	public String getIdentifier() {
-		return identifier;
+	public String getFrontIdentifier() {
+		return frontIdentifier;
 	}
 	/**
-	 * @param identifier the identifier to set
+	 * @param frontIdentifier the frontIdentifier to set
 	 */
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
+	public void setFrontIdentifier(String frontIdentifier) {
+		this.frontIdentifier = frontIdentifier;
 	}
 	/**
-	 * @return the type
+	 * @return the frontName
 	 */
-	public String getType() {
-		return type;
+	public String getFrontName() {
+		return frontName;
 	}
 	/**
-	 * @param type the type to set
+	 * @param frontName the frontName to set
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setFrontName(String frontName) {
+		this.frontName = frontName;
 	}
 	/**
-	 * @return the representation
+	 * @return the frontType
 	 */
-	public String getRepresentation() {
-		return representation;
+	public String getFrontType() {
+		return frontType;
 	}
 	/**
-	 * @param representation the representation to set
+	 * @param frontType the frontType to set
 	 */
-	public void setRepresentation(String representation) {
-		this.representation = representation;
+	public void setFrontType(String frontType) {
+		this.frontType = frontType;
+	}
+	/**
+	 * @return the frontComponents
+	 */
+	public List<String> getFrontComponents() {
+		return frontComponents;
+	}
+	/**
+	 * @param frontComponents the frontComponents to set
+	 */
+	public void setFrontComponents(List<String> frontComponents) {
+		this.frontComponents = frontComponents;
+	}
+	/**
+	 * @return the linked
+	 */
+	public boolean isLinked() {
+		return linked;
+	}
+	/**
+	 * @param linked the linked to set
+	 */
+	public void setLinked(boolean linked) {
+		this.linked = linked;
 	}
 	/**
 	 * @return the multipleValues
@@ -123,24 +172,14 @@ public class PutForm {
 	public void setMultipleValues(boolean multipleValues) {
 		this.multipleValues = multipleValues;
 	}
-	/**
-	 * @return the validations
-	 */
-	public List<Validation> getValidations() {
-		return validations;
-	}
-	/**
-	 * @param validations the validations to set
-	 */
-	public void setValidations(List<Validation> validations) {
-		this.validations = validations;
-	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "PutForm [name=" + name + ", identifier=" + identifier + ", type=" + type + ", representation=" + representation
-				+ ", multipleValues=" + multipleValues + ", validations=" + validations + "]";
+		return "PutForm [inoutputtype=" + inoutputtype + ", frontIdentifier="
+				+ frontIdentifier + ", frontName=" + frontName + ", frontType=" + frontType + ", frontComponents="
+				+ frontComponents + ", linked=" + linked + ", multipleValues=" + multipleValues + "]";
 	}
+	
 }

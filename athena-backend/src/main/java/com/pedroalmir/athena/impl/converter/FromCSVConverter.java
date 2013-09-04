@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -69,22 +70,12 @@ public class FromCSVConverter extends AbstractBundle implements GenericConverter
 	 * StringBuffer
 	 */
 	private StringBuffer buffer;
-	/**
-	 * This field represents the list of inputs
-	 */
-	private List<Input> inputs;
-	/**
-	 * This field represents the list of outputs
-	 */
-	private List<Output> outputs;
 	
 	/**
 	 * Default constructor
 	 */
 	public FromCSVConverter() {
 		super();
-		this.inputs = new LinkedList<Input>();
-		this.outputs = new LinkedList<Output>();
 	}
 	
 	public String getName() {
@@ -161,6 +152,9 @@ public class FromCSVConverter extends AbstractBundle implements GenericConverter
 	}
 
 	public List<Output> convert() {
+		this.executionLog.appendLogLine("Convertendo arquivo CSV...");
+		List<String> outputs = new LinkedList<String>();
+		
 		Input input = Preconditions.checkNotNull(inputs).get(0);
 		/* Verify initial conditions */
 		Preconditions.checkArgument(inputs.size() == 1
@@ -182,7 +176,18 @@ public class FromCSVConverter extends AbstractBundle implements GenericConverter
 				firstLine = firstLine[0].split(";");
 				Preconditions.checkArgument(this.outputs.size() == firstLine.length, 
 						"The number of columns in the csv file must be equal to the number of outputs defined.");
+				
+				@SuppressWarnings("unused")
 				int count = 0;
+				/*
+				 * TODO: Esse trecho de código gerou o seguinte problema:
+				 * Os identificadores oriundos do front-end não são os mesmos informados no arquivo CSV.
+				 * Dessa forma não seria possível criar a lista de valores.
+				 * 
+				 * Solução adotada: Cada coluna é associada um output na ordem em que estão na lista.
+				 * Problemas: Muitas vezes o usuário troca as colunas, então deveria haver uma forma de ligar
+				 * uma coluna a uma determinada saída.
+				 * 
 				boolean format = false;
 				for(Output out : this.outputs){
 					format = !out.getIdentifier().equals(firstLine[count++]);
@@ -190,6 +195,7 @@ public class FromCSVConverter extends AbstractBundle implements GenericConverter
 						break;
 				}
 				Preconditions.checkArgument(!format, "The identifier present in the output must correspond to a column in the CSV file.");
+				*/
 				/* Check all rest of lines */
 				for(int i = 1; i < myEntries.size(); i++){
 					String[] nextLine = myEntries.get(i);
@@ -197,9 +203,14 @@ public class FromCSVConverter extends AbstractBundle implements GenericConverter
 					for(int j = 0; j < this.outputs.size(); j++){
 						/* Create the list of outputs */
 						this.outputs.get(j).getValues().add(this.outputs.get(j).getType().getClone(nextLine[j]));
+						if(i == 1){
+							outputs.add(this.outputs.get(j).getName());
+						}
 					}
 				}
 				reader.close();
+				this.executionLog.appendLogLine("Arquivo CSV convertido em " + outputs.size() 
+						+ " lista(s) de valore(s). Output(s): " + StringUtils.join(outputs, ", ") + ".");
 				return this.outputs;
 			}else if(this.outputs.size() == 1){
 				/* Check all lines */
@@ -207,8 +218,11 @@ public class FromCSVConverter extends AbstractBundle implements GenericConverter
 					String[] nextLine = myEntries.get(i);
 					/* Create the list of outputs */
 					this.outputs.get(0).getValues().add(this.outputs.get(0).getType().getClone(nextLine[0]));
+					outputs.add(this.outputs.get(0).getName());
 				}
 				reader.close();
+				this.executionLog.appendLogLine("Arquivo CSV convertido em " + outputs.size() 
+						+ " lista(s) de valore(s). Output(s): " + StringUtils.join(outputs, ", ") + ".");
 				return this.outputs;
 			}else{
 				reader.close();

@@ -13,6 +13,7 @@ public class TypeForm {
 	 * 
 	 */
 	private String value;
+	private String representation;
 	
 	/**
 	 * @param value
@@ -42,6 +43,20 @@ public class TypeForm {
 	@Override
 	public String toString() {
 		return "TypeForm [value=" + value + "]";
+	}
+
+	/**
+	 * @return the representation
+	 */
+	public String getRepresentation() {
+		return representation;
+	}
+
+	/**
+	 * @param representation the representation to set
+	 */
+	public void setRepresentation(String representation) {
+		this.representation = representation;
 	}
 	
 	

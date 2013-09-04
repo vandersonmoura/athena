@@ -34,6 +34,17 @@ public class LinkForm {
 	 */
 	private Input dstInput;
 	
+	/*##################################################################*/
+	/*  					  Front-end Variables						*/
+	/*##################################################################*/
+	/**
+	 * TODO: Melhorar esses nomes
+	 */
+	private String bundleDst;
+	private String bundleSrc;
+	private String inputId;
+	private String outputId;
+	private String frontIdentifier;
 	/**
 	 * @param l
 	 */
@@ -118,5 +129,76 @@ public class LinkForm {
 		return "LinkForm [description=" + description + ", srcModule="
 				+ srcModule + ", dstModule=" + dstModule + ", srcOutput="
 				+ srcOutput + ", dstInput=" + dstInput + "]";
+	}
+
+
+	/**
+	 * @return the inputId
+	 */
+	public String getInputId() {
+		return inputId;
+	}
+
+	/**
+	 * @param inputId the inputId to set
+	 */
+	public void setInputId(String inputId) {
+		this.inputId = inputId;
+	}
+
+	/**
+	 * @return the outputId
+	 */
+	public String getOutputId() {
+		return outputId;
+	}
+
+	/**
+	 * @param outputId the outputId to set
+	 */
+	public void setOutputId(String outputId) {
+		this.outputId = outputId;
+	}
+
+	/**
+	 * @return the frontIdentifier
+	 */
+	public String getFrontIdentifier() {
+		return frontIdentifier;
+	}
+
+	/**
+	 * @param frontIdentifier the frontIdentifier to set
+	 */
+	public void setFrontIdentifier(String frontIdentifier) {
+		this.frontIdentifier = frontIdentifier;
+	}
+
+	/**
+	 * @return the bundleDst
+	 */
+	public String getBundleDst() {
+		return bundleDst;
+	}
+
+	/**
+	 * @param bundleDst the bundleDst to set
+	 */
+	public void setBundleDst(String bundleDst) {
+		this.bundleDst = bundleDst;
+	}
+
+	/**
+	 * @return the bundleSrc
+	 */
+	public String getBundleSrc() {
+		return bundleSrc;
+	}
+
+	/**
+	 * @param bundleSrc the bundleSrc to set
+	 */
+	public void setBundleSrc(String bundleSrc) {
+		this.bundleSrc = bundleSrc;
 	}
 }

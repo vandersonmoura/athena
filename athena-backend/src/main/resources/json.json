@@ -1,0 +1,324 @@
+{
+  "name": "Fuzzy System",
+  "description": "Sistema Fuzzy para avaliação de desenvolvedores",
+  "identifier": null,
+  "bundles": [
+    {
+      "uniqueKey": "fromCSVConverter",
+      "name": "FromCSV Converter",
+      "description": "",
+      "imagePath": "",
+      "configurationVO": {
+        "inputConfiguration": {
+          "minimum": 1,
+          "maximum": 1,
+          "availableTypes": [
+            {
+              "representation": "file",
+              "value": null
+            }
+          ]
+        },
+        "outputConfiguration": {
+          "minimum": 1,
+          "maximum": 2147483647,
+          "availableTypes": [
+            {
+              "value": 0,
+              "representation": "int"
+            },
+            {
+              "value": 0,
+              "representation": "double"
+            },
+            {
+              "value": "",
+              "representation": "string"
+            }
+          ]
+        },
+        "hasSetting": false,
+        "settings": [
+          
+        ]
+      },
+      "inputs": [
+        {
+          "frontCanDelete": false,
+          "frontName": "Candidados",
+          "frontType": "file",
+          "inoutputtype": "input",
+          "frontIdentifier": "c248",
+          "frontComponents": [
+            "http://pedroalmir.com//athena-backend/user/Candidatos.csv"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "frontCanDelete": false,
+          "frontName": "Atitude",
+          "frontType": "double",
+          "inoutputtype": "output",
+          "frontIdentifier": "c253",
+          "frontComponents": []
+        },
+        {
+          "frontName": "Conhecimento",
+          "frontType": "double",
+          "inoutputtype": "output",
+          "frontIdentifier": "c264",
+          "frontCanDelete": true,
+          "frontComponents": []
+        },
+        {
+          "frontName": "Habilidade",
+          "frontType": "double",
+          "inoutputtype": "output",
+          "frontIdentifier": "c268",
+          "frontCanDelete": true,
+          "frontComponents": []
+        }
+      ],
+      "type": "converter",
+      "shortName": "FromCSV",
+      "frontIdentifier": "c229",
+      "frontOrder": 1,
+      "settings": [
+        
+      ]
+    },
+    {
+      "uniqueKey": "fuzzyModule",
+      "name": "Fuzzy Module",
+      "description": "",
+      "configurationVO": {
+        "inputConfiguration": {
+          "minimum": 1,
+          "maximum": 2147483647,
+          "availableTypes": [
+            {
+              "value": 0,
+              "representation": "int"
+            },
+            {
+              "value": 0,
+              "representation": "double"
+            },
+            {
+              "value": "",
+              "representation": "string"
+            }
+          ]
+        },
+        "outputConfiguration": {
+          "minimum": 1,
+          "maximum": 2147483647,
+          "availableTypes": [
+            {
+              "value": 0,
+              "representation": "int"
+            },
+            {
+              "value": 0,
+              "representation": "double"
+            },
+            {
+              "value": "",
+              "representation": "string"
+            }
+          ]
+        },
+        "settings": [
+          {
+            "required": true,
+            "name": "Arquivo de Configuração FCL",
+            "identifier": "fcl_file",
+            "type": {
+              "representation": "file",
+              "value": null
+            },
+            "multipleValue": false
+          }
+        ],
+        "hasSetting": true
+      },
+      "inputs": [
+        {
+          "frontCanDelete": false,
+          "frontName": "Atitude",
+          "frontType": "double",
+          "inoutputtype": "input",
+          "frontIdentifier": "c305",
+          "frontComponents": []
+        },
+        {
+          "frontName": "Habilidade",
+          "frontType": "double",
+          "inoutputtype": "input",
+          "frontIdentifier": "c325",
+          "frontCanDelete": true,
+          "frontComponents": []
+        },
+        {
+          "frontName": "Conhecimento",
+          "frontType": "double",
+          "inoutputtype": "input",
+          "frontIdentifier": "c329",
+          "frontCanDelete": true,
+          "frontComponents": []
+        }
+      ],
+      "outputs": [
+        {
+          "frontCanDelete": false,
+          "frontName": "Produtividade",
+          "frontType": "double",
+          "inoutputtype": "output",
+          "frontIdentifier": "c310",
+          "frontComponents": []
+        }
+      ],
+      "settings": [
+        {
+          "required": true,
+          "name": "Arquivo de Configuração FCL",
+          "identifier": "fcl_file",
+          "type": {
+            "representation": "file",
+            "value": "http://pedroalmir.com//athena-backend/user/tipperEntrada.fcl"
+          },
+          "multipleValue": false
+        }
+      ],
+      "type": "algorithm",
+      "shortName": "Fuzzy",
+      "frontIdentifier": "c278",
+      "frontOrder": 2,
+      "imagePath": ""
+    },
+    {
+      "uniqueKey": "toCSVConverter",
+      "name": "ToCSV Converter",
+      "description": "Convert the final results in an specified format.",
+      "imagePath": "",
+      "configurationVO": {
+        "inputConfiguration": {
+          "minimum": 1,
+          "maximum": 2147483647,
+          "availableTypes": [
+            {
+              "value": 0,
+              "representation": "int"
+            },
+            {
+              "value": 0,
+              "representation": "double"
+            },
+            {
+              "value": "",
+              "representation": "string"
+            }
+          ]
+        },
+        "outputConfiguration": {
+          "minimum": 1,
+          "maximum": 1,
+          "availableTypes": [
+            {
+              "representation": "file",
+              "value": null
+            },
+            {
+              "value": "",
+              "representation": "string"
+            }
+          ]
+        },
+        "settings": [
+          {
+            "required": true,
+            "name": "File Name",
+            "identifier": "file_name",
+            "type": {
+              "value": "",
+              "representation": "string"
+            },
+            "multipleValue": false
+          }
+        ],
+        "hasSetting": true
+      },
+      "inputs": [
+        {
+          "frontCanDelete": false,
+          "frontName": "Produtividade",
+          "frontType": "double",
+          "inoutputtype": "input",
+          "frontIdentifier": "c366",
+          "frontComponents": []
+        }
+      ],
+      "outputs": [
+        {
+          "frontCanDelete": false,
+          "frontName": "Relatorio",
+          "frontType": "file",
+          "inoutputtype": "output",
+          "frontIdentifier": "c371",
+          "frontComponents": []
+        }
+      ],
+      "settings": [
+        {
+          "required": true,
+          "name": "File Name",
+          "identifier": "file_name",
+          "type": {
+            "value": "Produtividade",
+            "representation": "string"
+          },
+          "multipleValue": false
+        }
+      ],
+      "type": "converter",
+      "shortName": "ToCSV",
+      "frontIdentifier": "c341",
+      "frontOrder": 3
+    }
+  ],
+  "links": [
+    {
+      "bundleDst": "c278",
+      "bundleSrc": "c229",
+      "inputId": "c305",
+      "outputId": "c253",
+      "frontIdentifier": "c388",
+      "description": ""
+    },
+    {
+      "bundleDst": "c278",
+      "bundleSrc": "c229",
+      "inputId": "c329",
+      "outputId": "c264",
+      "frontIdentifier": "c390",
+      "description": ""
+    },
+    {
+      "bundleDst": "c278",
+      "bundleSrc": "c229",
+      "inputId": "c325",
+      "outputId": "c268",
+      "frontIdentifier": "c392",
+      "description": ""
+    },
+    {
+      "bundleDst": "c341",
+      "bundleSrc": "c278",
+      "inputId": "c366",
+      "outputId": "c310",
+      "frontIdentifier": "c394",
+      "description": ""
+    }
+  ]
+}

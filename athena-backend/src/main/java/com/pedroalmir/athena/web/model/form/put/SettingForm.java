@@ -1,44 +1,52 @@
 package com.pedroalmir.athena.web.model.form.put;
 
-import java.util.List;
-
 import com.pedroalmir.athena.core.put.Setting;
-import com.pedroalmir.athena.core.validation.Validation;
-import com.pedroalmir.athena.web.model.form.put.base.PutForm;
+import com.pedroalmir.athena.web.model.form.type.TypeForm;
 
 /**
  * @author Pedro Almir
  *
  */
-public class SettingForm extends PutForm{
-	
+public class SettingForm {
 	/**
 	 * 
 	 */
 	private boolean required;
-	
 	/**
+	 * 
+	 */
+	private String name;
+	/**
+	 * 
+	 */
+	private String identifier;
+	/**
+	 * 
+	 */
+	private TypeForm type;
+	/**
+	 * 
+	 */
+	private boolean multipleValue;
+
+	/**
+	 * @param required
 	 * @param name
 	 * @param identifier
 	 * @param type
-	 * @param representation
-	 * @param multipleValues
-	 * @param validations
+	 * @param multipleValue
 	 */
-	public SettingForm(String name, String identifier, String type,
-			String representation, boolean multipleValues,
-			List<Validation> validations) {
-		super(name, identifier, type, representation, multipleValues, validations);
-		this.required = false;
+	public SettingForm(boolean required, String name, String identifier, TypeForm type, boolean multipleValue) {
+		super();
+		this.required = required;
+		this.name = name;
+		this.identifier = identifier;
+		this.type = type;
+		this.multipleValue = multipleValue;
 	}
 
-	/**
-	 * @param set
-	 */
 	public SettingForm(Setting set) {
-		super(set.getName(), set.getIdentifier(), set.getType().toString(), set.getRepresentation(), 
-				set.isMultipleValues(), set.getValidations());
-		this.required = set.isRequired();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -55,12 +63,61 @@ public class SettingForm extends PutForm{
 		this.required = required;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the name
 	 */
-	@Override
-	public String toString() {
-		return "SettingForm [required=" + required + "]";
+	public String getName() {
+		return name;
 	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the identifier
+	 */
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	/**
+	 * @param identifier the identifier to set
+	 */
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public TypeForm getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(TypeForm type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the multipleValue
+	 */
+	public boolean isMultipleValue() {
+		return multipleValue;
+	}
+
+	/**
+	 * @param multipleValue the multipleValue to set
+	 */
+	public void setMultipleValue(boolean multipleValue) {
+		this.multipleValue = multipleValue;
+	}
+	
 
 }

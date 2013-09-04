@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import au.com.bytecode.opencsv.CSVWriter;
 
 import com.pedroalmir.athena.AthenaEnvironment;
@@ -37,31 +39,18 @@ public class ToCSVConverter extends AbstractBundle implements GenericConverter{
 	 * 
 	 */
 	private static final long serialVersionUID = 3494925689765011306L;
-
-	/**
-	 * This field represents the list of inputs
-	 */
-	private List<Input> inputs;
-	/**
-	 * This field represents the list of outputs
-	 */
-	private List<Output> outputs;
-	/**
-	 * This field represents the list of settings
-	 */
-	private List<Setting> settings;
 	/**
 	 * Default constructor
 	 */
 	public ToCSVConverter() {
 		super();
-		this.inputs = new LinkedList<Input>();
-		this.outputs = new LinkedList<Output>();
-		this.settings = new LinkedList<Setting>();
 	}
 	
 	public List<Output> convert() {
 		try {
+			this.executionLog.appendLogLine("Convertendo inputs...");
+			List<String> inputs = new LinkedList<String>();
+			
 			/* TODO: Use HttpRequest !!!*/
 			File file = null;
 			/* 
@@ -88,6 +77,7 @@ public class ToCSVConverter extends AbstractBundle implements GenericConverter{
 			int i = 0;
 			for(Input in : this.inputs){
 				header[i++] = in.getName();
+				inputs.add(in.getName());
 			}
 			
 			data.add(header);
@@ -106,7 +96,8 @@ public class ToCSVConverter extends AbstractBundle implements GenericConverter{
 			csvWriter.close();
 			
 			this.outputs.get(0).getType().setValue(file);
-			
+			this.executionLog.appendLogLine("Input(s): " + StringUtils.join(inputs, ", ") + " convertido(s) no arquivo " + file.getName() + ".");
+			this.executionLog.addGeneratedFileWithRealPath(file.getAbsolutePath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -179,7 +170,6 @@ public class ToCSVConverter extends AbstractBundle implements GenericConverter{
 				putConfiguration.setMaximum(1);
 				
 				putConfiguration.addAvailableType(new FileType());
-				putConfiguration.addAvailableType(new StringType(""));
 				return putConfiguration;
 			}
 			

@@ -3,7 +3,6 @@
  */
 package com.pedroalmir.athena.impl.fuzzy.module;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.pedroalmir.athena.core.component.AbstractBundle;
@@ -44,18 +43,6 @@ public class FuzzyModule extends AbstractBundle implements GenericModule {
 	private static final long serialVersionUID = 3575860159082162952L;
 
 	/**
-	 * List of inputs
-	 */
-	private List<Input> inputs;
-	/**
-	 * List of outputs
-	 */
-	private List<Output> outputs;
-	/**
-	 * List of settings
-	 */
-	private List<Setting> settings;
-	/**
 	 * 
 	 */
 	private boolean loaded;
@@ -72,10 +59,6 @@ public class FuzzyModule extends AbstractBundle implements GenericModule {
 	 */
 	public FuzzyModule() {
 		super();
-		/* puts */
-		this.inputs = new LinkedList<Input>();
-		this.outputs = new LinkedList<Output>();
-		this.settings = new LinkedList<Setting>();
 		/* is loaded */
 		this.loaded = false;
 		this.fuzzyAlgorithm = null;
@@ -132,6 +115,8 @@ public class FuzzyModule extends AbstractBundle implements GenericModule {
 
 	
 	public void load(List<Input> inputs, List<Output> outputs, List<Setting> settings) {
+		this.executionLog.appendLogLine("Carregando Módulo Fuzzy...");
+		
 		this.inputs =  inputs;
 		this.outputs = outputs;
 		this.settings = settings;
@@ -139,12 +124,15 @@ public class FuzzyModule extends AbstractBundle implements GenericModule {
 		this.fuzzyAlgorithm = this.fuzzyFactory.createAlgorithm(inputs, outputs, settings);
 		
 		this.loaded = true;
+		this.executionLog.appendLogLine("Módulo Fuzzy carregado e pronto para uso...");
 	}
 	
 	
 	public void load() {
+		this.executionLog.appendLogLine("Carregando Módulo Fuzzy...");
 		this.fuzzyAlgorithm = this.fuzzyFactory.createAlgorithm(this.inputs, this.outputs, this.settings);
 		this.loaded = true;
+		this.executionLog.appendLogLine("Módulo Fuzzy carregado e pronto para uso...");
 	}
 
 	
@@ -160,7 +148,16 @@ public class FuzzyModule extends AbstractBundle implements GenericModule {
 	
 	public List<Solution> run() {
 		if(this.fuzzyAlgorithm != null){
+			this.executionLog.appendLogLine("Início da execução do módulo Fuzzy...");
+			/* Execute algorithm */
 			this.fuzzyAlgorithm.run();
+			
+			this.executionLog.appendLog(this.fuzzyAlgorithm.getExecutionLog().getExecutionReport().toString());
+			this.executionLog.setIterations(this.fuzzyAlgorithm.getExecutionLog().getIterations());
+			this.executionLog.setExecutionTime(this.fuzzyAlgorithm.getExecutionLog().getExecutionTime());
+			this.executionLog.appendLogLine("Fim da execução do módulo Fuzzy...");
+			//this.executionLog.appendLogLine("Melhor solução encontrada:\n" + this.fuzzyAlgorithm.getBestSolution().format());
+			
 			return this.fuzzyAlgorithm.getSolutions();
 		}
 		return null;

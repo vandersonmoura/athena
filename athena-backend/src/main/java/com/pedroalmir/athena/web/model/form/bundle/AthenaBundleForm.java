@@ -20,17 +20,41 @@ import com.pedroalmir.athena.web.model.form.put.SettingForm;
  */
 public class AthenaBundleForm {
 	/**
+	 * Unique Key that represent this module
+	 */
+	private String uniqueKey;
+	
+	/*##################################################################*/
+	/*  					  Front-end Variables						*/
+	/*##################################################################*/
+	/**
+	 * TODO: 
+	 */
+	private String name;
+	/**
+	 * TODO: Desnecessário
+	 */
+	private String description;
+	/**
+	 * TODO: Desnecessário
+	 */
+	private String imgPath;
+	/**
+	 * 
+	 */
+	private String type;
+	/**
+	 * TODO: Desnecessário
+	 */
+	private String shortName;
+	/**
 	 * Ex.: fuzzyModule_1
 	 */
 	private String frontIdentifier;
 	/**
 	 * Started with 1.
 	 */
-	private int frontOrder;
-	/**
-	 * Unique Key that represent this module
-	 */
-	private String uniqueKey;
+	private Integer frontOrder;
 	/**
 	 * This field represents the list of inputs
 	 */
@@ -172,14 +196,14 @@ public class AthenaBundleForm {
 	/**
 	 * @return the frontOrder
 	 */
-	public int getFrontOrder() {
+	public Integer getFrontOrder() {
 		return frontOrder;
 	}
 
 	/**
 	 * @param frontOrder the frontOrder to set
 	 */
-	public void setFrontOrder(int frontOrder) {
+	public void setFrontOrder(Integer frontOrder) {
 		this.frontOrder = frontOrder;
 	}
 
@@ -195,5 +219,75 @@ public class AthenaBundleForm {
 	 */
 	public void setUniqueKey(String uniqueKey) {
 		this.uniqueKey = uniqueKey;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return the imgPath
+	 */
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	/**
+	 * @param imgPath the imgPath to set
+	 */
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the shortName
+	 */
+	public String getShortName() {
+		return shortName;
+	}
+
+	/**
+	 * @param shortName the shortName to set
+	 */
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 }

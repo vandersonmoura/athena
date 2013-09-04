@@ -1,6 +1,9 @@
 package com.pedroalmir.athena.impl.fuzzy.solution;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.pedroalmir.athena.core.solution.Solution;
 import com.pedroalmir.athena.core.solution.fitness.Fitness;
@@ -45,6 +48,26 @@ public final class FuzzySolution implements Solution, Comparable<FuzzySolution> 
         this.inputs = inputs;
         this.outputs = outputs;
         this.fitness = calcFitness(this.outputs);
+    }
+    
+    /**
+     * @return this solution in string format
+     */
+    public String format(){
+    	StringBuffer buffer = new StringBuffer();
+    	List<String> values = new LinkedList<String>();
+    	for(Type t : inputs){
+    		values.add(t.getValue().toString());
+    	}
+    	buffer.append("Entrada(s): " + StringUtils.join(values, ", ") + "\n");
+    	
+    	values = new LinkedList<String>();
+    	for(Type t : outputs){
+    		values.add(t.getValue().toString());
+    	}
+    	buffer.append("Saída(s): " + StringUtils.join(values, ", ") + "\n");
+    	buffer.append("Fitness: " + this.fitness.getValue() + "\n");
+    	return buffer.toString();
     }
 
     /**

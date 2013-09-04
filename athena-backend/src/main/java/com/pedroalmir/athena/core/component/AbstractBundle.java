@@ -3,12 +3,16 @@
  */
 package com.pedroalmir.athena.core.component;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.common.base.Preconditions;
 import com.pedroalmir.athena.common.model.EntityIdFactory;
 import com.pedroalmir.athena.common.model.GenericEntity;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
+import com.pedroalmir.athena.core.report.ExecutionLog;
 import com.pedroalmir.athena.core.type.base.Type;
 
 /**
@@ -17,9 +21,41 @@ import com.pedroalmir.athena.core.type.base.Type;
  */
 public abstract class AbstractBundle extends GenericEntity implements AthenaBundle {
 	
+	/**
+	 * 
+	 */
+	private String frontIdentifier;
+	/**
+	 * List of inputs
+	 */
+	protected List<Input> inputs;
+	/**
+	 * List of outputs
+	 */
+	protected List<Output> outputs;
+	/**
+	 * List of settings
+	 */
+	protected List<Setting> settings;
+	/**
+	 * 
+	 */
+	protected ExecutionLog executionLog;
+	
 	public AbstractBundle() {
 		/* TODO: Change to hibernate generate ID */
-		this.id = EntityIdFactory.getNextId();	
+		this.id = EntityIdFactory.getNextId();
+		/* puts */
+		this.inputs = new LinkedList<Input>();
+		this.outputs = new LinkedList<Output>();
+		this.settings = new LinkedList<Setting>();
+		/* buffer */
+		this.executionLog = new ExecutionLog();
+	}
+	
+	@Override
+	public ExecutionLog getExecutionLog() {
+		return this.executionLog;
 	}
 	
 
@@ -38,6 +74,14 @@ public abstract class AbstractBundle extends GenericEntity implements AthenaBund
 	 * 
 	 */
 	private static final long serialVersionUID = -6024225477857346757L;
+	
+	public String getFrontIdentifier() {
+		return this.frontIdentifier;
+	}
+	
+	public void setFrontIdentifier(String frontIdentifier) {
+		this.frontIdentifier = frontIdentifier;
+	}
 
 	/*********************************************************************************************************/
 	/*********************************************      Input      *******************************************/
@@ -70,6 +114,10 @@ public abstract class AbstractBundle extends GenericEntity implements AthenaBund
 					"Operation invalid. The maximum number of inputs was exceeded.");
 			this.getInputs().add(input);
 		}
+	}
+	
+	public void addAllInput(List<Input> inputs) {
+		this.inputs.addAll(inputs);
 	}
 	
 	public void removeInput(Input input) {
@@ -113,6 +161,20 @@ public abstract class AbstractBundle extends GenericEntity implements AthenaBund
 		}
 	}
 	
+	public void addAllOutput(List<Output> outputs) {
+		this.outputs.addAll(outputs);
+	}
+	
+	public void removeOutput(Output output) {
+		Preconditions.checkNotNull(output);
+		this.getOutputs().remove(output);
+	}
+
+	public void removeOutput(int index) {
+		Preconditions.checkArgument(index > 0 && index < this.getConfiguration().getOutputConfiguration().getMaximum() - 1, "Invalid position.");
+		this.getOutputs().remove(index);
+	}
+	
 	/*********************************************************************************************************/
 	/********************************************     Setting      *******************************************/
 	/*********************************************************************************************************/
@@ -131,14 +193,8 @@ public abstract class AbstractBundle extends GenericEntity implements AthenaBund
 		}
 	}
 	
-	public void removeOutput(Output output) {
-		Preconditions.checkNotNull(output);
-		this.getOutputs().remove(output);
-	}
-
-	public void removeOutput(int index) {
-		Preconditions.checkArgument(index > 0 && index < this.getConfiguration().getOutputConfiguration().getMaximum() - 1, "Invalid position.");
-		this.getOutputs().remove(index);
+	public void addAllSetting(List<Setting> settings) {
+		this.settings.addAll(settings);
 	}
 	
 }

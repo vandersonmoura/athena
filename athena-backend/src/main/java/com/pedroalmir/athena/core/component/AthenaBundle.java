@@ -10,6 +10,7 @@ import com.pedroalmir.athena.core.configuration.Configuration;
 import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
+import com.pedroalmir.athena.core.report.ExecutionLog;
 
 /**
  * This interface was designed to represent any component to be integrated 
@@ -34,6 +35,14 @@ public interface AthenaBundle extends PersistentEntity{
 	 * @return the short name of the module
 	 */
 	String getShortName();
+	/**
+	 * @return the frontIdentifier
+	 */
+	String getFrontIdentifier();
+	/**
+	 * @param frontIdentifier the frontIdentifier to set
+	 */
+	void setFrontIdentifier(String frontIdentifier);
 	/**
 	 * This method should return the description of how
 	 * the module works.
@@ -61,6 +70,11 @@ public interface AthenaBundle extends PersistentEntity{
 	 */
 	void addInput(Input input);
 	/**
+	 * Add all inputs
+	 * @param inputs
+	 */
+	void addAllInput(List<Input> inputs);
+	/**
 	 * This method should return the list of inputs
 	 * of this module.
 	 * 
@@ -73,6 +87,11 @@ public interface AthenaBundle extends PersistentEntity{
 	 * @param output object
 	 */
 	void addOutput(Output output);
+	/**
+	 * Add all outputs
+	 * @param outputs
+	 */
+	void addAllOutput(List<Output> outputs);
 	/**
 	 * This method should return the list of outputs
 	 * of this module.
@@ -89,6 +108,11 @@ public interface AthenaBundle extends PersistentEntity{
 	 * @param setting object
 	 */
 	void addSetting(Setting setting);
+	/**
+	 * Add all settings
+	 * @param settings
+	 */
+	void addAllSetting(List<Setting> settings);
 	/**
 	 * This method should return the list of settings
 	 * of this module.
@@ -140,7 +164,11 @@ public interface AthenaBundle extends PersistentEntity{
 	 */
 	void removeOutput(int index);
 	/**
-	 * @return
+	 * @return <code>true</code> if is equals
 	 */
 	boolean equals(AthenaBundle bundle);
+	/**
+	 * @return execution report
+	 */
+	ExecutionLog getExecutionLog();
 }

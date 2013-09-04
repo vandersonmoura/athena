@@ -27,18 +27,6 @@ public class AntSystemModule extends AbstractBundle implements GenericModule {
 	 */
 	private static final long serialVersionUID = -6303466590064606317L;
 	/**
-	 * List of inputs
-	 */
-	private List<Input> inputs;
-	/**
-	 * List of outputs
-	 */
-	private List<Output> outputs;
-	/**
-	 * List of settings
-	 */
-	private List<Setting> settings;
-	/**
 	 * 
 	 */
 	private boolean loaded;

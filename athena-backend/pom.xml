@@ -99,6 +99,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.1</version>
@@ -188,11 +194,8 @@
 			<version>3.4.0</version>
 		</dependency>
 
-		<!-- dependency>
-			<groupId>br.com.caelum.vraptor</groupId>
-			<artifactId>vraptor-jpa</artifactId>
-			<version>1.0.0</version>
-		</dependency-->
+		<!-- dependency> <groupId>br.com.caelum.vraptor</groupId> <artifactId>vraptor-jpa</artifactId> 
+			<version>1.0.0</version> </dependency -->
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -304,14 +307,14 @@
 			<scope>system</scope>
 			<systemPath>${web-inf.lib}/jFuzzyLogic_v3.0.jar</systemPath>
 		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.thetransactioncompany</groupId> -->
-<!-- 			<artifactId>cors-filter</artifactId> -->
-<!-- 			<version>1.7.1</version> -->
-<!-- 			<scope>system</scope> -->
-<!-- 			<systemPath>${web-inf.lib}/cors-filter-1.7.1.jar</systemPath> -->
-<!-- 		</dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>com.thetransactioncompany</groupId> -->
+		<!-- <artifactId>cors-filter</artifactId> -->
+		<!-- <version>1.7.1</version> -->
+		<!-- <scope>system</scope> -->
+		<!-- <systemPath>${web-inf.lib}/cors-filter-1.7.1.jar</systemPath> -->
+		<!-- </dependency> -->
 
 		<!-- TeamAllocation -->
 		<!-- <dependency> -->

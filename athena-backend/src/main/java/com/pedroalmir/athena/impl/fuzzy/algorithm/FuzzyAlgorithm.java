@@ -11,6 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sourceforge.jFuzzyLogic.FIS;
 
 import com.google.common.base.Preconditions;
@@ -111,10 +113,13 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 		/* Verify if fcl setting is not null */
 		Preconditions.checkNotNull(fclFile.getType());
 		/* Load fcl file and create fuzzy inference system */
+		this.executionLog.appendLogLine("Carregando arquivo FCL...");
 		fuzzyInferenceSystem = FIS.load(((FileType) fclFile.getType()).getFilePath(), true);
+		this.executionLog.appendLogLine("Arquivo FCL carregado: " + ((FileType) fclFile.getType()).getFile().getName());
 		/* Check if load is all right */
 		Preconditions.checkNotNull(fuzzyInferenceSystem, "Can't load file.");
-		System.out.println("Fuzzy initilized with success!");
+		System.out.println("Fuzzy initialized with success!");
+		this.executionLog.appendLogLine("Algoritmo Fuzzy iniciado com sucesso!");
 	}
 
 	
@@ -122,24 +127,39 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 		/**/
 		List<Type> inputVariables = new LinkedList<Type>();
 		List<Type> outputVariables = new LinkedList<Type>();
+		
+		List<String> inputValues = new LinkedList<String>();
+		List<String> outputValues = new LinkedList<String>();
 		/* Set inputs variables */
 		/* TODO: Verify FCL variables with inputs identifiers */
 		for(Input input: this.inputs){
-			fuzzyInferenceSystem.setVariable(input.getIdentifier(), 
-					(Double) input.getValues().get(getIterations()).getValue());
+			/* Esse código gerou problema porque o frontend gera identificadores
+			 * que são desconhecidos pelo usuário que está usando o sistema, então
+			 * o nome dos inputs deve ser o mesmo encontrado no arquivo FCL.
+			 * TODO: Analisar para saber se essa realmente é a melhor saída.
+			 * fuzzyInferenceSystem.setVariable(input.getIdentifier(), (Double) input.getValues().get(getIterations()).getValue());
+			 * */
+			fuzzyInferenceSystem.setVariable(input.getName().trim(), (Double) input.getValues().get(getIterations()).getValue());
 			inputVariables.add(input.getValues().get(getIterations()));
+			inputValues.add(input.getValues().get(getIterations()).getValue().toString());
 		}
 		/* Evaluate */
 		fuzzyInferenceSystem.evaluate();
 		/* Get outputs variables */
 		for(Output output : this.outputs){
-			double defuzzifiedValue = fuzzyInferenceSystem.getVariable(output.getIdentifier()).getLatestDefuzzifiedValue();
+			double defuzzifiedValue = fuzzyInferenceSystem.getVariable(output.getName().trim()).getLatestDefuzzifiedValue();
 			output.getValues().add(Real.valueOf(defuzzifiedValue));
 			outputVariables.add(Real.valueOf(defuzzifiedValue));
+			outputValues.add(defuzzifiedValue + "");
 		}
 		/* Creating the list of solutions */
 		this.solutions.add(new FuzzySolution(inputVariables, outputVariables));
+		
 		/*  */
+		this.executionLog.appendLogLine("Iteração " + (getIterations() + 1) + ": In(" 
+				+ StringUtils.join(inputValues, ", ") + ") -> " 
+				+ "Out(" + StringUtils.join(outputValues, ", ") + ")");
+		
 		System.out.println("Fuzzy iteration number " + (getIterations() + 1));
 	}
 

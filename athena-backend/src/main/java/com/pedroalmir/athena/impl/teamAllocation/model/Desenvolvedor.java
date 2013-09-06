@@ -13,6 +13,13 @@ public class Desenvolvedor {
     private double conhecimento;
     private double habilidade;
     
+    /**
+     * @param nome
+     * @param salario
+     * @param atitude
+     * @param conhecimento
+     * @param habilidade
+     */
     public Desenvolvedor(String nome, double salario, double atitude,
 			double conhecimento, double habilidade) {
 		super();
@@ -23,6 +30,19 @@ public class Desenvolvedor {
 		this.habilidade = habilidade;
     }
     
+
+	/**
+	 * @param nome
+	 * @param produtividade
+	 * @param salario
+	 */
+	public Desenvolvedor(String nome, double produtividade, double salario) {
+		super();
+		this.nome = nome;
+		this.produtividade = produtividade;
+		this.salario = salario;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

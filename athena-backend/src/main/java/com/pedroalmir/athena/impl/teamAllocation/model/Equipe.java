@@ -64,6 +64,17 @@ public class Equipe {
 	}
 	
 	/**
+	 * @return
+	 */
+	public List<String> getNames(){
+		List<String> names = new LinkedList<String>();
+		for(Desenvolvedor d : this.desenvolvedores){
+			names.add(d.getNome());
+		}
+		return names;
+	}
+	
+	/**
 	 * @return the desenvolvedores
 	 */
 	public List<Desenvolvedor> getDesenvolvedores() {

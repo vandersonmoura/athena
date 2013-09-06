@@ -22,8 +22,8 @@ public class NSGAIIConfiguration implements Configuration {
 	public PutConfiguration getInputConfiguration() {
 		PutConfiguration putConfiguration = new PutConfiguration();
 		/* Define minimum and maximum of inputs */
-		putConfiguration.setMinimum(1);
-		putConfiguration.setMaximum(Integer.MAX_VALUE);
+		putConfiguration.setMinimum(2);
+		putConfiguration.setMaximum(2);
 		/* Define available types */
 		putConfiguration.addAvailableType(Int.valueOf(0));
 		putConfiguration.addAvailableType(Real.valueOf(0));
@@ -37,8 +37,8 @@ public class NSGAIIConfiguration implements Configuration {
 	public PutConfiguration getOutputConfiguration() {
 		PutConfiguration putConfiguration = new PutConfiguration();
 		/* Define minimum and maximum of inputs */
-		putConfiguration.setMinimum(1);
-		putConfiguration.setMaximum(Integer.MAX_VALUE);
+		putConfiguration.setMinimum(2);
+		putConfiguration.setMaximum(2);
 		/* Define available types */
 		putConfiguration.addAvailableType(Int.valueOf(0));
 		putConfiguration.addAvailableType(Real.valueOf(0));
@@ -54,6 +54,7 @@ public class NSGAIIConfiguration implements Configuration {
         try {
         	Setting populationSize = new Setting("Tamanho da População", "population_size", Int.valueOf(0), "int", false, null, true);
         	Setting maximumEvaluations = new Setting("Número Máximo de Iterações", "maximum_evaluations", Int.valueOf(0), "int", false, null, true);
+        	Setting restriction = new Setting("Restrição (Tamanho da Equipe)", "team_size", Int.valueOf(0), "int", false, null, true);
         	
         	Setting selectionOperator = new Setting("Operador de Seleção", "selection_operator", new StringType(""), "string", false, null, true);
         	
@@ -67,6 +68,8 @@ public class NSGAIIConfiguration implements Configuration {
         	
         	settings.add(populationSize);
         	settings.add(maximumEvaluations);
+        	settings.add(restriction);
+        	
         	settings.add(selectionOperator);
         	settings.add(crossoverOperator);
         	settings.add(mutationOperator);

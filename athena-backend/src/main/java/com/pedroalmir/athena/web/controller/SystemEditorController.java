@@ -37,7 +37,6 @@ import com.pedroalmir.athena.common.util.file.FileReturn;
 import com.pedroalmir.athena.common.util.file.FileUtil;
 import com.pedroalmir.athena.core.component.GenericConverter;
 import com.pedroalmir.athena.core.component.GenericModule;
-import com.pedroalmir.athena.core.report.ExecutionLog;
 import com.pedroalmir.athena.core.system.AthenaSystem;
 import com.pedroalmir.athena.core.type.file.FileType;
 import com.pedroalmir.athena.impl.fuzzy.module.FuzzyModule;
@@ -48,6 +47,7 @@ import com.pedroalmir.athena.impl.teamAllocation.util.Arquivo;
 import com.pedroalmir.athena.web.model.form.AthenaSystemForm;
 import com.pedroalmir.athena.web.model.vo.AthenaSystemVO;
 import com.pedroalmir.athena.web.model.vo.SystemEditorVO;
+import com.pedroalmir.athena.web.model.vo.log.ExecutionLogVO;
 
 /**
  * System Editor Controller
@@ -120,7 +120,7 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 	 * @return
 	 */
 	@PublicResource
-	@Post("/system/execute")
+	@Post("/system/executetest")
 	public String execute(AthenaSystemForm system){
 		return "log of execution";
 	}
@@ -131,12 +131,12 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 	 * @return
 	 */
 	@PublicResource
-	@Post("/system/executetest")
-	public ExecutionLog execute(String system){
+	@Post("/system/execute")
+	public ExecutionLogVO execute(String system){
 		try {
 			AthenaSystemForm systemForm = new Gson().fromJson(system, AthenaSystemForm.class);
 			AthenaSystem completeSystem = SystemFactory.createSystemFromView(systemForm, this.request);
-			return completeSystem.createAndExecuteSimulation("Seja o que Deus quiser!!!");
+			return new ExecutionLogVO(completeSystem.createAndExecuteSimulation("Seja o que Deus quiser!!!"));
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

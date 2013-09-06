@@ -34,7 +34,7 @@ public class TSPGA_main {
 
 		String problemName = "eil101.tsp";
 
-		problem = new TSP(problemName);
+		problem = new TSP("src/test/resources/test.tsp");
 
 		algorithm = new ssGA(problem);
 		// algorithm = new gGA(problem) ;

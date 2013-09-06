@@ -7,12 +7,17 @@
 
 package jmetal.problems.singleObjective;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StreamTokenizer;
 
-import jmetal.base.*;
-import jmetal.base.solutionType.BinaryRealSolutionType;
+import jmetal.base.Problem;
+import jmetal.base.Solution;
 import jmetal.base.solutionType.PermutationSolutionType;
-import jmetal.base.variable.Binary;
 import jmetal.base.variable.Permutation;
 
 /**
@@ -20,6 +25,10 @@ import jmetal.base.variable.Permutation;
  */
 public class TSP extends Problem {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7417724855350746012L;
 	public int numberOfCities_;
 	public double[][] distanceMatrix_;
 

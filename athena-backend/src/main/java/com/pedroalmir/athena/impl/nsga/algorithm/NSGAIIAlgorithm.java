@@ -4,7 +4,6 @@
 package com.pedroalmir.athena.impl.nsga.algorithm;
 
 import java.util.List;
-import java.util.Properties;
 
 import jmetal.metaheuristics.nsgaII.NSGAII;
 
@@ -14,7 +13,6 @@ import com.pedroalmir.athena.core.put.Input;
 import com.pedroalmir.athena.core.put.Output;
 import com.pedroalmir.athena.core.put.Setting;
 import com.pedroalmir.athena.core.solution.Solution;
-import com.pedroalmir.athena.impl.fuzzy.algorithm.FuzzyAlgorithm;
 
 /** 
  *  Implementation of NSGA-II.
@@ -32,6 +30,7 @@ public class NSGAIIAlgorithm extends AbstractAlgorithm {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private NSGAII nsgaii;
 	
 	protected NSGAIIAlgorithm(List<Input> inputs, List<Output> outputs, List<Setting> settings) {

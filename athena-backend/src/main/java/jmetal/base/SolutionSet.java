@@ -26,6 +26,7 @@ import jmetal.util.Configuration;
 
 import com.pedroalmir.athena.impl.teamAllocation.model.Desenvolvedor;
 import com.pedroalmir.athena.impl.teamAllocation.model.Equipe;
+import com.pedroalmir.athena.impl.tsp.solution.TSPSolution;
 
 /**
  * Class representing a SolutionSet (a set of solutions)
@@ -269,6 +270,22 @@ public class SolutionSet implements Serializable {
 			e.printStackTrace();
 		}
 	} // printObjectivesToFile
+	
+	/**
+	 */
+	public TSPSolution getFitnessValue(){
+		TSPSolution solution = new TSPSolution();
+		
+		int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
+		for (int i = 0; i < solutionsList_.size(); i++) {
+			for (int j = 0; j < numberOfVariables; j++){
+				solution.getSolution().add(Integer.valueOf(solutionsList_.get(i).getDecisionVariables()[j].toString()));
+			}
+		}
+		
+		solution.setFitness(Double.valueOf(solutionsList_.get(0).toString()));
+		return solution;
+	}
 
 	public Map<String, List<Double>> printObjectivesToFileTallo(String folder, String filePath) {
 		Map<String, List<Double>> objetivos = new HashMap<String, List<Double>>();
@@ -328,13 +345,11 @@ public class SolutionSet implements Serializable {
 			OutputStreamWriter osw = new OutputStreamWriter(fos);
 			BufferedWriter bw = new BufferedWriter(osw);
 			
-			
 			int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
 			
 			for (int i = 0; i < solutionsList_.size(); i++) {
 				for (int j = 0; j < numberOfVariables; j++){
 					bw.write(solutionsList_.get(i).getDecisionVariables()[j].toString() + " ");
-					
 				}
 				bw.newLine();
 			}

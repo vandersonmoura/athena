@@ -32,6 +32,7 @@ public class AthenaEnvironment {
 	public static String ATHENA_ROOT_PATH = null;
 	public static boolean IN_TOMCAT = false;
 	public static final String ATHENA_BASE_URL = "http://pedroalmir.com/athena-backend/";
+	public static final String ATHENA_BASE_URL_II = "http://pedroalmir.com/athena-backend";
 	public static final String LOG_SEPARATOR_I = "###########################################################################################################";
 	public static final String LOG_SEPARATOR_II = "-----------------------------------------------------------------------------------------------------------";
 	

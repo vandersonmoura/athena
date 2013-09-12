@@ -36,6 +36,9 @@ public class AthenaEnvironment {
 	public static final String LOG_SEPARATOR_I = "###########################################################################################################";
 	public static final String LOG_SEPARATOR_II = "-----------------------------------------------------------------------------------------------------------";
 	
+	public static String SECTION_TEMPLATE = null;
+	public static String REPORT_TEMPLATE = null;
+	
 	public static void main(String[] args) {
 		Map<String, Class<AthenaBundle>> availableModules = AthenaEnvironment.getAvailableBundles(null);
 		for(String key : availableModules.keySet()){
@@ -161,6 +164,34 @@ public class AthenaEnvironment {
 	 */
 	public static String addRootPath(String path) {
 		return ATHENA_ROOT_PATH + path;
+	}
+
+	/**
+	 * @return the sECTION_TEMPLATE
+	 */
+	public static String getSECTION_TEMPLATE() {
+		return SECTION_TEMPLATE;
+	}
+
+	/**
+	 * @param sECTION_TEMPLATE the sECTION_TEMPLATE to set
+	 */
+	public static void setSECTION_TEMPLATE(String sECTION_TEMPLATE) {
+		SECTION_TEMPLATE = sECTION_TEMPLATE;
+	}
+
+	/**
+	 * @return the rEPORT_TEMPLATE
+	 */
+	public static String getREPORT_TEMPLATE() {
+		return REPORT_TEMPLATE;
+	}
+
+	/**
+	 * @param rEPORT_TEMPLATE the rEPORT_TEMPLATE to set
+	 */
+	public static void setREPORT_TEMPLATE(String rEPORT_TEMPLATE) {
+		REPORT_TEMPLATE = rEPORT_TEMPLATE;
 	}
 
 }

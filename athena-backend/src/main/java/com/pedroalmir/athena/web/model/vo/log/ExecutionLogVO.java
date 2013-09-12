@@ -23,7 +23,8 @@ public class ExecutionLogVO {
 	 */
 	public ExecutionLogVO(ExecutionLog executionLog) {
 		this.executionTime = executionLog.getExecutionTime();
-		//this.executionReport = executionLog.getExecutionReport().toString().replaceAll("\n", "<br/>");
+		/* Just for debug */
+		//System.out.println(executionLog.getTemplate());
 		this.executionReport = executionLog.getTemplate();
 		this.generatedFilesUserPath = new LinkedList<String>();
 		for(String path : executionLog.getGeneratedFilesRealPath()){

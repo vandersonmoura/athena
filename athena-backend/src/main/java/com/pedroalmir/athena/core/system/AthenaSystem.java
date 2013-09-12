@@ -149,6 +149,8 @@ public class AthenaSystem extends GenericEntity {
 		simulation.run();
 		
 		simulation.checkAndValidateResults();
+		/* Just for debug */
+		//System.out.println(simulation.getExecutionLog().getTemplate());
 		return simulation.getExecutionLog();
 	}
 	

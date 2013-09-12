@@ -25,7 +25,13 @@ public class AthenaStartup extends HttpServlet {
 		System.out.println(realPath);
 		AthenaEnvironment.setATHENA_RESULT_FOLDER_FULL_PATH(realPath);
 		AthenaEnvironment.IN_TOMCAT = true;
-		AthenaEnvironment.ATHENA_ROOT_PATH =  this.getServletContext().getRealPath("/");
+		AthenaEnvironment.ATHENA_ROOT_PATH = this.getServletContext().getRealPath("/");
+		
+		AthenaEnvironment.SECTION_TEMPLATE = this.getServletContext().getRealPath("WEB-INF/classes/template/sectionTemplate.html");
+		AthenaEnvironment.REPORT_TEMPLATE = this.getServletContext().getRealPath("WEB-INF/classes/template/reportTemplate.html");
+		
+		System.out.println("Section Template: " + AthenaEnvironment.SECTION_TEMPLATE);
+		System.out.println("Report Template: " + AthenaEnvironment.REPORT_TEMPLATE);
 	}
 	
 	

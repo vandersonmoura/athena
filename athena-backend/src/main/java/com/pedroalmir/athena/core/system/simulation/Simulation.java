@@ -298,20 +298,17 @@ public class Simulation extends GenericEntity implements Runnable {
 			
 			
 			Map<String, Object> bundleParams = afterExecuteLog(bundle, begin);
-			String template = VelocityEngineUtil.getTemplate(bundleParams, SECTION_TEMPLATE);
+			String template = VelocityEngineUtil.getTemplate(bundleParams, AthenaEnvironment.SECTION_TEMPLATE);
 			buffer.append(template);
 		}
 		params.put("content", buffer.toString());
-		String template = VelocityEngineUtil.getTemplate(params, REPORT_TEMPLATE);
+		String template = VelocityEngineUtil.getTemplate(params, AthenaEnvironment.REPORT_TEMPLATE);
 		this.executionLog.setTemplate(template);
-		
-		System.out.println(template);
-		System.out.println(executionLog.getExecutionReport().toString());
+		/* Just for debug */
+		//System.out.println(this.executionLog.getTemplate());
+		//System.out.println(executionLog.getExecutionReport().toString());
 	}
 	
-	private final static String SECTION_TEMPLATE = "/template/sectionTemplate.html";
-	private final static String REPORT_TEMPLATE = "/template/reportTemplate.html";
-
 	/**
 	 * Propagate the results
 	 * @param bundle

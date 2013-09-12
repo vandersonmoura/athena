@@ -1,5 +1,6 @@
 package com.pedroalmir.athena.common.util.velocity;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.MissingResourceException;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
 /**
@@ -34,7 +35,8 @@ public class VelocityEngineUtil {
 	public static String getTemplate(Map<String, Object> params, String template) {
 		try {
 			
-			InputStream templateFile = VelocityEngineUtil.class.getResourceAsStream(template);
+			InputStream templateFile = new FileInputStream(template);
+			//InputStream templateFile = VelocityEngineUtil.class.getResourceAsStream(template);
 			
 			StringBuilder builder = new StringBuilder();
 			int i = 0;
@@ -51,21 +53,25 @@ public class VelocityEngineUtil {
 			
 			StringWriter writer = new StringWriter();
 			
-			Velocity.evaluate(context, writer, "LOG", builder.toString());
+			VelocityEngine ve = new VelocityEngine();
+			ve.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.NullLogSystem");
+			ve.init();
+			ve.evaluate(context, writer, "LOG", builder.toString());
+			//Velocity.evaluate(context, writer, "LOG", builder.toString());
 
 			return writer.toString();
 		}catch (NullPointerException nPE){
 			logger.error(nPE.getMessage());
-			//npE.printStackTrace();
+			nPE.printStackTrace();
 		}catch (ResourceNotFoundException rNFE){
 			logger.error(rNFE.getMessage());
-			//rNFE.printStackTrace();
+			rNFE.printStackTrace();
 		}catch (MissingResourceException mRE){
 			logger.error(mRE.getMessage());
-			//rNFE.printStackTrace();
+			mRE.printStackTrace();
 		}catch (Exception e) {
 			logger.error(e.getMessage());
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		return "";
 	}

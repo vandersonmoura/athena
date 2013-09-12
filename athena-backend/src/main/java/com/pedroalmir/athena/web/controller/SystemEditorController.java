@@ -136,7 +136,7 @@ public class SystemEditorController extends ControllerBase<GenericDAO>{
 		try {
 			AthenaSystemForm systemForm = new Gson().fromJson(system, AthenaSystemForm.class);
 			AthenaSystem completeSystem = SystemFactory.createSystemFromView(systemForm, this.request);
-			return new ExecutionLogVO(completeSystem.createAndExecuteSimulation("Seja o que Deus quiser!!!"));
+			return new ExecutionLogVO(completeSystem.createAndExecuteSimulation("Athena System Execution"));
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

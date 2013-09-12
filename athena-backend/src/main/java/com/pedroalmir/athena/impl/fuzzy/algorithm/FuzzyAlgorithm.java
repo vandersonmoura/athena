@@ -118,7 +118,7 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 		this.executionLog.appendLogLine("Arquivo FCL carregado: " + ((FileType) fclFile.getType()).getFile().getName());
 		/* Check if load is all right */
 		Preconditions.checkNotNull(fuzzyInferenceSystem, "Can't load file.");
-		System.out.println("Fuzzy initialized with success!");
+		//System.out.println("Fuzzy initialized with success!");
 		this.executionLog.appendLogLine("Algoritmo Fuzzy iniciado com sucesso!");
 	}
 
@@ -160,7 +160,7 @@ public class FuzzyAlgorithm extends AbstractAlgorithm {
 				+ StringUtils.join(inputValues, ", ") + ") -> " 
 				+ "Out(" + StringUtils.join(outputValues, ", ") + ")");
 		
-		System.out.println("Fuzzy iteration number " + (getIterations() + 1));
+		//System.out.println("Fuzzy iteration number " + (getIterations() + 1));
 	}
 
 	

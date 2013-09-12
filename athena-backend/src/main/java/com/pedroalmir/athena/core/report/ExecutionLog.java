@@ -32,6 +32,8 @@ public class ExecutionLog {
 	 */
 	private List<String> generatedFilesRealPath;
 	
+	private String template;
+	
 	/**
 	 * Default constructor
 	 */
@@ -138,5 +140,19 @@ public class ExecutionLog {
 	 */
 	public void setGeneratedFilesRealPath(List<String> generatedFilesRealPath) {
 		this.generatedFilesRealPath = generatedFilesRealPath;
+	}
+
+	/**
+	 * @return the template
+	 */
+	public String getTemplate() {
+		return template;
+	}
+
+	/**
+	 * @param template the template to set
+	 */
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 }

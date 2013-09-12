@@ -177,7 +177,7 @@ public class NSGAIIModule extends AbstractBundle implements GenericModule {
 			List<Desenvolvedor> desenvolvedores = new LinkedList<Desenvolvedor>();
 			Desenvolvedor desenvolvedor = null; 
 			for(int i = 0; i < this.inputs.get(0).getValues().size(); i++){
-				desenvolvedor = new Desenvolvedor("Desenvolvedor " + i, 
+				desenvolvedor = new Desenvolvedor("Desenvolvedor " + i+1, 
 						((Double) this.inputs.get(0).getValues().get(i).getValue()), 
 						((Double) this.inputs.get(1).getValues().get(i).getValue()));
 				desenvolvedores.add(desenvolvedor);

@@ -64,7 +64,7 @@ public class NSGAIIConfiguration implements Configuration {
         	Setting mutationOperator = new Setting("Operador de Mutação", "mutation_operator", new StringType(""), "string", false, null, true);
         	Setting probabilityOfMutation = new Setting("Probabilidade de Mutação", "probabilityOfMutation", Real.valueOf(0), "double", false, null, true);
         	
-        	Setting problem = new Setting("Problema", "problem", new StringType(""), "string", false, null, true);
+        	//Setting problem = new Setting("Problema", "problem", new StringType(""), "string", false, null, true);
         	
         	settings.add(populationSize);
         	settings.add(maximumEvaluations);
@@ -75,7 +75,7 @@ public class NSGAIIConfiguration implements Configuration {
         	settings.add(mutationOperator);
         	settings.add(probabilityOfCrossover);
         	settings.add(probabilityOfMutation);
-        	settings.add(problem);
+        	//settings.add(problem);
         } catch (Exception e) {
             e.printStackTrace();
         }

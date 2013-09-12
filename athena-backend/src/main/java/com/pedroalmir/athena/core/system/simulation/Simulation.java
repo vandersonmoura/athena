@@ -5,8 +5,10 @@ package com.pedroalmir.athena.core.system.simulation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,6 +22,7 @@ import javax.persistence.Transient;
 import com.google.common.base.Preconditions;
 import com.pedroalmir.athena.AthenaEnvironment;
 import com.pedroalmir.athena.common.model.GenericEntity;
+import com.pedroalmir.athena.common.util.velocity.VelocityEngineUtil;
 import com.pedroalmir.athena.core.component.AthenaBundle;
 import com.pedroalmir.athena.core.component.GenericConverter;
 import com.pedroalmir.athena.core.component.GenericModule;
@@ -220,12 +223,53 @@ public class Simulation extends GenericEntity implements Runnable {
 	public void checkAndValidateResults() {
 		
 	}
-
-	public void run() {
+	
+	private void beforeExecuteLog(){
 		executionLog.appendLogLine(AthenaEnvironment.LOG_SEPARATOR_I);
 		executionLog.appendLogLine("Simulação: " + this.description);
 		executionLog.appendLogLine("Data: " + new SimpleDateFormat("dd'/'MM'/'yyyy 'às' HH':'mm").format(this.executionDate));
 		executionLog.appendLogLine(AthenaEnvironment.LOG_SEPARATOR_I);
+	}
+	
+	private Map<String, Object> afterExecuteLog(AthenaBundle bundle, long begin){
+		
+		Map<String, Object> bundleParams = new HashMap<String, Object>();
+		
+		SimpleDateFormat formatter = null;
+		long totalExecutionTime = System.currentTimeMillis() - begin;
+		
+		if(totalExecutionTime <= 999){
+			formatter = new SimpleDateFormat("SSS 'milisegundo(s)'");
+		}else if(totalExecutionTime > 999 && totalExecutionTime <= 59999){
+			formatter = new SimpleDateFormat("ss 'segundo(s)' SSS 'milisegundo(s)'");
+		}else{
+			formatter = new SimpleDateFormat("mm 'minuto(s)' ':' ss 'segundo(s)' SSS 'milisegundo(s)'");
+		}
+		
+		executionLog.appendLogLine("Nome do Módulo: " + bundle.getName());
+		executionLog.appendLogLine("Tempo de Execução: " + formatter.format(executionDate) + "\n");
+		executionLog.appendLogLine("Log de Execução: ");
+		executionLog.appendLog(bundle.getExecutionLog().getExecutionReport().toString() + "\n");
+		executionLog.appendLogLine(AthenaEnvironment.LOG_SEPARATOR_I);
+		
+		executionLog.getGeneratedFilesRealPath().addAll(bundle.getExecutionLog().getGeneratedFilesRealPath());
+		executionLog.getGeneratedFilesUserPath().addAll(bundle.getExecutionLog().getGeneratedFilesUserPath());
+		
+		bundleParams.put("bundleName", bundle.getName());
+		bundleParams.put("executionTime", formatter.format(executionDate));
+		bundleParams.put("content", bundle.getExecutionLog().getExecutionReport().toString().replaceAll("\n", "<br/>"));
+		
+		return bundleParams;
+	}
+
+	public void run() {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("simulationName", this.description);
+		params.put("data", new SimpleDateFormat("dd'/'MM'/'yyyy 'às' HH':'mm").format(this.executionDate));
+		StringBuffer buffer = new StringBuffer();
+		beforeExecuteLog();
+		
 		for (AthenaBundle bundle : this.system.getBundles()) {
 			long begin = System.currentTimeMillis();
 			if(bundle instanceof GenericConverter){
@@ -253,28 +297,20 @@ public class Simulation extends GenericEntity implements Runnable {
 			}
 			
 			
-			SimpleDateFormat formatter = null;
-			long totalExecutionTime = System.currentTimeMillis() - begin;
-			
-			if(totalExecutionTime <= 999){
-				formatter = new SimpleDateFormat("SSS 'milisegundo(s)'");
-			}else if(totalExecutionTime > 999 && totalExecutionTime <= 59999){
-				formatter = new SimpleDateFormat("ss 'segundo(s)' SSS 'milisegundo(s)'");
-			}else{
-				formatter = new SimpleDateFormat("mm 'minuto(s)' ':' ss 'segundo(s)' SSS 'milisegundo(s)'");
-			}
-			
-			executionLog.appendLogLine("Nome do Módulo: " + bundle.getName());
-			executionLog.appendLogLine("Tempo de Execução: " + formatter.format(executionDate) + "\n");
-			executionLog.appendLogLine("Log de Execução: ");
-			executionLog.appendLog(bundle.getExecutionLog().getExecutionReport().toString() + "\n");
-			executionLog.appendLogLine(AthenaEnvironment.LOG_SEPARATOR_I);
-			
-			executionLog.getGeneratedFilesRealPath().addAll(bundle.getExecutionLog().getGeneratedFilesRealPath());
-			executionLog.getGeneratedFilesUserPath().addAll(bundle.getExecutionLog().getGeneratedFilesUserPath());
+			Map<String, Object> bundleParams = afterExecuteLog(bundle, begin);
+			String template = VelocityEngineUtil.getTemplate(bundleParams, SECTION_TEMPLATE);
+			buffer.append(template);
 		}
+		params.put("content", buffer.toString());
+		String template = VelocityEngineUtil.getTemplate(params, REPORT_TEMPLATE);
+		this.executionLog.setTemplate(template);
+		
+		System.out.println(template);
 		System.out.println(executionLog.getExecutionReport().toString());
 	}
+	
+	private final static String SECTION_TEMPLATE = "/template/sectionTemplate.html";
+	private final static String REPORT_TEMPLATE = "/template/reportTemplate.html";
 
 	/**
 	 * Propagate the results
@@ -353,6 +389,7 @@ public class Simulation extends GenericEntity implements Runnable {
 	 * @param bundle
 	 */
 	private void populateInputs(AthenaBundle bundle) {
+		System.out.println();
 		SimulationData info = findSimulationData(bundle);
 		Preconditions.checkNotNull(info, "Cannot find input informations for %s module.", bundle.getName());
 		for(Input input : info.getInputs()){
@@ -373,7 +410,7 @@ public class Simulation extends GenericEntity implements Runnable {
 	 */
 	private SimulationData findSimulationData(AthenaBundle bundle) {
 		for(SimulationData sd : this.info){
-			if(sd.getBundle().getName().equals(bundle.getName())){
+			if(sd.getBundle().getFrontIdentifier().equals(bundle.getFrontIdentifier())){
 				return sd;
 			}
 		}

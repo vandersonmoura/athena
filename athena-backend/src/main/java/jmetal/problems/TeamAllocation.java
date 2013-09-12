@@ -1,6 +1,6 @@
 package jmetal.problems;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import jmetal.base.Problem;
@@ -19,7 +19,7 @@ public class TeamAllocation extends Problem {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Desenvolvedor> candidatos = new ArrayList<Desenvolvedor>();
+	private List<Desenvolvedor> candidatos = new LinkedList<Desenvolvedor>();
 	private int tamanhoEquipe;
 	private final int a = 10;
 	private final int b = 10000;
@@ -47,7 +47,7 @@ public class TeamAllocation extends Problem {
 		}
 		
 		solutionType_ = new IntSolutionType(this);
-		candidatos = (ArrayList<Desenvolvedor>) desenvolvedores;
+		candidatos = desenvolvedores;
 	}
 
 	@Override
